@@ -1,19 +1,22 @@
 #pragma once
 #include "Game.h"
 #include "UI.h"
+#include <SFML/Window.hpp>
 
-class application
+class Application
 {
 public:
 	int run();
 	int shutdown();
 	
-	struct MousePos
+	struct Mouse
 	{
 		int x;
 		int y;
+		bool clicked_left = false;
+		bool clicked_right = false;
 	};
-	MousePos MousePosition;
+	Mouse mouse;
 
 	enum ApplicationState
 	{
@@ -21,11 +24,17 @@ public:
 		STATE_GAME = 1
 	};
 
-	int State;
+	int State = ApplicationState::STATE_UI;
 	Game game;
 private:
 
-	void updateUserInputs();
+	void updateUserInputs(sf::Event _event);
+	void createWindow();
+
 	UI ui;
-	//window size
+	sf::Window window;
+
+	int window_width = 800;
+	int window_height = 600;
+	int fps = 60;
 };
