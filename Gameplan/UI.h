@@ -6,12 +6,14 @@ public:
 	int update();
 	int shutdown();
 
-	int State;
 	enum UiState
 	{
 		STATE_MAIN_MENU = 0,
 		STATE_OPTIONS = 1
 	};
+
+	int State = UiState::STATE_MAIN_MENU;
+
 private:
 
 	// UiWindow mainmenu;
