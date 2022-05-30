@@ -7,8 +7,8 @@ public:
 	{
 		x = _x;
 		y = _y;
-		width = _width;
-		height = _height;
+		size = sf::Vector2f(_width, _height);
 	}
+	
 };
 

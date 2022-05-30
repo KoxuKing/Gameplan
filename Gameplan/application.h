@@ -1,14 +1,15 @@
 #pragma once
 #include "Game.h"
+#include <SFML/Graphics.hpp>
 #include "UI.h"
-#include <SFML/Window.hpp>
 
 class Application
 {
 public:
+	Application();
 	int run();
 	int shutdown();
-	
+
 	struct Mouse
 	{
 		int x;
@@ -26,15 +27,15 @@ public:
 
 	int State = ApplicationState::STATE_UI;
 	Game game;
+	sf::RenderWindow window;
+
+	int window_width = 800;
+	int window_height = 600;
 private:
 
 	void updateUserInputs(sf::Event _event);
 	void createWindow();
 
-	UI ui;
-	sf::Window window;
-
-	int window_width = 800;
-	int window_height = 600;
+	UI ui = UI(this);
 	int fps = 60;
 };
