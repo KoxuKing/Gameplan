@@ -1,4 +1,5 @@
 #include "application.h"
+#include <iostream>
 
 Application::Application()
 {
@@ -20,13 +21,12 @@ int Application::run()
         }
 
         // clear the window with black color
-        window.clear(sf::Color::Black);
+        window.clear();
         
         switch (State)
         {
         case ApplicationState::STATE_GAME:
-            // if (game)
-                // game.update();
+            game.update();
             break;
         case ApplicationState::STATE_UI:
             ui.update();
@@ -56,22 +56,54 @@ void Application::updateUserInputs(sf::Event _event)
     if (_event.type == sf::Event::KeyPressed)
         ;
 
+
+    /// MOUSE CONTROL ///
+    if (mouse.clicked_left)
+        mouse.clicked_left = false;
+
+    if (mouse.clicked_right)
+        mouse.clicked_right = false;
+
+    if (mouse.pressed_left)
+    {
+        if (_event.type == sf::Event::MouseButtonReleased)
+        {
+            if (_event.mouseButton.button == sf::Mouse::Left)
+            {
+                mouse.clicked_left = true;
+            }
+        }
+    }
+
+    if (mouse.pressed_right)
+    {
+        if (_event.type == sf::Event::MouseButtonReleased)
+        {
+            if (_event.mouseButton.button == sf::Mouse::Right)
+            {
+                mouse.clicked_right = true;
+            }   
+        }
+    }
+
     if (_event.type == sf::Event::MouseButtonPressed)
     {
         if (_event.mouseButton.button == sf::Mouse::Left)
-            mouse.clicked_left = true;
+            mouse.pressed_left = true;
         if (_event.mouseButton.button == sf::Mouse::Right)
-            mouse.clicked_right = true;
+            mouse.pressed_right = true;
     }
     else
     {
-        mouse.clicked_left = false;
-        mouse.clicked_right = false;
+        if (mouse.pressed_left)
+            mouse.pressed_left = false;
+        if (mouse.pressed_right)
+            mouse.pressed_right = false;
     }
 
     if (_event.type == sf::Event::MouseMoved)
     {
-        mouse.x = _event.mouseMove.x;
-        mouse.y = _event.mouseMove.y;
+        mouse.pos = sf::Vector2f(_event.mouseMove.x, _event.mouseMove.y);
     }
+    /// ~MOUSE CONTROL ///
 }
