@@ -11,6 +11,7 @@ UI::UI(Application *_application)
     mainmenu = new Window("Textures/Sieppaa.PNG", 0, 0, application->window_width, application->window_width);
     // inputs: x-pos, y-pos, width, height
 	Button *button1 = new Button((application->window_width/2) - 50, 50, 100, 50);
+    button1->changeState = UI::STATE_OPTIONS;
     mainmenu->buttonList.push_back(button1);
 
     Button* button2 = new Button((application->window_width / 2) - 50, 200, 100, 50);
@@ -71,7 +72,7 @@ void UI::checkButtons()
         {
             if (application->mouse.clicked_left)
             {
-                button->click();
+                button->click(application);
                 application->mouse.clicked_left = false;
             }
         }
