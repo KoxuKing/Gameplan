@@ -103,6 +103,7 @@ void Server::gameOver()
 		socket.disconnect();
 	}
 	connectedSocketList.empty();
+	selector.clear();
 	playerNumber = 0;
 	gameStarted = false;
 	packet.clear();

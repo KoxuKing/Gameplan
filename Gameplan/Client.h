@@ -3,8 +3,6 @@
 #include "ZipPacket.h"
 #include <iostream>
 
-
-
 class Client
 {
 	
@@ -14,8 +12,9 @@ public:
 	void connectToServer(sf::IpAddress& _address, unsigned short _port);	// Tries to connect to the server of given ip-address
 
 	void startGame();		// Starts the game
+	void endGame();
 	template <typename T>
-	void sendMessage(T& _message);
+	void sendPacket(T& _message);
 	sf::Packet receivePacket();
 
 private:

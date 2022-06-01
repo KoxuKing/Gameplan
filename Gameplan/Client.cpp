@@ -18,10 +18,22 @@ void Client::startGame()
 	{
 		std::cout << "Error on starting the game." << std::endl;
 	}
+	cryptedPacket.clear();
+}
+
+void Client::endGame()
+{
+	cryptedPacket << "end";
+
+	if (clientSocket.send(cryptedPacket) != sf::Socket::Done)
+	{
+		std::cout << "Error on ending the game." << std::endl;
+	}
+	cryptedPacket.clear();
 }
 
 template <typename T>
-void Client::sendMessage(T& _message)
+void Client::sendPacket(T& _message)
 {
 	cryptedPacket << _message;
 
