@@ -12,17 +12,17 @@ bool Server::isClientConnecting()
 
 void Server::acceptConnection()
 {
-
-	if (connectionListener.accept(connectingSocket) == sf::Socket::Done)
+	sf::TcpSocket *connectingSocket;	// Client that is trying to connect to server
+	if (connectionListener.accept(*connectingSocket) == sf::Socket::Done)
 	{
 		// Adds new client to lists
 		connectedSocketList.push_back(connectingSocket);
-		selector.add(connectingSocket);
+		selector.add(*connectingSocket);
 		playerNumber += 1;
 
 		// Gives player number
 		packet << playerNumber;
-		connectingSocket.send(packet);
+		connectingSocket->send(packet);
 		packet.clear();
 	}
 	else
@@ -43,11 +43,11 @@ void Server::updatePackets()
 	// Checks if there is packet waiting for receiving
 	if (selector.wait(sf::seconds(10.f)))
 	{
-		for (sf::TcpSocket& socket : connectedSocketList)
+		for (auto socket : connectedSocketList)
 		{
-			if (selector.isReady(socket))
+			if (selector.isReady(*socket))
 			{
-				socket.receive(packet);
+				socket->receive(packet);
 
 				// If game isnt started yet, server checks what packet includes so it knows when game need to starts
 				if (!gameStarted)
@@ -57,7 +57,7 @@ void Server::updatePackets()
 						gameStarted = true;
 				}
 
-				sendPackets(socket);
+				sendPackets(*socket);
 			}
 		}
 	}
@@ -68,16 +68,16 @@ void Server::sendPackets(sf::TcpSocket& senderSocket)
 	// Sends packet to every socket, except the one who send the packet
 	for (auto& socket : connectedSocketList)
 	{
-		if (socket.getRemoteAddress() == senderSocket.getRemoteAddress())
+		if (socket->getRemoteAddress() == senderSocket.getRemoteAddress())
 			continue;
 		else
 		{
 			//Sends packet
-			if(socket.send(packet) == sf::Socket::Partial)
+			if(socket->send(packet) == sf::Socket::Partial)
 			{ 
 				std::cout << "Error on sending packet, trying again." << std::endl;
-				if (socket.send(packet) == sf::Socket::Partial)
-					std::cout << "Can't send the package to " << socket.getRemoteAddress() << std::endl;
+				if (socket->send(packet) == sf::Socket::Partial)
+					std::cout << "Can't send the packet to " << socket->getRemoteAddress() << std::endl;
 			}
 		}
 	}
@@ -100,7 +100,7 @@ void Server::gameOver()
 {
 	for (auto& socket : connectedSocketList)
 	{
-		socket.disconnect();
+		socket->disconnect();
 	}
 	connectedSocketList.empty();
 	selector.clear();

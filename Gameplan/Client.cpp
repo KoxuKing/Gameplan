@@ -48,3 +48,8 @@ sf::Packet Client::receivePacket()
 	return cryptedPacket;
 }
 
+
+void test()
+{
+	;
+};
