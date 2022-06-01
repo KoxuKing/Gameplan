@@ -1,6 +1,6 @@
 #pragma once
-
 #include <iostream>
+#include "application.h"
 
 class UiInput
 {
@@ -13,10 +13,11 @@ public:
 	virtual void click() const;
 	virtual void select();
 
+	virtual void draw(class Application* _application);
+
 	void setText(std::string &text, int x, int y);
 protected:
-	int width;
-	int height;
+	sf::Vector2f size;
 	int x;
 	int y;
 

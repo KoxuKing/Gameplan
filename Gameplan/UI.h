@@ -1,8 +1,11 @@
 #pragma once
+#include <vector>
+#include "SFML/Graphics.hpp"
+
 class UI
 {
 public:
-	UI();
+	UI(class Application* _application);
 	int update();
 	int shutdown();
 
@@ -15,21 +18,37 @@ public:
 	int State = UiState::STATE_MAIN_MENU;
 
 private:
+	class Application *application;
 
-	// UiWindow mainmenu;
+	class Window* activeWindow;
+	class Window* mainmenu;
+	
+	//Window mainmenu;
 	// UiWindow options;
 	// UiWindow game_selection;
 	// UiWindow pause_menu;
-	struct Window
-	{
-		Window(int width, int height);
-		// addButton(x, y, &button)
-		// addCheckBox
-		// addSlider
-		// addTextBox
-		// Texture backgroundImage;
+	
 
-		//std::vector<UiInputs*> buttonList;
-	};
+	void drawUi();
+	void checkButtons();
 };
 
+struct Window
+{
+	Window(std::string _texturePath,int _x, int _y, int _width, int _height)
+	{
+		width = _width;
+		height = _height;
+		x = _x;
+		y = _y;
+		texturePath = _texturePath;
+	}
+
+	int width;
+	int height;
+	int x;
+	int y;
+	std::string texturePath;
+
+	std::vector<class UiInput*> buttonList;
+};

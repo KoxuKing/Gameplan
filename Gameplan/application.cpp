@@ -1,12 +1,15 @@
 #include "application.h"
 
-int Application::run()
+Application::Application()
 {
     // Init window
     window.create(sf::VideoMode(window_width, window_height), "GamePlatform");
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(fps);
+}
 
+int Application::run()
+{
     while(window.isOpen())
     {
         // check all the window's events that were triggered since the last iteration of the loop
@@ -14,20 +17,26 @@ int Application::run()
         while (window.pollEvent(event))
         {
             updateUserInputs(event);
-
-            switch (State)
-            {
-            case ApplicationState::STATE_GAME:
-                // if (game)
-                    // game.update();
-                break;
-            case ApplicationState::STATE_UI:
-                ui.update();
-                break;
-            default:
-                break;
-            }
         }
+
+        // clear the window with black color
+        window.clear(sf::Color::Black);
+        
+        switch (State)
+        {
+        case ApplicationState::STATE_GAME:
+            // if (game)
+                // game.update();
+            break;
+        case ApplicationState::STATE_UI:
+            ui.update();
+            break;
+        default:
+            break;
+        }
+        
+        // end the current frame
+        window.display();
     }
     return 0;
 }
