@@ -29,9 +29,9 @@ bool UiInput::isClicked() const
     return false;
 }
 
-void UiInput::click() const
+void UiInput::click(Application* _application) const
 {
-    std::cout << "Click!" << std::endl;
+    ;
 }
 
 void UiInput::select()
