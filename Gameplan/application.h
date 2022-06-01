@@ -2,6 +2,7 @@
 #include "Game.h"
 #include <SFML/Graphics.hpp>
 #include "UI.h"
+#include "Game.h"
 
 class Application
 {
@@ -12,10 +13,11 @@ public:
 
 	struct Mouse
 	{
-		int x;
-		int y;
+		sf::Vector2f pos;
 		bool clicked_left = false;
 		bool clicked_right = false;
+		bool pressed_left = false;
+		bool pressed_right = false;
 	};
 	Mouse mouse;
 
@@ -26,7 +28,6 @@ public:
 	};
 
 	int State = ApplicationState::STATE_UI;
-	Game game;
 	sf::RenderWindow window;
 
 	int window_width = 800;
@@ -37,5 +38,6 @@ private:
 	void createWindow();
 
 	UI ui = UI(this);
+	Game game = Game(this);
 	int fps = 60;
 };
