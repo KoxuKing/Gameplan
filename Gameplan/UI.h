@@ -22,6 +22,7 @@ private:
 
 	class Window* activeWindow;
 	class Window* mainmenu;
+	class Window* options;
 	
 	//Window mainmenu;
 	// UiWindow options;

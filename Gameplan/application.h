@@ -32,12 +32,13 @@ public:
 
 	int window_width = 800;
 	int window_height = 600;
+
+	UI ui = UI(this);
+	Game game = Game(this);
 private:
 
 	void updateUserInputs(sf::Event _event);
 	void createWindow();
 
-	UI ui = UI(this);
-	Game game = Game(this);
 	int fps = 60;
 };
