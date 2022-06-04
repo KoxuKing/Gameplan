@@ -2,6 +2,6 @@
 
 void Button::click(Application* _application) const
 {
-	_application->State = changeState;
+	_application->ui.State = changeState;
 	std::cout << "Click!" << std::endl;
 }

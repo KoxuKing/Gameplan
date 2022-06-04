@@ -10,17 +10,22 @@ UI::UI(Application *_application)
     // Create main menu
     mainmenu = new Window("Textures/Sieppaa.PNG", 0, 0, application->window_width, application->window_width);
     // inputs: x-pos, y-pos, width, height
-	Button *button1 = new Button((application->window_width/2) - 50, 50, 100, 50);
-    button1->changeState = UI::STATE_OPTIONS;
-    mainmenu->buttonList.push_back(button1);
+	Button *button = new Button((application->window_width/2) - 50, 50, 100, 50);
+    button->changeState = UI::STATE_OPTIONS;
+    mainmenu->buttonList.push_back(button);
 
-    Button* button2 = new Button((application->window_width / 2) - 50, 200, 100, 50);
-    mainmenu->buttonList.push_back(button2);
+    button = new Button((application->window_width / 2) - 50, 200, 100, 50);
+    mainmenu->buttonList.push_back(button);
 
     Button* button3 = new Button((application->window_width / 2) - 50, 350, 100, 50);
     mainmenu->buttonList.push_back(button3);
 
     //create options
+    options = new Window("Textures/Sieppaa.PNG", 0, 0, application->window_width, application->window_width);
+    // inputs: x-pos, y-pos, width, height
+    Button* button1 = new Button((application->window_width / 2) - 100, 50, 200, 50);
+    button1->changeState = UI::STATE_MAIN_MENU;
+    options->buttonList.push_back(button1);
 }
 
 int UI::update()
@@ -33,8 +38,10 @@ int UI::update()
         break;
     }
     case UiState::STATE_OPTIONS:
-        // active_window = options
+    {
+        activeWindow = options;
         break;
+    }
     default:
         break;
     }
@@ -84,6 +91,10 @@ int UI::shutdown()
     for (UiInput* input : mainmenu->buttonList)
         delete input;
     delete mainmenu;
+
+    for (UiInput* input : options->buttonList)
+        delete input;
+    delete options;
 	return 0;
 }
 
