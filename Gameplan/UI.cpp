@@ -1,6 +1,5 @@
 #include "UI.h"
 #include "application.h"
-#include "SFML/Graphics.hpp"
 #include "Button.h"
 
 UI::UI(Application *_application)
@@ -8,9 +7,10 @@ UI::UI(Application *_application)
     application = _application;
 
     // Create main menu
-    mainmenu = new Window("Textures/Sieppaa.PNG", 0, 0, application->window_width, application->window_width);
+    mainmenu = new Window("Textures/UiTesti2.PNG", 1, 1, application->window_width, application->window_width);
     // inputs: x-pos, y-pos, width, height
 	Button *button = new Button((application->window_width/2) - 50, 50, 100, 50);
+    button->setText("Options", 0, 0);
     button->changeState = UI::STATE_OPTIONS;
     mainmenu->buttonList.push_back(button);
 

@@ -13,5 +13,7 @@ public:
 	virtual void click(Application* _application) const;
 	
 	int changeState;
+private:
+	
 };
 

@@ -2,7 +2,6 @@
 #include "Game.h"
 #include <SFML/Graphics.hpp>
 #include "UI.h"
-#include "Game.h"
 
 class Application
 {

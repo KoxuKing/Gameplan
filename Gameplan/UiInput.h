@@ -15,13 +15,21 @@ public:
 
 	virtual void draw(class Application* _application);
 
-	void setText(std::string &text, int x, int y);
+	void setText(std::string _text, int _x, int _y);
+
 
 protected:
 	sf::Vector2f size;
 	int x;
 	int y;
 	sf::Color color;
+
+	// Ehkä structi näille tekstille??
+	sf::Text text;
+	sf::Color textColor = sf::Color::Black;
+	sf::Font textFont;
+	unsigned int textCharacterSize;
+
 	// for testing
 	// std::string path_to_buttontexture;
 	// std::string path_to_buttonselectedtexture;
