@@ -9,16 +9,18 @@ UI::UI(Application *_application)
     // Create main menu
     mainmenu = new Window("Textures/UiTesti2.PNG", 1, 1, application->window_width, application->window_width);
     // inputs: x-pos, y-pos, width, height
-	Button *button = new Button((application->window_width/2) - 50, 50, 100, 50);
+	Button *button = new Button((application->window_width/2) - 50, 200, 100, 50);
     button->setText("Options", 0, 0);
     button->changeState = UI::STATE_OPTIONS;
     mainmenu->buttonList.push_back(button);
 
-    button = new Button((application->window_width / 2) - 50, 200, 100, 50);
+    button = new Button((application->window_width / 2) - 50, 50, 100, 50);
     mainmenu->buttonList.push_back(button);
+    button->setText("Play", 0, 0);
 
     Button* button3 = new Button((application->window_width / 2) - 50, 350, 100, 50);
     mainmenu->buttonList.push_back(button3);
+    button3->setText("Quit", 0, 0);
 
     //create options
     options = new Window("Textures/Sieppaa.PNG", 0, 0, application->window_width, application->window_width);
@@ -26,6 +28,7 @@ UI::UI(Application *_application)
     Button* button1 = new Button((application->window_width / 2) - 100, 50, 200, 50);
     button1->changeState = UI::STATE_MAIN_MENU;
     options->buttonList.push_back(button1);
+    button1->setText("Main menu", 0, 0);
 }
 
 int UI::update()

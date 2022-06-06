@@ -56,9 +56,10 @@ void UiInput::setText(std::string _text, int _x = 0, int _y = 0)        // Defau
     text.setFillColor(textColor);
     textFont.loadFromFile("Fonts/testiFontti.ttf");
     text.setFont(textFont);
+    text.setOutlineColor(sf::Color::Red);
 
     // Sets text to be center of the button
-    text.setPosition((size.x - text.getLocalBounds().width) / 2 + x + _x, (size.y - text.getLocalBounds().height) / 2 + y + _y);
+    text.setPosition((size.x - text.getGlobalBounds().width) / 2 + x + _x, (size.y - text.getLocalBounds().height) / 2 + y + _y);
     
     std::cout << "Pituus: " << text.getLetterSpacing() * _text.length() << std::endl;
     std::cout << "Pounds: " << (size.x - text.getLocalBounds().width) / 2 + _x << std::endl;

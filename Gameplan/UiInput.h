@@ -24,7 +24,7 @@ protected:
 	int y;
 	sf::Color color;
 
-	// Ehkä structi näille tekstille??
+	// Ehkä structi tekstille??
 	sf::Text text;
 	sf::Color textColor = sf::Color::Black;
 	sf::Font textFont;
