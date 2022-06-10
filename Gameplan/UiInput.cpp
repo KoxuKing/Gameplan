@@ -24,13 +24,17 @@ bool UiInput::isSelected(Application* _application)
 
 bool UiInput::isClicked() const
 {
-    
     return false;
+}
+
+void UiInput::Press(class Application* _application)
+{
+    ;
 }
 
 void UiInput::click(Application* _application) const
 {
-    ;
+    //std::cout << "clicked" << std::endl;
 }
 
 void UiInput::select()

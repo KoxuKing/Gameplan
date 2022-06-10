@@ -12,7 +12,8 @@ public:
 	enum UiState
 	{
 		STATE_MAIN_MENU = 0,
-		STATE_OPTIONS = 1
+		STATE_OPTIONS = 1,
+		STATE_QUIT = 2
 	};
 
 	int State = UiState::STATE_MAIN_MENU;

@@ -1,6 +1,7 @@
 #include "UI.h"
 #include "application.h"
 #include "Button.h"
+#include "UiSlider.h"
 
 UI::UI(Application *_application)
 {
@@ -20,15 +21,20 @@ UI::UI(Application *_application)
 
     Button* button3 = new Button((application->window_width / 2) - 50, 350, 100, 50);
     mainmenu->buttonList.push_back(button3);
+    button3->changeState = UI::STATE_QUIT;
     button3->setText("Quit", 0, 0);
 
     //create options
-    options = new Window("Textures/Sieppaa.PNG", 0, 0, application->window_width, application->window_width);
+    options = new Window("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_width);
     // inputs: x-pos, y-pos, width, height
     Button* button1 = new Button((application->window_width / 2) - 100, 50, 200, 50);
     button1->changeState = UI::STATE_MAIN_MENU;
     options->buttonList.push_back(button1);
     button1->setText("Main menu", 0, 0);
+
+    Slider* slider1 = new Slider((application->window_width / 2)-100, 250, 200);
+    options->buttonList.push_back(slider1);
+
 }
 
 int UI::update()
@@ -45,14 +51,22 @@ int UI::update()
         activeWindow = options;
         break;
     }
+    case UiState::STATE_QUIT:
+    {
+        activeWindow = nullptr;
+        application->State = Application::ApplicationState::STATE_SHUTDOWN;
+        break;
+    }
     default:
         break;
     }
 
-    // draw active ui
-    drawUi();
-    checkButtons();
-   
+    if (State != UiState::STATE_QUIT)
+    {
+        // draw active ui
+        drawUi();
+        checkButtons();
+    }
 	return 0;
 }
 
@@ -84,6 +98,10 @@ void UI::checkButtons()
             {
                 button->click(application);
                 application->mouse.clicked_left = false;
+            }
+            if (application->mouse.pressed_left)
+            {
+                button->Press(application);
             }
         }
     }

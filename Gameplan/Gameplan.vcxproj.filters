@@ -54,6 +54,9 @@
     <ClInclude Include="ZipPacket.h">
       <Filter>Header Files\Networking</Filter>
     </ClInclude>
+    <ClInclude Include="UiSlider.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -85,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="ZipPacket.cpp">
       <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="UiSlider.cpp">
+      <Filter>Source Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
