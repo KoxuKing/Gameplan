@@ -23,7 +23,8 @@ public:
 	enum ApplicationState
 	{
 		STATE_UI = 0,
-		STATE_GAME = 1
+		STATE_GAME = 1,
+		STATE_SHUTDOWN = 2
 	};
 
 	int State = ApplicationState::STATE_UI;
@@ -37,7 +38,6 @@ public:
 private:
 
 	void updateUserInputs(sf::Event _event);
-	void createWindow();
 
 	int fps = 60;
 };

@@ -31,6 +31,11 @@ int Application::run()
         case ApplicationState::STATE_UI:
             ui.update();
             break;
+        case ApplicationState::STATE_SHUTDOWN:
+            ui.shutdown();
+            game.shutdown();
+            shutdown();
+            break;
         default:
             break;
         }
@@ -43,6 +48,8 @@ int Application::run()
 
 int Application::shutdown()
 {
+
+    window.close();
     return 0;
 }
 
@@ -71,6 +78,7 @@ void Application::updateUserInputs(sf::Event _event)
             if (_event.mouseButton.button == sf::Mouse::Left)
             {
                 mouse.clicked_left = true;
+                mouse.pressed_left = false;
             }
         }
     }
@@ -82,23 +90,18 @@ void Application::updateUserInputs(sf::Event _event)
             if (_event.mouseButton.button == sf::Mouse::Right)
             {
                 mouse.clicked_right = true;
+                mouse.pressed_right = false;
             }   
         }
     }
 
+    
     if (_event.type == sf::Event::MouseButtonPressed)
     {
         if (_event.mouseButton.button == sf::Mouse::Left)
             mouse.pressed_left = true;
         if (_event.mouseButton.button == sf::Mouse::Right)
             mouse.pressed_right = true;
-    }
-    else
-    {
-        if (mouse.pressed_left)
-            mouse.pressed_left = false;
-        if (mouse.pressed_right)
-            mouse.pressed_right = false;
     }
 
     if (_event.type == sf::Event::MouseMoved)

@@ -10,6 +10,7 @@ public:
 	virtual bool isSelected(class Application* _application);
 	virtual bool isClicked() const;
 
+	virtual void Press(class Application* _application);
 	virtual void click(Application* _application) const;
 	virtual void select();
 
