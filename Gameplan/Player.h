@@ -1,9 +1,4 @@
 #pragma once
-class Player
-{
-public:
-	gameData data;
-};
 
 struct gameData
 {
@@ -13,4 +8,10 @@ struct gameData
 	int tokenPos;
 	bool isTurn;
 	// table data
+};
+
+class Player
+{
+public:
+	gameData data;
 };

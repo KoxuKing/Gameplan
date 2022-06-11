@@ -11,15 +11,32 @@ bool UiInput::isSelected(Application* _application)
     // check collision with a point
     if (boundingBox.contains(_application->mouse.pos))
     {
+        if (selected == false)
+            playSound(_application->volume);
+
         color = sf::Color::Red;
-        return true;
+        selected = true;
+        return selected;
     }
     else
     {
         color = sf::Color::Green;
-        return false;
+        selected = false;
+        return selected;
     }
     
+}
+
+void UiInput::playSound(float &_volume)
+{
+    if (!soundbuffer.loadFromFile("Audio/select_audio.wav"))
+        std::cout << "Couldn't find the audiofile " << std::endl;
+    else
+    {
+        sound.setBuffer(soundbuffer);
+        sound.setVolume(_volume);
+        sound.play();
+    }
 }
 
 bool UiInput::isClicked() const
@@ -27,7 +44,7 @@ bool UiInput::isClicked() const
     return false;
 }
 
-void UiInput::Press(class Application* _application)
+void UiInput::press(class Application* _application)
 {
     ;
 }
@@ -52,7 +69,7 @@ void UiInput::draw(Application* _application)
     _application->window.draw(text);
 }
 
-void UiInput::setText(std::string _text, int _x = 0, int _y = 0)        // Default _x and _y is center of the button
+void UiInput::setText(std::string _text, int _x, int _y)        // Default _x and _y is center of the button
 {
     textCharacterSize = size.y / 2;
     text.setString(_text);
@@ -64,7 +81,4 @@ void UiInput::setText(std::string _text, int _x = 0, int _y = 0)        // Defau
 
     // Sets text to be center of the button
     text.setPosition((size.x - text.getGlobalBounds().width) / 2 + x + _x, (size.y - text.getLocalBounds().height) / 2 + y + _y);
-    
-    std::cout << "Pituus: " << text.getLetterSpacing() * _text.length() << std::endl;
-    std::cout << "Pounds: " << (size.x - text.getLocalBounds().width) / 2 + _x << std::endl;
 }

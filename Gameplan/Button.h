@@ -8,6 +8,7 @@ public:
 		x = _x;
 		y = _y;
 		size = sf::Vector2f(_width, _height);
+
 	}
 
 	virtual void click(Application* _application) const;

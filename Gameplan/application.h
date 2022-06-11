@@ -35,9 +35,11 @@ public:
 
 	UI ui = UI(this);
 	Game game = Game(this);
+
+	float volume = 50;
 private:
 
 	void updateUserInputs(sf::Event _event);
 
-	int fps = 60;
+	int fps = 120;
 };

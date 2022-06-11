@@ -11,18 +11,18 @@ UI::UI(Application *_application)
     mainmenu = new Window("Textures/UiTesti2.PNG", 1, 1, application->window_width, application->window_width);
     // inputs: x-pos, y-pos, width, height
 	Button *button = new Button((application->window_width/2) - 50, 200, 100, 50);
-    button->setText("Options", 0, 0);
+    button->setText("Options");
     button->changeState = UI::STATE_OPTIONS;
     mainmenu->buttonList.push_back(button);
 
     button = new Button((application->window_width / 2) - 50, 50, 100, 50);
     mainmenu->buttonList.push_back(button);
-    button->setText("Play", 0, 0);
+    button->setText("Play");
 
     Button* button3 = new Button((application->window_width / 2) - 50, 350, 100, 50);
     mainmenu->buttonList.push_back(button3);
     button3->changeState = UI::STATE_QUIT;
-    button3->setText("Quit", 0, 0);
+    button3->setText("Quit");
 
     //create options
     options = new Window("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_width);
@@ -30,9 +30,13 @@ UI::UI(Application *_application)
     Button* button1 = new Button((application->window_width / 2) - 100, 50, 200, 50);
     button1->changeState = UI::STATE_MAIN_MENU;
     options->buttonList.push_back(button1);
-    button1->setText("Main menu", 0, 0);
+    button1->setText("Main menu");
 
-    Slider* slider1 = new Slider((application->window_width / 2)-100, 250, 200);
+    // for testing!!
+    float testparam;
+    //
+    Slider* slider1 = new Slider((application->window_width / 2)-100, 250, 200, &_application->volume, 100);
+    slider1->setText("Sound: ", -75, -25);
     options->buttonList.push_back(slider1);
 
 }
@@ -92,6 +96,11 @@ void UI::checkButtons()
    // loop trough buttons of active window
     for (UiInput* button : activeWindow->buttonList)
     {
+        if(application->mouse.clicked_left)
+            button->wasSelected = false;
+        if (application->mouse.pressed_left && button->wasSelected)
+            button->press(application);
+
         if (button->isSelected(application))
         {
             if (application->mouse.clicked_left)
@@ -101,7 +110,8 @@ void UI::checkButtons()
             }
             if (application->mouse.pressed_left)
             {
-                button->Press(application);
+                button->press(application);
+                button->wasSelected = true;
             }
         }
     }
