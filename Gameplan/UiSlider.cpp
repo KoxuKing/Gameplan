@@ -32,7 +32,7 @@ void Slider::press(Application* _application)
     if (x + slider_pos.x < min_pos)
         slider_pos.x = min_pos-x;
     
-    scaleParam();
+    scaleParameter();
 }
 
 void Slider::setText(std::string _text, int _x, int _y)
@@ -70,7 +70,7 @@ void Slider::updateText()
     text.setString(main_text + std::to_string(int((slider_pos.x / size.x) * 100)) + " %");
 }
 
-void Slider::scaleParam()
+void Slider::scaleParameter()
 {
     editableParameter[0] = max_value * (slider_pos.x / size.x);
 }

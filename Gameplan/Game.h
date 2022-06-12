@@ -1,6 +1,8 @@
 #pragma once
 #include "Player.h"
+#include "GameTable.h"
 #include <vector>
+
 class Game
 {
 public:
@@ -23,5 +25,6 @@ private:
 	void updatePlayersCallback(gameData& data);
 	void waitingPlayers();
 	class Application* application;
+	GameTable table;
 };
 

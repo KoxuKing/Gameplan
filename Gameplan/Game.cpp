@@ -22,7 +22,7 @@ void Game::update()
 		for (Player* player : playerList)
 		{
 			if (player->data.isTurn)
-				;//updateTable(player);
+				table.update(player);
 		}
 
 		break;

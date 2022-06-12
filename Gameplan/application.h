@@ -36,7 +36,7 @@ public:
 	UI ui = UI(this);
 	Game game = Game(this);
 
-	float volume = 50;
+	float volume = 10;
 private:
 
 	void updateUserInputs(sf::Event _event);

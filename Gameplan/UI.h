@@ -13,7 +13,9 @@ public:
 	{
 		STATE_MAIN_MENU = 0,
 		STATE_OPTIONS = 1,
-		STATE_QUIT = 2
+		STATE_QUIT = 2,
+		STATE_GAME_SELECTION = 3,
+		STATE_GAME = 4
 	};
 
 	int State = UiState::STATE_MAIN_MENU;
@@ -24,6 +26,7 @@ private:
 	class Window* activeWindow;
 	class Window* mainmenu;
 	class Window* options;
+	class Window* gameSelection;
 	
 	//Window mainmenu;
 	// UiWindow options;
