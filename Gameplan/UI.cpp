@@ -6,7 +6,7 @@
 UI::UI(Application *_application)
 {
     application = _application;
-
+    activeWindow = mainmenu;
     // Create main menu
     mainmenu = new Window("Textures/UiTesti2.PNG", 1, 1, application->window_width, application->window_width);
     // inputs: x-pos, y-pos, width, height
@@ -35,7 +35,7 @@ UI::UI(Application *_application)
 
     Slider* slider1 = new Slider((application->window_width / 2)-100, 250, 200);
     slider1->setParameter(&_application->volume, 100);
-    slider1->setText("Sound: ", -75, -25);
+    slider1->setText("Sound: ");
     options->buttonList.push_back(slider1);
 
     //// create game selection window

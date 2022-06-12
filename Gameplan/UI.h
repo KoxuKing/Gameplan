@@ -49,11 +49,11 @@ struct Window
 		texturePath = _texturePath;
 	}
 
-	int width;
-	int height;
-	int x;
-	int y;
-	std::string texturePath;
+	int width{};
+	int height{};
+	int x{};
+	int y{};
+	std::string texturePath{};
 
 	std::vector<class UiInput*> buttonList;
 };

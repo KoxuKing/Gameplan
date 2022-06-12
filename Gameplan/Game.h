@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "GameTable.h"
 #include <vector>
+#include <SFML/Graphics.hpp>
 
 class Game
 {
@@ -22,9 +23,16 @@ public:
 	std::vector <Player*> playerList;
 
 private:
+	sf::Texture backgroundImage;
 	void updatePlayersCallback(gameData& data);
 	void waitingPlayers();
+	void drawGame();
 	class Application* application;
 	GameTable table;
+
+	sf::RectangleShape rect;		// Taustakuva
+	sf::Vector2f size;
 };
+
+
 

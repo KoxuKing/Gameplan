@@ -1,12 +1,18 @@
 #include "UiInput.h"
 
+UiInput::UiInput()
+{
+    selected = false;
+    x = 0;
+    y = 0;
+}
+
 bool UiInput::isSelected(Application* _application)
 {
-    sf::RectangleShape rect(size);
+    //sf::RectangleShape rect(size);
     //// set the shape color to green
-    rect.setPosition(x, y);
+    //rect.setPosition(x, y);
     // get the bounding box of the entity
-    sf::FloatRect boundingBox = rect.getGlobalBounds();
 
     // check collision with a point
     if (boundingBox.contains(_application->mouse.pos))
@@ -20,7 +26,7 @@ bool UiInput::isSelected(Application* _application)
     }
     else
     {
-        color = sf::Color::Green;
+        color = originalColor;
         selected = false;
         return selected;
     }
@@ -61,24 +67,22 @@ void UiInput::select()
 
 void UiInput::draw(Application* _application)
 {
-    sf::RectangleShape rect(size);
+    
     //// set the shape color to green
-    rect.setFillColor(color); // TEST
-    rect.setPosition(x,y);
+    rect.setFillColor(color);
     _application->window.draw(rect);
     _application->window.draw(text);
 }
 
-void UiInput::setText(std::string _text, int _x, int _y)        // Default _x and _y is center of the button
+void UiInput::setText(std::string _text)        // Default _x and _y is center of the button
 {
-    textCharacterSize = size.y / 2;
     text.setString(_text);
-    text.setCharacterSize(textCharacterSize);
+    text.setCharacterSize(size.y / 2);
     text.setFillColor(textColor);
     textFont.loadFromFile("Fonts/testiFontti.ttf");
     text.setFont(textFont);
     text.setOutlineColor(sf::Color::Red);
 
     // Sets text to be center of the button
-    text.setPosition((size.x - text.getGlobalBounds().width) / 2 + x + _x, (size.y - text.getLocalBounds().height) / 2 + y + _y);
+    text.setPosition((size.x - text.getGlobalBounds().width) / 2 + x, (size.y - text.getLocalBounds().height) / 2 + y);
 }

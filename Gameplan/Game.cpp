@@ -4,13 +4,17 @@
 Game::Game(Application* _application)
 {
 	application = _application;
+	backgroundImage.loadFromFile("Textures/gameBackground.png");
+	size = sf::Vector2f(application->window_width, application->window_height);
+	rect.setSize(size);
+	rect.setTexture(&backgroundImage);
 	// Luo pelaajan, pelipöydän ja taustakuvan
 
 }
 
 void Game::update()
 {
-	//drawBackground();
+	drawGame();
 	switch(state)
 	{
 	case GameState::STATE_LOBBY:
@@ -22,14 +26,17 @@ void Game::update()
 		for (Player* player : playerList)
 		{
 			if (player->data.isTurn)
-				table.update(player);
+				table.update(player, application);
 		}
 
 		break;
 	case GameState::STATE_ENDMENU:
 		// Voittajan ilmoitus, pelin uusinta, (pelin vaihto), 
 		break;
+
+
 	}
+
 }
 
 void Game::shutdown()
@@ -53,4 +60,11 @@ void Game::updatePlayersCallback(gameData& _data)
 void Game::waitingPlayers()
 {
 	//
+}
+
+void Game::drawGame()
+{
+	
+	
+	application->window.draw(rect);
 }

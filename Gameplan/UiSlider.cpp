@@ -1,13 +1,27 @@
 #include "UiSlider.h"
 
+Slider::Slider(int _x, int _y, int _width)
+{
+    circle.setRadius(radius);
+    x = _x;
+    y = _y;
+    max_pos = _x + _width;
+    min_pos = _x;
+    slider_pos.x = (max_pos - x) / 10;
+    size = sf::Vector2f(_width, 20);
+    rect.setSize((sf::Vector2f(size.x, 5)));
+    rect.setFillColor(color); // TEST
+    rect.setPosition(x, y);
+
+    // get the bounding box of the entity
+    boundingBox = rect.getGlobalBounds();
+}
+
 bool Slider::isSelected(Application* _application)
 {
-    sf::RectangleShape rect(size);
     //// set the shape color to green
-    rect.setPosition(x, y);
-    // get the bounding box of the entity
-    sf::FloatRect boundingBox = rect.getGlobalBounds();
 
+    
     // check collision with a point
     if (boundingBox.contains(_application->mouse.pos))
     {
@@ -35,28 +49,24 @@ void Slider::press(Application* _application)
     scaleParameter();
 }
 
-void Slider::setText(std::string _text, int _x, int _y)
+void Slider::setText(std::string _text)
 {
     main_text = _text;
-    textCharacterSize = size.y / 2;
     text.setString(main_text + std::to_string(int((slider_pos.x / size.x) * 100)) + " %");
-    text.setCharacterSize(textCharacterSize);
+    text.setCharacterSize(size.y / 2);
     text.setFillColor(textColor);
     textFont.loadFromFile("Fonts/testiFontti.ttf");
     text.setFont(textFont);
     text.setOutlineColor(sf::Color::Red);
 
     // Sets text to be center of the button
-    text.setPosition((size.x - text.getGlobalBounds().width) / 2 + x + _x, (size.y - text.getLocalBounds().height) / 2 + y + _y);
+    text.setPosition((size.x - text.getGlobalBounds().width) / 2 + x + -75, (size.y - text.getLocalBounds().height) / 2 + y + -25);
 }
 
 void Slider::draw(Application* _application)
 {
-    sf::RectangleShape rect(sf::Vector2f(size.x, 5));
-    rect.setFillColor(sf::Color::Black);
-    rect.setPosition(x,y);
+
     _application->window.draw(rect);
-    sf::CircleShape circle(radius);
     //// set the shape color to green
     circle.setFillColor(color); // TEST
     circle.setPosition(x + slider_pos.x - int(radius/2), y - int(radius / 2)-2);

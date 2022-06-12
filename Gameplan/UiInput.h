@@ -6,7 +6,7 @@
 class UiInput
 {
 public:
-	UiInput() {};
+	UiInput();
 
 	virtual bool isSelected(class Application* _application);
 	virtual bool isClicked() const;
@@ -17,7 +17,7 @@ public:
 
 	virtual void draw(class Application* _application);
 
-	virtual void setText(std::string _text, int _x = 0, int _y = 0);
+	virtual void setText(std::string _text);
 	virtual void playSound(float& _volume);
 	bool wasSelected = false;
 	
@@ -27,13 +27,16 @@ protected:
 	int x;
 	int y;
 	sf::Color color;
+	sf::Color originalColor;
 	bool selected;
+	sf::RectangleShape rect;
+	sf::Texture texture;
+	sf::FloatRect boundingBox;
 
 	// Ehkä structi tekstille??
 	sf::Text text;
 	sf::Color textColor = sf::Color::Black;
 	sf::Font textFont;
-	unsigned int textCharacterSize;
 	sf::Sound sound;
 	sf::SoundBuffer soundbuffer;
 
