@@ -24,7 +24,7 @@ public:
 
 private:
 	sf::Texture backgroundImage;
-	void updatePlayersCallback(gameData& data);
+	void updatePlayersCallback(Player::gameData& data);
 	void waitingPlayers();
 	void drawGame();
 	class Application* application;

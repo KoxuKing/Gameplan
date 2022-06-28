@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Network.hpp>
-#include "Game.h"
+#include "../Game/Game.h"
 
 
 

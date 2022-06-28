@@ -1,7 +1,7 @@
 #pragma once
-#include "Game.h"
+#include "Game/Game.h"
 #include <SFML/Graphics.hpp>
-#include "UI.h"
+#include "UI/UI.h"
 
 class Application
 {

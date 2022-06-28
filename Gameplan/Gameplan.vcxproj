@@ -152,30 +152,34 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="Client.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameTable.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="Server.h" />
-    <ClInclude Include="UI.h" />
-    <ClInclude Include="UiInput.h" />
-    <ClInclude Include="UiSlider.h" />
-    <ClInclude Include="ZipPacket.h" />
+    <ClInclude Include="Game\ConnectFourPlayer.h" />
+    <ClInclude Include="Game\ConnectFourTable.h" />
+    <ClInclude Include="Game\Game.h" />
+    <ClInclude Include="Game\GameTable.h" />
+    <ClInclude Include="Game\Player.h" />
+    <ClInclude Include="Networking\Client.h" />
+    <ClInclude Include="Networking\Server.h" />
+    <ClInclude Include="Networking\ZipPacket.h" />
+    <ClInclude Include="UI\Button.h" />
+    <ClInclude Include="UI\UI.h" />
+    <ClInclude Include="UI\UiInput.h" />
+    <ClInclude Include="UI\UiSlider.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Client.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameTable.cpp" />
+    <ClCompile Include="Game\ConnectFourPlayer.cpp" />
+    <ClCompile Include="Game\ConnectFourTable.cpp" />
+    <ClCompile Include="Game\GameTable.cpp" />
+    <ClCompile Include="Game\Game.cpp" />
+    <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="Server.cpp" />
-    <ClCompile Include="UI.cpp" />
-    <ClCompile Include="UiInput.cpp" />
-    <ClCompile Include="UiSlider.cpp" />
-    <ClCompile Include="ZipPacket.cpp" />
+    <ClCompile Include="Networking\Client.cpp" />
+    <ClCompile Include="Networking\Server.cpp" />
+    <ClCompile Include="Networking\ZipPacket.cpp" />
+    <ClCompile Include="UI\Button.cpp" />
+    <ClCompile Include="UI\UI.cpp" />
+    <ClCompile Include="UI\UiInput.cpp" />
+    <ClCompile Include="UI\UiSlider.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

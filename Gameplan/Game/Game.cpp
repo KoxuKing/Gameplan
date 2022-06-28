@@ -1,5 +1,5 @@
 #include "Game.h"
-#include "application.h"
+#include "../application.h"
 
 Game::Game(Application* _application)
 {
@@ -26,7 +26,10 @@ void Game::update()
 		for (Player* player : playerList)
 		{
 			if (player->data.isTurn)
+			{
 				table.update(player, application);
+			}
+				
 		}
 
 		break;
@@ -43,7 +46,7 @@ void Game::shutdown()
 {
 }
 
-void Game::updatePlayersCallback(gameData& _data)
+void Game::updatePlayersCallback(Player::gameData& _data)
 {
 	// Ensimmäinen viesti on aina tälle pelaajalle
 	// Viestistä otetaan talteen pelaajan numero

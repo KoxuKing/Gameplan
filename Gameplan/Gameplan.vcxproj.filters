@@ -36,35 +36,41 @@
     <ClInclude Include="application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UiInput.h">
-      <Filter>Header Files\UI</Filter>
+    <ClInclude Include="Networking\Client.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Header Files\UI</Filter>
+    <ClInclude Include="Networking\Server.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files\UI</Filter>
+    <ClInclude Include="Networking\ZipPacket.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Client.h">
-      <Filter>Header Files\Networking</Filter>
+    <ClInclude Include="Game\Game.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Server.h">
-      <Filter>Header Files\Networking</Filter>
+    <ClInclude Include="Game\GameTable.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ZipPacket.h">
-      <Filter>Header Files\Networking</Filter>
+    <ClInclude Include="Game\Player.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="UiSlider.h">
-      <Filter>Header Files\UI</Filter>
+    <ClInclude Include="UI\Button.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files\Game</Filter>
+    <ClInclude Include="UI\UI.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files\Game</Filter>
+    <ClInclude Include="UI\UiInput.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameTable.h">
-      <Filter>Header Files\Game</Filter>
+    <ClInclude Include="UI\UiSlider.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ConnectFourTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ConnectFourPlayer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -74,35 +80,41 @@
     <ClCompile Include="application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>Source Files\UI</Filter>
+    <ClCompile Include="Networking\Client.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Source Files\UI</Filter>
+    <ClCompile Include="Networking\Server.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UiInput.cpp">
-      <Filter>Source Files\UI</Filter>
+    <ClCompile Include="Networking\ZipPacket.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Client.cpp">
-      <Filter>Source Files\Networking</Filter>
+    <ClCompile Include="Game\Game.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Server.cpp">
-      <Filter>Source Files\Networking</Filter>
+    <ClCompile Include="Game\Player.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ZipPacket.cpp">
-      <Filter>Source Files\Networking</Filter>
+    <ClCompile Include="UI\Button.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="UiSlider.cpp">
-      <Filter>Source Files\UI</Filter>
+    <ClCompile Include="UI\UI.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
+    <ClCompile Include="UI\UiInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UiSlider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameTable.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files\Game</Filter>
+    <ClCompile Include="Game\ConnectFourTable.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameTable.cpp">
-      <Filter>Source Files\Game</Filter>
+    <ClCompile Include="Game\ConnectFourPlayer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

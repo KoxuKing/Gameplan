@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "application.h"
+#include "../application.h"
 #include <SFML/Audio.hpp>
 
 class UiInput
