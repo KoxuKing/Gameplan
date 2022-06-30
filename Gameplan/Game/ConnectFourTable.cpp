@@ -7,19 +7,47 @@ ConnectFourTable::ConnectFourTable()
 	tableTexture.loadFromFile("Textures/testTable.png");
 	tableSprite.setTexture(tableTexture);
 	tableSprite.setPosition(80, -60);
+
+	// Uutta -->
+	addTokenArea.setSize(sf::Vector2f(tableSprite.getGlobalBounds().width, 50.0f));
+	addTokenArea.setPosition(tableSprite.getPosition());
+	addTokenArea.setOutlineColor(sf::Color::Green);
 }
 
 void ConnectFourTable::update(ConnectFourPlayer* _player, Application* _application)
 {
-	if (_application->mouse.clicked_left)
+	// EI OLE VIELÄ TESTATTU //
+
+	if (_application->mouse.clicked_left && addTokenArea.getGlobalBounds().contains(_application->mouse.pos))
 	{
+		std::cout << "paneittu!" << std::endl;
 		_player->dropToken(*this, getColumn(_application->mouse.pos.x), _player->data.playerNumber);
 	}
 	drawTable(_application);
+
+	// EI OLE VIELÄ TESTATTU //
 }
 
 const int ConnectFourTable::getColumn(int _mousePosX)
 {
+	// EI OLE VIELÄ TESTATTU //
+
+	const int columnWidth = addTokenArea.getSize().x / lastColumn; // Calculates width of a column
+	const int mousePosXOnBoard = _mousePosX - tableSprite.getPosition().x; // Calculates mouse x position on a board, position is 0 at left border of board
+
+	// Goes through every column
+	for (int column = 1; column <= 7; column++) 
+	{
+		// Checks on which column mouse currently is
+		if (mousePosXOnBoard < column * columnWidth && mousePosXOnBoard > column - 1 * columnWidth)
+		{
+			// Returns columns -1 because columns are 0-6 in array
+			return column - 1;
+		}
+	}
+
+	// EI OLE VIELÄ TESTATTU //
+
 	return 0;
 }
 

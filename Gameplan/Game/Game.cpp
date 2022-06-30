@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "../application.h"
+#include "iostream"
 
 Game::Game(Application* _application)
 {
@@ -15,6 +16,7 @@ Game::Game(Application* _application)
 void Game::update()
 {
 	drawGame();
+	std::cout << application->mouse.pos.x << application->mouse.pos.y << std::endl;
 	switch(state)
 	{
 	case GameState::STATE_LOBBY:

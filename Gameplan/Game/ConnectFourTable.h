@@ -25,6 +25,8 @@ protected:
 	virtual void drawTable(class Application* _application);
 
 private:
+	sf::RectangleShape addTokenArea;
+
 	const int getColumn(int _mousePosX);
 	
 };
