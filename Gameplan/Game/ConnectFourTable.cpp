@@ -4,18 +4,19 @@
 
 ConnectFourTable::ConnectFourTable()
 {
-	tableTexture.loadFromFile("Textures/testTable.png");
+	tableTexture.loadFromFile("Textures/gameTable.png");
 	tableSprite.setTexture(tableTexture);
-	tableSprite.setPosition(80, -60);
+	tableSprite.setPosition(100, 30);
 
 	// Uutta -->
-	addTokenArea.setSize(sf::Vector2f(tableSprite.getGlobalBounds().width, 100.0f));
+	addTokenArea.setSize(sf::Vector2f(tableSprite.getGlobalBounds().width - 70.0f, -100.0f));
 	addTokenArea.setPosition(tableSprite.getPosition());
 	addTokenArea.setFillColor(sf::Color::Green);
 }
 
 void ConnectFourTable::update(Player* _player, Application* _application)
 {
+
 	// EI OLE VIELÄ TESTATTU //
 	if (_application->mouse.clicked_left && addTokenArea.getGlobalBounds().contains(_application->mouse.pos))
 	{
@@ -57,6 +58,15 @@ bool ConnectFourTable::isStraight(int _row, int _column)
 	int columnNumber = _column;
 	int tokensConnected = 0;				// Amount of tokens that are connected, starts with 0
 
+	for (int i = 0; i < lastRow; i++)
+	{
+		for (int r = 0; r < lastColumn; r++)
+		{
+			std::cout << board[i][r];
+		}
+		std::cout << std::endl;
+	}
+
 	for (int i = 1; i <= 7; i++)
 	{
 		/*
@@ -73,7 +83,7 @@ bool ConnectFourTable::isStraight(int _row, int _column)
 		// Checks if a token is from the same player, else goes to next round of for loop
 		while (board[rowNumber][columnNumber] == token)
 		{
-			if (i == 1 || i == 5 || i == 6)
+			if (i == 1 || i == 4 || i == 6)
 				columnNumber++;
 
 			if (i == 3 || i == 4 || i == 5)

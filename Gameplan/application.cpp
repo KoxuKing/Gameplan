@@ -15,10 +15,9 @@ int Application::run()
     {
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
-        while (window.pollEvent(event))
-        {
-            updateUserInputs(event);
-        }
+        window.pollEvent(event);
+        updateUserInputs(event);
+        
 
         // clear the window with black color
         window.clear();
@@ -53,7 +52,7 @@ int Application::shutdown()
     return 0;
 }
 
-
+int m;
 void Application::updateUserInputs(sf::Event _event)
 {
     // "close requested" event: we close the window
@@ -63,10 +62,14 @@ void Application::updateUserInputs(sf::Event _event)
     if (_event.type == sf::Event::KeyPressed)
         ;
 
-
+    m++;
     /// MOUSE CONTROL ///
+
+
     if (mouse.clicked_left)
+
         mouse.clicked_left = false;
+
 
     if (mouse.clicked_right)
         mouse.clicked_right = false;

@@ -56,6 +56,9 @@ void Game::update()
 			
 		for (Player* player : playerList)
 		{
+			
+			player->data.playerNumber = 1;
+
 			player->data.isTurn = true;
 			if (player->data.isTurn)
 				table->update(player, application);
