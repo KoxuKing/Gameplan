@@ -1,6 +1,7 @@
 #include "Game.h"
 #include "../application.h"
 #include "iostream"
+#include "ConnectFourPlayer.h"
 
 Game::Game(Application* _application)
 {
@@ -13,10 +14,24 @@ Game::Game(Application* _application)
 
 }
 
+void Game::selectGame(std::string _gameName)
+{
+	gameName = _gameName;
+}
+
 void Game::update()
 {
 	drawGame();
-	std::cout << application->mouse.pos.x << application->mouse.pos.y << std::endl;
+	if (gameName == "ConnectFour" && !isGameSelected)
+	{
+		table = new ConnectFourTable();
+		isGameSelected = true;
+	}
+		
+	
+	// DEBUG MODE
+	state = GameState::STATE_DEBUG;
+
 	switch(state)
 	{
 	case GameState::STATE_LOBBY:
@@ -28,24 +43,33 @@ void Game::update()
 		for (Player* player : playerList)
 		{
 			if (player->data.isTurn)
-			{
-				table.update(player, application);
-			}
-				
+				table->update(player, application);
 		}
-
 		break;
 	case GameState::STATE_ENDMENU:
 		// Voittajan ilmoitus, pelin uusinta, (pelin vaihto), 
 		break;
-
-
+	case GameState::STATE_DEBUG:
+		
+		if (playerList.size() == 0)
+			playerList.push_back(new Player);
+			
+		for (Player* player : playerList)
+		{
+			player->data.isTurn = true;
+			if (player->data.isTurn)
+				table->update(player, application);
+		}
+		break;
 	}
 
 }
 
 void Game::shutdown()
 {
+	for (Player* player : playerList)
+		delete player;
+	delete table;
 }
 
 void Game::updatePlayersCallback(Player::gameData& _data)
@@ -69,7 +93,5 @@ void Game::waitingPlayers()
 
 void Game::drawGame()
 {
-	
-	
 	application->window.draw(rect);
 }

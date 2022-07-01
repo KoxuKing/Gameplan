@@ -8,6 +8,7 @@ public:
 	virtual void click(Application* _application) const;
 	
 	int changeState;
+	std::string buttonAttribute;
 private:
 	
 };

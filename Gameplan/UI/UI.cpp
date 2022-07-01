@@ -42,6 +42,7 @@ UI::UI(Application *_application)
     gameSelection = new Window("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_width);
     Button* button5 = new Button((application->window_width / 2) - 100, 50, 200, 50);
     button5->changeState = UiState::STATE_GAME;
+    button5->buttonAttribute = "ConnectFour";
     gameSelection->buttonList.push_back(button5);
     button5->setText("Connect Four");
     Button* button4 = new Button((application->window_width / 2) - 100, 350, 200, 50);

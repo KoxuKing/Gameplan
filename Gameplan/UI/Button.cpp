@@ -18,6 +18,7 @@ Button::Button(int _x, int _y, float _width, float _height)
 void Button::click(Application* _application) const
 {
 	_application->ui.State = changeState;
+	_application->game.selectGame(buttonAttribute);
 }
 
 

@@ -1,5 +1,6 @@
 #include "GameTable.h"
 #include "../application.h"
+#include <iostream>
 
 GameTable::GameTable()
 {
@@ -8,7 +9,6 @@ GameTable::GameTable()
 
 void GameTable::update(Player* _player, Application* _application)
 {
-	
 }
 
 void GameTable::shutdown()

@@ -4,7 +4,7 @@ class ConnectFourTable : public GameTable
 {
 public:
 	ConnectFourTable();
-	virtual void update(class ConnectFourPlayer* _player, class Application* _application);
+	virtual void update(class Player* _player, class Application* _application);
 
 	const static int lastRow = 6;
 	const static int lastColumn = 7;

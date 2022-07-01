@@ -9,19 +9,18 @@ ConnectFourTable::ConnectFourTable()
 	tableSprite.setPosition(80, -60);
 
 	// Uutta -->
-	addTokenArea.setSize(sf::Vector2f(tableSprite.getGlobalBounds().width, 50.0f));
+	addTokenArea.setSize(sf::Vector2f(tableSprite.getGlobalBounds().width, 100.0f));
 	addTokenArea.setPosition(tableSprite.getPosition());
-	addTokenArea.setOutlineColor(sf::Color::Green);
+	addTokenArea.setFillColor(sf::Color::Green);
 }
 
-void ConnectFourTable::update(ConnectFourPlayer* _player, Application* _application)
+void ConnectFourTable::update(Player* _player, Application* _application)
 {
 	// EI OLE VIELÄ TESTATTU //
-
 	if (_application->mouse.clicked_left && addTokenArea.getGlobalBounds().contains(_application->mouse.pos))
 	{
 		std::cout << "paneittu!" << std::endl;
-		_player->dropToken(*this, getColumn(_application->mouse.pos.x), _player->data.playerNumber);
+		static_cast<ConnectFourPlayer*>(_player)->dropToken(*this, getColumn(_application->mouse.pos.x), _player->data.playerNumber);
 	}
 	drawTable(_application);
 
@@ -106,4 +105,5 @@ bool ConnectFourTable::isStraight(int _row, int _column)
 void ConnectFourTable::drawTable(Application* _application)
 {
 	_application->window.draw(tableSprite);
+	_application->window.draw(addTokenArea);
 }
