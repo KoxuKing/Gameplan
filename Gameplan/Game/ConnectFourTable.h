@@ -29,11 +29,17 @@ protected:
 
 private:
 	sf::RectangleShape addTokenArea;
-
 	
+
 	const int getColumn(int _mousePosX);
 	
-	static sf::Texture tokenTextures[2];
+	sf::Texture tokenTextures[2];
+	sf::Sprite redTokenSprite;
+	sf::Sprite yellowTokenSprite;
+
+	void drawTokens(Application* _application);
 
 };
+
+
 

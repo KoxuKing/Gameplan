@@ -13,6 +13,12 @@ ConnectFourTable::ConnectFourTable()
 	addTokenArea.setPosition(tableSprite.getPosition());
 	addTokenArea.setFillColor(sf::Color::Green);
 
+	tokenTextures[0].loadFromFile("Textures/redToken.png");
+	tokenTextures[1].loadFromFile("Textures/yellowToken.png");
+
+	redTokenSprite.setTexture(tokenTextures[0]);
+	yellowTokenSprite.setTexture(tokenTextures[1]);
+
 
 }
 
@@ -31,6 +37,7 @@ void ConnectFourTable::update(Player* _player, Application* _application)
 			static_cast<ConnectFourPlayer*>(_player)->dropToken(*this, getColumn(_application->mouse.pos.x), _player->data.playerNumber);
 	}
 	drawTable(_application);
+	drawTokens(_application);
 
 	// EI OLE VIELÄ TESTATTU //
 }
@@ -66,6 +73,8 @@ const int ConnectFourTable::getColumn(int _mousePosX)
 
 	return 0;
 }
+
+
 
 bool ConnectFourTable::isStraight(int _row, int _column)
 {
@@ -133,8 +142,25 @@ void ConnectFourTable::drawTable(Application* _application)
 	_application->window.draw(tableSprite);
 	_application->window.draw(addTokenArea);
 
-	for (Token* token : tokenVector)
+}
+
+void ConnectFourTable::drawTokens(Application* _application)
+{
+	for (int row = 0; row < lastRow; row++)
 	{
-		_application->window.draw(token->tokenSprite);
+		for (int column = 0; column < lastColumn; column++)
+		{
+			if (board[row][column] == 1)
+			{
+				redTokenSprite.setPosition(sf::Vector2f((column + 1) * 90, (row + 1) * 40));
+				_application->window.draw(redTokenSprite);
+			}
+			else if (board[row][column] == 2)
+			{
+				yellowTokenSprite.setPosition(sf::Vector2f((column + 1) * 90, (row + 1) * 40));
+				_application->window.draw(yellowTokenSprite);
+			}
+
+		}
 	}
 }
