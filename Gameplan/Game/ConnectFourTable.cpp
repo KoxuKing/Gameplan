@@ -12,6 +12,8 @@ ConnectFourTable::ConnectFourTable()
 	addTokenArea.setSize(sf::Vector2f(tableSprite.getGlobalBounds().width - 70.0f, -100.0f));
 	addTokenArea.setPosition(tableSprite.getPosition());
 	addTokenArea.setFillColor(sf::Color::Green);
+
+
 }
 
 void ConnectFourTable::update(Player* _player, Application* _application)
@@ -21,19 +23,33 @@ void ConnectFourTable::update(Player* _player, Application* _application)
 	if (_application->mouse.clicked_left && addTokenArea.getGlobalBounds().contains(_application->mouse.pos))
 	{
 		std::cout << "paneittu!" << std::endl;
-		static_cast<ConnectFourPlayer*>(_player)->dropToken(*this, getColumn(_application->mouse.pos.x), _player->data.playerNumber);
+		int column = getColumn(_application->mouse.pos.x);
+
+		if (board[0][column] != 0)
+			std::cout << "Column is already full" << std::endl;
+		else
+			static_cast<ConnectFourPlayer*>(_player)->dropToken(*this, getColumn(_application->mouse.pos.x), _player->data.playerNumber);
 	}
 	drawTable(_application);
 
 	// EI OLE VIELÄ TESTATTU //
 }
 
+void ConnectFourTable::shutdown()
+{
+	for (Token* token : tokenVector)
+		delete token;
+
+	tokenVector.clear();
+}
+
 const int ConnectFourTable::getColumn(int _mousePosX)
 {
 	// EI OLE VIELÄ TESTATTU //
 
-	const int columnWidth = addTokenArea.getSize().x / lastColumn; // Calculates width of a column
 	const int mousePosXOnBoard = _mousePosX - tableSprite.getPosition().x; // Calculates mouse x position on a board, position is 0 at left border of board
+	float columnWidth = addTokenArea.getSize().x / lastColumn; // Calculates width of a column
+	float rowHeight = addTokenArea.getSize().y / lastRow; // Calculates height of a row
 
 	// Goes through every column
 	for (int column = 1; column <= 7; column++) 
@@ -41,7 +57,7 @@ const int ConnectFourTable::getColumn(int _mousePosX)
 		// Checks on which column mouse currently is
 		if (mousePosXOnBoard < column * columnWidth && mousePosXOnBoard > column - 1 * columnWidth)
 		{
-			// Returns columns -1 because columns are 0-6 in array
+			// Returns columns - 1 because columns are 0-6 in array
 			return column - 1;
 		}
 	}
@@ -116,4 +132,9 @@ void ConnectFourTable::drawTable(Application* _application)
 {
 	_application->window.draw(tableSprite);
 	_application->window.draw(addTokenArea);
+
+	for (Token* token : tokenVector)
+	{
+		_application->window.draw(token->tokenSprite);
+	}
 }

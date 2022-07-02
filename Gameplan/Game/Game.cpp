@@ -14,7 +14,7 @@ Game::Game(Application* _application)
 
 }
 
-void Game::selectGame(std::string _gameName)
+void Game::selectGame(const std::string& _gameName)
 {
 	gameName = _gameName;
 }

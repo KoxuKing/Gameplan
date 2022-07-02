@@ -14,6 +14,7 @@ protected:
 	virtual void drawTable(class Application* _application);
 	sf::Sprite tableSprite;
 	sf::Texture tableTexture;
+
 private:
 
 	

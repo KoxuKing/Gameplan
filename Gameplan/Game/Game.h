@@ -11,7 +11,7 @@ public:
 	Game(class Application* _application);
 	void update();
 	void shutdown();
-	void selectGame(std::string _gameName);
+	void selectGame(const std::string& _gameName);
 
 	enum GameState
 	{

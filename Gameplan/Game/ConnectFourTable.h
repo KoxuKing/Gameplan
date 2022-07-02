@@ -5,6 +5,7 @@ class ConnectFourTable : public GameTable
 public:
 	ConnectFourTable();
 	virtual void update(class Player* _player, class Application* _application);
+	virtual void shutdown();
 
 	const static int lastRow = 6;
 	const static int lastColumn = 7;
@@ -20,6 +21,8 @@ public:
 	};
 
 	bool isStraight(int _row, int _column);
+
+	std::vector<struct Token*> tokenVector; // Uutta
 	
 protected:
 	virtual void drawTable(class Application* _application);
@@ -27,7 +30,10 @@ protected:
 private:
 	sf::RectangleShape addTokenArea;
 
+	
 	const int getColumn(int _mousePosX);
 	
+	static sf::Texture tokenTextures[2];
+
 };
 

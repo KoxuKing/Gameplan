@@ -12,6 +12,9 @@ void ConnectFourPlayer::dropToken(ConnectFourTable& _table, int _column, int _pl
 			// Puts a token to the right place of the board
 			_table.board[row][_column] = _player;
 
+			// Pushes new token to vector
+			_table.tokenVector.push_back(new Token(row, _column, _player));
+
 			// Checks if there comes straight from that token
 			if (_table.isStraight(row, _column))
 			{
