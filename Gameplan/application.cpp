@@ -1,5 +1,6 @@
 #include "application.h"
 #include <iostream>
+#include "SFML/Audio.hpp"
 
 Application::Application()
 {
@@ -7,18 +8,31 @@ Application::Application()
     window.create(sf::VideoMode(window_width, window_height), "GamePlatform");
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(fps);
+
 }
 
 int Application::run()
 {
+    // TEST THEME// LATER CREATE AUDIO CLASS?
+    sf::Music theme;
+    if (!theme.openFromFile("Audio/opmusiikki.wav"))
+        std::cout << "Couldn't find the audiofile " << std::endl;
+    else
+    {
+        theme.play();
+        theme.setLoop(true);
+    }
+
     while(window.isOpen())
     {
+        //Set theme music volume
+        theme.setVolume(volume/10);
+
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event;
         window.pollEvent(event);
         updateUserInputs(event);
         
-
         // clear the window with black color
         window.clear();
         
@@ -27,9 +41,9 @@ int Application::run()
         case ApplicationState::STATE_GAME:
             game.update();
             break;
-        case ApplicationState::STATE_UI:
-            ui.update();
-            break;
+        //case ApplicationState::STATE_UI:
+        //    ui.update();
+        //    break;
         case ApplicationState::STATE_SHUTDOWN:
             ui.shutdown();
             game.shutdown();
@@ -39,6 +53,8 @@ int Application::run()
             break;
         }
         
+        ui.update();
+
         // end the current frame
         window.display();
     }
@@ -47,7 +63,6 @@ int Application::run()
 
 int Application::shutdown()
 {
-
     window.close();
     return 0;
 }
@@ -64,7 +79,6 @@ void Application::updateUserInputs(sf::Event _event)
 
     m++;
     /// MOUSE CONTROL ///
-
 
     if (mouse.clicked_left)
 

@@ -21,6 +21,8 @@ public:
 	};
 
 	bool isStraight(int _row, int _column);
+	sf::Vector2i latestToken;
+	bool isAnimationOn;
 
 	std::vector<struct Token*> tokenVector; // Uutta
 	
@@ -38,7 +40,9 @@ private:
 	sf::Sprite yellowTokenSprite;
 
 	void drawTokens(Application* _application);
-
+	void dropTokenAnimation(Application* _application);
+	void playAnimation(Application* _application);
+	float animationPos;
 };
 
 

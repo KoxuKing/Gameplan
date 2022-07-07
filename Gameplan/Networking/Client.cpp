@@ -8,6 +8,7 @@ void Client::connectToServer(sf::IpAddress& _address, unsigned short _port)
 	{
 		std::cout << "Error on connecting server." << std::endl;
 	}
+	else clientSocket.send("test", 4);
 }
 
 void Client::startGame()
@@ -24,7 +25,6 @@ void Client::startGame()
 void Client::endGame()
 {
 	cryptedPacket << "end";
-
 	if (clientSocket.send(cryptedPacket) != sf::Socket::Done)
 	{
 		std::cout << "Error on ending the game." << std::endl;

@@ -6,6 +6,7 @@ class ConnectFourPlayer : public Player
 {
 public:
 	void dropToken(class ConnectFourTable &_table, int _column, int _player);
+	//void takeToken();
 	virtual struct gameData
 	{
 		int playerNumber;
@@ -16,8 +17,8 @@ public:
 		// table data
 	};
 
-
 private:
+	void dropTokenAnimation();
 };
 
 

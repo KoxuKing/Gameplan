@@ -4,6 +4,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include "ConnectFourTable.h"
+#include "../Networking/Client.h"
 
 class Game
 {
@@ -12,18 +13,18 @@ public:
 	void update();
 	void shutdown();
 	void selectGame(const std::string& _gameName);
-
+	void connectToServer(sf::IpAddress _address, int _port);
 	enum GameState
 	{
 		STATE_LOBBY = 0,
 		STATE_GAME = 1,
-		STATE_ENDMENU = 2,
-		STATE_DEBUG = 3
+		STATE_DEBUG = 2
 	};
 
 	int requiredPlayers = 2;
 	int state = GameState::STATE_LOBBY;
 	std::vector <Player*> playerList;
+	Client client;
 	
 private:
 	sf::Texture backgroundImage;
