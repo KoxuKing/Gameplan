@@ -15,11 +15,12 @@ public:
 		STATE_OPTIONS = 1,
 		STATE_QUIT = 2,
 		STATE_GAME_SELECTION = 3,
-		STATE_GAME = 4
+		STATE_GAME = 4,
+		STATE_ENDGAME = 5
 	};
 
 	int State = UiState::STATE_MAIN_MENU;
-
+	class Window* endGameWindow;
 private:
 	class Application *application;
 
@@ -27,6 +28,7 @@ private:
 	class Window* mainmenu;
 	class Window* options;
 	class Window* gameSelection;
+	class Window* lobby;
 	
 	//Window mainmenu;
 	// UiWindow options;
@@ -49,10 +51,10 @@ struct Window
 		texturePath = _texturePath;
 	}
 
-	int width{};
-	int height{};
-	int x{};
-	int y{};
+	int width;
+	int height;
+	int x;
+	int y;
 	std::string texturePath{};
 
 	std::vector<class UiInput*> buttonList;

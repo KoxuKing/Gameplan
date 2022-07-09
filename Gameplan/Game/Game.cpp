@@ -1,6 +1,6 @@
 #include "Game.h"
 #include "../application.h"
-#include "iostream"
+#include <iostream>
 #include "ConnectFourPlayer.h"
 
 Game::Game(Application* _application)
@@ -10,8 +10,6 @@ Game::Game(Application* _application)
 	size = sf::Vector2f(application->window_width, application->window_height);
 	rect.setSize(size);
 	rect.setTexture(&backgroundImage);
-	// Luo pelaajan, pelipöydän ja taustakuvan
-
 }
 
 void Game::selectGame(const std::string& _gameName)
@@ -46,18 +44,20 @@ void Game::update()
 				table->update(player, application);
 		}
 		break;
-	case GameState::STATE_ENDMENU:
-		// Voittajan ilmoitus, pelin uusinta, (pelin vaihto), 
-		break;
 	case GameState::STATE_DEBUG:
 		
 		if (playerList.size() == 0)
+		{
 			playerList.push_back(new Player);
+			playerList[0]->data.playerNumber = 1;
+		}
 			
 		for (Player* player : playerList)
 		{
-			
-			player->data.playerNumber = 1;
+			if(!player->data.isTurn && player->data.playerNumber == 1)
+				player->data.playerNumber = 2;
+			else if (!player->data.isTurn && player->data.playerNumber == 2)
+				player->data.playerNumber = 1;
 
 			player->data.isTurn = true;
 			if (player->data.isTurn)
@@ -66,6 +66,11 @@ void Game::update()
 		break;
 	}
 
+}
+
+void Game::connectToServer(sf::IpAddress _address, int _port)
+{
+	client.connectToServer(_address, _port);
 }
 
 void Game::shutdown()

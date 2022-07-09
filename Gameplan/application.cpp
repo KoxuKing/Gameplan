@@ -1,5 +1,6 @@
 #include "application.h"
 #include <iostream>
+#include "SFML/Audio.hpp"
 
 Application::Application()
 {
@@ -11,11 +12,21 @@ Application::Application()
 
 int Application::run()
 {
-    window.setKeyRepeatEnabled(false);
+    // TEST THEME// LATER CREATE AUDIO CLASS?
+    sf::Music theme;
+    if (!theme.openFromFile("Audio/opmusiikki.wav"))
+        std::cout << "Couldn't find the audiofile " << std::endl;
+    else
+    {
+        theme.play();
+        theme.setLoop(true);
+    }
+
     while(window.isOpen())
     {
-        
-        timePassed = clock.getElapsedTime();
+        //Set theme music volume
+        theme.setVolume(volume/10);
+
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event ev;
         window.pollEvent(ev);
@@ -31,9 +42,9 @@ int Application::run()
         case ApplicationState::STATE_GAME:
             game.update();
             break;
-        case ApplicationState::STATE_UI:
-            ui.update();
-            break;
+        //case ApplicationState::STATE_UI:
+        //    ui.update();
+        //    break;
         case ApplicationState::STATE_SHUTDOWN:
             ui.shutdown();
             game.shutdown();
@@ -43,6 +54,8 @@ int Application::run()
             break;
         }
         
+        ui.update();
+
         // end the current frame
         window.display();
     }
@@ -51,7 +64,6 @@ int Application::run()
 
 int Application::shutdown()
 {
-
     window.close();
     return 0;
 }
@@ -88,7 +100,6 @@ void Application::updateUserInputs(sf::Event &_event)
         
 
     /// MOUSE CONTROL ///
-
 
     if (mouse.clicked_left)
 

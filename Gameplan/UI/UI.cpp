@@ -9,7 +9,7 @@ UI::UI(Application *_application)
     application = _application;
     activeWindow = mainmenu;
     // Create main menu
-    mainmenu = new Window("Textures/UiTesti2.PNG", 1, 1, application->window_width, application->window_width);
+    mainmenu = new Window("Textures/UiTesti2.PNG", 1, 1, application->window_width, application->window_height);
     // inputs: x-pos, y-pos, width, height
 	Button *button = new Button((application->window_width/2) - 50, 200, 100, 50);
     button->setText("Options");
@@ -21,39 +21,62 @@ UI::UI(Application *_application)
     button->changeState = UI::STATE_GAME_SELECTION;
     button->setText("Select game");
 
-    Button* button3 = new Button((application->window_width / 2) - 50, 350, 100, 50);
-    mainmenu->buttonList.push_back(button3);
-    button3->changeState = UI::STATE_QUIT;
-    button3->setText("Quit");
+    button = new Button((application->window_width / 2) - 50, 350, 100, 50);
+    mainmenu->buttonList.push_back(button);
+    button->changeState = UI::STATE_QUIT;
+    button->setText("Quit");
 
     UiTextInput *textInput = new UiTextInput((application->window_width / 2) - 50, 550, 10);
     textInput->setPlaceholder("Server ip:");
     mainmenu->buttonList.push_back(textInput);
 
     //create options
-    options = new Window("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_width);
+    options = new Window("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_height);
     // inputs: x-pos, y-pos, width, height
-    Button* button1 = new Button((application->window_width / 2) - 100, 50, 200, 50);
-    button1->changeState = UI::STATE_MAIN_MENU;
-    options->buttonList.push_back(button1);
-    button1->setText("Main menu");
+    button = new Button((application->window_width / 2) - 100, 50, 200, 50);
+    button->changeState = UI::STATE_MAIN_MENU;
+    options->buttonList.push_back(button);
+    button->setText("Main menu");
 
-    Slider* slider1 = new Slider((application->window_width / 2)-100, 250, 200);
-    slider1->setParameter(&_application->volume, 100);
-    slider1->setText("Sound: ");
-    options->buttonList.push_back(slider1);
+    Slider* slider = new Slider((application->window_width / 2)-100, 250, 200);
+    slider->setParameter(&_application->volume, 100);
+    slider->setText("Sound: ");
+    options->buttonList.push_back(slider);
 
     //// create game selection window
-    gameSelection = new Window("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_width);
-    Button* button5 = new Button((application->window_width / 2) - 100, 50, 200, 50);
-    button5->changeState = UiState::STATE_GAME;
-    button5->buttonAttribute = "ConnectFour";
-    gameSelection->buttonList.push_back(button5);
-    button5->setText("Connect Four");
-    Button* button4 = new Button((application->window_width / 2) - 100, 350, 200, 50);
-    button4->changeState = UiState::STATE_MAIN_MENU;
-    gameSelection->buttonList.push_back(button4);
-    button4->setText("Main menu");
+    gameSelection = new Window("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_height);
+    button = new Button((application->window_width / 2) - 100, 50, 200, 50);
+    button->changeState = UiState::STATE_GAME;
+    button->buttonAttribute = "ConnectFour";
+    gameSelection->buttonList.push_back(button);
+    button->setText("Connect Four");
+    button = new Button((application->window_width / 2) - 100, 350, 200, 50);
+    button->changeState = UiState::STATE_MAIN_MENU;
+    gameSelection->buttonList.push_back(button);
+    button->setText("Main menu");
+
+    endGameWindow = new Window("Textures/testTexture.png", 100, 150, application->window_width - 200, application->window_height - 500);
+    button = new Button((application->window_width/4)-50, 175, 200, 50);
+    button->changeState = UiState::STATE_GAME;
+    endGameWindow->buttonList.push_back(button);
+    button->setText("Play again");
+    button = new Button((application->window_width / 4)*2 + 50, 175, 200, 50);
+    button->changeState = UiState::STATE_MAIN_MENU;
+    endGameWindow->buttonList.push_back(button);
+    button->setText("Main menu");
+
+    /*lobby = new Window("Textures/testTexture.png", 100, 150, application->window_width - 200, application->window_height - 200);
+    button = new Button((application->window_width / 4) - 50, 175, 200, 50);
+    button->addCallBack(&Game::connectToServer);
+    endGameWindow->buttonList.push_back(button);
+    button->setText("Play again");
+    button = new Button((application->window_width / 4) * 2 + 50, 175, 200, 50);
+    button->changeState = UiState::STATE_MAIN_MENU;
+    endGameWindow->buttonList.push_back(button);
+    button->setText("Main menu");*/
+
+
+
 }
 
 int UI::update()
@@ -79,6 +102,11 @@ int UI::update()
     {
         application->State = Application::ApplicationState::STATE_GAME;
         activeWindow = nullptr;
+        break;
+    }
+    case UiState::STATE_ENDGAME:
+    {
+        activeWindow = endGameWindow;
         break;
     }
     case UiState::STATE_QUIT:
@@ -112,6 +140,7 @@ void UI::drawUi()
         {
             sf::Sprite sprite;
             sprite.setTexture(backgroundImage);
+            sprite.setPosition(activeWindow->x, activeWindow->y);
             application->window.draw(sprite);
         }
 

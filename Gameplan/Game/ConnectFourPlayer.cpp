@@ -10,15 +10,11 @@ void ConnectFourPlayer::dropToken(ConnectFourTable& _table, int _column, int _pl
 		if (_table.board[row + 1][_column] != 0 || row + 1 == _table.lastRow)
 		{
 			// Puts a token to the right place of the board
-			_table.board[row][_column] = _player;
-
-			// Checks if there comes straight from that token
-			if (_table.isStraight(row, _column))
-			{
-				std::cout << "Straight found, Game over!" << std::endl;
-			}
-
+			//_table.board[row][_column] = _player;
+			_table.latestToken = sf::Vector2i(row, _column);
+			_table.isAnimationOn = true;
 			break;
 		}
 	}
+	data.isTurn = false;
 }
