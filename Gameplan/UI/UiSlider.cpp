@@ -1,6 +1,6 @@
 #include "UiSlider.h"
 
-Slider::Slider(int _x, int _y, int _width)
+Slider::Slider(float _x, float _y, int _width)
 {
     circle.setRadius(radius);
     x = _x;

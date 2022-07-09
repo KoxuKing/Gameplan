@@ -10,11 +10,11 @@ public:
 	int changeState = -1;
 	std::string buttonAttribute = "";
 
-	typedef void (Game::* clientCallback)(sf::IpAddress, int);
-	clientCallback callBack;
+	//typedef void (Game::* clientCallback)(sf::IpAddress, int);
+	//clientCallback callBack;
 
-	template <typename T>
-	void addCallBack(void (T::* callBack)(sf::IpAddress, int));
+	//template <typename T>
+	//void addCallBack(void (T::* callBack)(sf::IpAddress, int));
 
 private:
 	

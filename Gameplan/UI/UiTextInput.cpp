@@ -1,6 +1,6 @@
 #include "UiTextInput.h"
 
-UiTextInput::UiTextInput(int _x, int _y, int _maxChar)
+UiTextInput::UiTextInput(float _x, float _y, unsigned int _maxChar)
 {
 	x = _x;
 	y = _y;

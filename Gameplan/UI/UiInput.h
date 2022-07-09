@@ -28,8 +28,8 @@ public:
 
 protected:
 	sf::Vector2f size;
-	int x;
-	int y;
+	float x;
+	float y;
 	sf::Color color;
 	sf::Color originalColor;
 	bool selected;

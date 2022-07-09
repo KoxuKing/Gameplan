@@ -23,7 +23,9 @@ public:
 	int requiredPlayers = 2;
 	int state = GameState::STATE_LOBBY;
 	std::vector <Player*> playerList;
-	Client client;
+	//Client client; // TÄSSÄ VIKA!!! //
+	bool isGameOn = true;
+
 	
 private:
 	sf::Texture backgroundImage;

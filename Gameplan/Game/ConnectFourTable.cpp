@@ -26,37 +26,33 @@ ConnectFourTable::ConnectFourTable()
 
 void ConnectFourTable::update(Player* _player, Application* _application)
 {
-
-	// EI OLE VIELÄ TESTATTU //
-	if (_application->mouse.clicked_left && addTokenArea.getGlobalBounds().contains(_application->mouse.pos))
+	if (_application->game.isGameOn && !isAnimationOn)
 	{
-		std::cout << "paneittu!" << std::endl;
-		int column = getColumn(_application->mouse.pos.x);
+		if (_application->mouse.clicked_left && addTokenArea.getGlobalBounds().contains(_application->mouse.pos))
+		{
+			int column = getColumn(_application->mouse.pos.x);
 
-		if (board[0][column] != 0)
-			std::cout << "Column is already full" << std::endl;
-		else
-			static_cast<ConnectFourPlayer*>(_player)->dropToken(*this, getColumn(_application->mouse.pos.x), _player->data.playerNumber);
+			if (board[0][column] != 0)
+				std::cout << "Column is already full" << std::endl;
+			else
+				static_cast<ConnectFourPlayer*>(_player)->dropToken(*this, getColumn(_application->mouse.pos.x), _player->data.playerNumber);
+		}
 	}
 	playAnimation(_application);
 	drawTokens(_application);
 	drawTable(_application);
-
-	// EI OLE VIELÄ TESTATTU //
 }
 
-void ConnectFourTable::shutdown()
+/*void ConnectFourTable::shutdown()
 {
 	for (Token* token : tokenVector)
 		delete token;
 
 	tokenVector.clear();
-}
+}*/
 
 const int ConnectFourTable::getColumn(int _mousePosX)
 {
-	// EI OLE VIELÄ TESTATTU //
-
 	const int mousePosXOnBoard = _mousePosX - addTokenArea.getPosition().x; // Calculates mouse x position on a board, position is 0 at left border of board
 	float columnWidth = addTokenArea.getSize().x / lastColumn; // Calculates width of a column
 	float rowHeight = addTokenArea.getSize().y / lastRow; // Calculates height of a row
@@ -71,8 +67,6 @@ const int ConnectFourTable::getColumn(int _mousePosX)
 			return column - 1;
 		}
 	}
-
-	// EI OLE VIELÄ TESTATTU //
 
 	return 0;
 }
@@ -150,11 +144,13 @@ void ConnectFourTable::playAnimation(Application* _application)
 		dropTokenAnimation(_application);
 	else
 	{
+		animationStartTime = _application->timePassed.asSeconds();
+
 		// Checks if there comes straight from that token
 		if (isStraight(latestToken.x, latestToken.y))
 		{
-			std::cout << "Straight found, Game over!" << std::endl;
 			_application->ui.State = UI::UiState::STATE_ENDGAME;
+			_application->game.isGameOn = false;
 			latestToken = sf::Vector2i(-1, -1);
 			for (int i = 0; i < lastColumn; i++)
 				for (int j = 0; j < lastRow; j++)
@@ -165,7 +161,7 @@ void ConnectFourTable::playAnimation(Application* _application)
 
 void ConnectFourTable::drawTokens(Application* _application)
 {
-	sf::Vector2f tokenPos;
+	tokenPos;
 	tokenPos = sf::Vector2f(tableSprite.getPosition().x + 30 + getColumn(_application->mouse.pos.x) * 57, tableSprite.getPosition().y + 7 - 1 * 53);
 	for (auto player : _application->game.playerList)
 	{
@@ -203,8 +199,10 @@ void ConnectFourTable::drawTokens(Application* _application)
 void ConnectFourTable::dropTokenAnimation(Application* _application)
 {
 	sf::Vector2f targetPos = sf::Vector2f(tableSprite.getPosition().x + 30 + latestToken.y * 57, tableSprite.getPosition().y + 7 + latestToken.x * 53);
-	sf::Vector2f drawPos = sf::Vector2f(tableSprite.getPosition().x + 30 + latestToken.y * 57, tableSprite.getPosition().y + 7 + animationPos * 53);;
-	animationPos += 0.2;
+	sf::Vector2f drawPos = sf::Vector2f(tableSprite.getPosition().x + 30 + latestToken.y * 57, tableSprite.getPosition().y + 7 + animationPos * 53);
+	
+	// Adds acceleration to animation
+	animationPos += 0.05 + 0.5 * (_application->timePassed.asSeconds() - animationStartTime);
 	for (auto player : _application->game.playerList)
 	{
 		if (player->data.isTurn)

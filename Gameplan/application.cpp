@@ -24,6 +24,8 @@ int Application::run()
 
     while(window.isOpen())
     {
+        timePassed = clock.getElapsedTime();
+
         //Set theme music volume
         theme.setVolume(volume/10);
 

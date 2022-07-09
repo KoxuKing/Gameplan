@@ -22,6 +22,7 @@ void Game::update()
 	drawGame();
 	if (gameName == "ConnectFour" && !isGameSelected)
 	{
+		application->clock.restart();
 		table = new ConnectFourTable();
 		isGameSelected = true;
 	}
@@ -70,7 +71,7 @@ void Game::update()
 
 void Game::connectToServer(sf::IpAddress _address, int _port)
 {
-	client.connectToServer(_address, _port);
+	//client.connectToServer(_address, _port);
 }
 
 void Game::shutdown()

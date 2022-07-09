@@ -5,7 +5,7 @@ class ConnectFourTable : public GameTable
 public:
 	ConnectFourTable();
 	virtual void update(class Player* _player, class Application* _application);
-	virtual void shutdown();
+	//virtual void shutdown();
 
 	const static int lastRow = 6;
 	const static int lastColumn = 7;
@@ -22,16 +22,17 @@ public:
 
 	bool isStraight(int _row, int _column);
 	sf::Vector2i latestToken;
+	sf::Vector2f tokenPos;
 	bool isAnimationOn;
 
-	std::vector<struct Token*> tokenVector; // Uutta
+	std::vector<struct Token*> atokenVector; // Turha mutta ei toimi ilman?
 	
 protected:
 	virtual void drawTable(class Application* _application);
 
 private:
 	sf::RectangleShape addTokenArea;
-	
+	float animationStartTime;
 
 	const int getColumn(int _mousePosX);
 	
@@ -42,7 +43,7 @@ private:
 	void drawTokens(Application* _application);
 	void dropTokenAnimation(Application* _application);
 	void playAnimation(Application* _application);
-	float animationPos;
+	float animationPos{};
 };
 
 

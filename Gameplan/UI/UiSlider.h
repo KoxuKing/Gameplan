@@ -4,7 +4,7 @@
 class Slider : public UiInput
 {
 public:
-	Slider(int _x, int _y, int _width);
+	Slider(float _x, float _y, int _width);
 
 	virtual bool isSelected(class Application* _application);
 	virtual void press(class Application* _application);

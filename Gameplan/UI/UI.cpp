@@ -65,15 +65,15 @@ UI::UI(Application *_application)
     endGameWindow->buttonList.push_back(button);
     button->setText("Main menu");
 
-    /*lobby = new Window("Textures/testTexture.png", 100, 150, application->window_width - 200, application->window_height - 200);
+    lobby = new Window("Textures/testTexture.png", 100, 150, application->window_width - 200, application->window_height - 200);
     button = new Button((application->window_width / 4) - 50, 175, 200, 50);
-    button->addCallBack(&Game::connectToServer);
+    //button->addCallBack(&Game::connectToServer);
     endGameWindow->buttonList.push_back(button);
     button->setText("Play again");
     button = new Button((application->window_width / 4) * 2 + 50, 175, 200, 50);
     button->changeState = UiState::STATE_MAIN_MENU;
     endGameWindow->buttonList.push_back(button);
-    button->setText("Main menu");*/
+    button->setText("Main menu");
 
 
 
@@ -100,6 +100,9 @@ int UI::update()
     }
     case UiState::STATE_GAME:
     {
+        if (!application->game.isGameOn)
+            application->game.isGameOn = true;
+
         application->State = Application::ApplicationState::STATE_GAME;
         activeWindow = nullptr;
         break;
