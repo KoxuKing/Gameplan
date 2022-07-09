@@ -8,8 +8,8 @@ Button::Button(int _x, int _y, float _width, float _height)
 	size = sf::Vector2f(_width, _height);
 	
 	rect.setSize(size);
-	texture.loadFromFile("Textures/testTexture.png");
-	rect.setTexture(&texture); // TEST
+	texturePath = "Textures/testTexture.png";
+	setTexture(texturePath);
 	rect.setPosition(x, y);
 	originalColor = rect.getFillColor();
 	boundingBox = rect.getGlobalBounds();

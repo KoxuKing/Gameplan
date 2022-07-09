@@ -20,6 +20,16 @@ public:
 	};
 	Mouse mouse;
 
+	struct Keyboard
+	{
+		bool isKeyPressed;
+		bool isKeyReleased;
+		float timeHolded;
+		char pressedKey;
+		unsigned int keyUnicode;
+	};
+	Keyboard keyboard;
+
 	enum ApplicationState
 	{
 		STATE_UI = 0,
@@ -37,9 +47,12 @@ public:
 	Game game = Game(this);
 
 	float volume = 10;
+	sf::Event event;
+	sf::Clock clock;
+	sf::Time timePassed;
 private:
 
-	void updateUserInputs(sf::Event _event);
-
+	void updateUserInputs(sf::Event& _event);
+	float startTime = 0;
 	int fps = 120;
 };

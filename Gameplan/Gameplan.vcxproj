@@ -164,6 +164,7 @@
     <ClInclude Include="UI\UI.h" />
     <ClInclude Include="UI\UiInput.h" />
     <ClInclude Include="UI\UiSlider.h" />
+    <ClInclude Include="UI\UiTextInput.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
@@ -180,6 +181,7 @@
     <ClCompile Include="UI\UI.cpp" />
     <ClCompile Include="UI\UiInput.cpp" />
     <ClCompile Include="UI\UiSlider.cpp" />
+    <ClCompile Include="UI\UiTextInput.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

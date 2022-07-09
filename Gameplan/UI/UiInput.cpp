@@ -45,9 +45,20 @@ void UiInput::playSound(float &_volume)
     }
 }
 
-bool UiInput::isClicked() const
+void UiInput::setTexture(std::string& _texturePath)
 {
-    return false;
+    texture.loadFromFile(_texturePath);
+    rect.setTexture(&texture);
+}
+
+bool UiInput::isClicked(Application* _application)
+{
+    if (isSelected(_application) && _application->mouse.clicked_left)
+        clicked = true;
+    else if (!isSelected(_application) && _application->mouse.clicked_left)
+        clicked = false;
+
+    return clicked;
 }
 
 void UiInput::press(class Application* _application)
@@ -81,7 +92,6 @@ void UiInput::setText(std::string _text)        // Default _x and _y is center o
     text.setFillColor(textColor);
     textFont.loadFromFile("Fonts/testiFontti.ttf");
     text.setFont(textFont);
-    text.setOutlineColor(sf::Color::Red);
 
     // Sets text to be center of the button
     text.setPosition((size.x - text.getGlobalBounds().width) / 2 + x, (size.y - text.getLocalBounds().height) / 2 + y);

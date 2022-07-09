@@ -9,7 +9,7 @@ public:
 	UiInput();
 
 	virtual bool isSelected(class Application* _application);
-	virtual bool isClicked() const;
+	virtual bool isClicked(Application* _application);
 
 	virtual void press(class Application* _application);
 	virtual void click(Application* _application) const;
@@ -19,7 +19,11 @@ public:
 
 	virtual void setText(std::string _text);
 	virtual void playSound(float& _volume);
+
+	void setTexture(std::string& texturePath);
 	bool wasSelected = false;
+
+	std::string id;
 	
 
 protected:
@@ -29,6 +33,7 @@ protected:
 	sf::Color color;
 	sf::Color originalColor;
 	bool selected;
+	bool clicked;
 	sf::RectangleShape rect;
 	sf::Texture texture;
 	sf::FloatRect boundingBox;
@@ -41,7 +46,7 @@ protected:
 	sf::SoundBuffer soundbuffer;
 
 	// for testing
-	// std::string path_to_buttontexture;
+	 std::string texturePath;
 	// std::string path_to_buttonselectedtexture;
 };
 

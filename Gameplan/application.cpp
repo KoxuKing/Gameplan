@@ -11,14 +11,18 @@ Application::Application()
 
 int Application::run()
 {
+    window.setKeyRepeatEnabled(false);
     while(window.isOpen())
     {
+        
+        timePassed = clock.getElapsedTime();
         // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
-        window.pollEvent(event);
+        sf::Event ev;
+        window.pollEvent(ev);
+        event = ev;
+         
         updateUserInputs(event);
         
-
         // clear the window with black color
         window.clear();
         
@@ -52,17 +56,37 @@ int Application::shutdown()
     return 0;
 }
 
-int m;
-void Application::updateUserInputs(sf::Event _event)
+void Application::updateUserInputs(sf::Event &_event)
 {
     // "close requested" event: we close the window
     if (_event.type == sf::Event::Closed)
         window.close();
 
-    if (_event.type == sf::Event::KeyPressed)
-        ;
+    if (_event.text.unicode < 128 && _event.type == sf::Event::TextEntered)
+    {
+        if (startTime == 0)
+            startTime = timePassed.asSeconds();
+        keyboard.timeHolded = timePassed.asSeconds() - startTime;
 
-    m++;
+        if (_event.text.unicode != keyboard.keyUnicode)
+            keyboard.timeHolded = 0;
+
+        keyboard.isKeyPressed = true;
+        keyboard.isKeyReleased = false;
+
+        keyboard.pressedKey = (char)(_event.text.unicode);
+        keyboard.keyUnicode = _event.text.unicode;
+    }
+    if (_event.type == sf::Event::KeyReleased && keyboard.isKeyPressed)
+    { 
+        keyboard.timeHolded = 0;
+        startTime = 0;
+        keyboard.isKeyReleased = true;
+        keyboard.isKeyPressed = false;
+    }
+        
+        
+
     /// MOUSE CONTROL ///
 
 

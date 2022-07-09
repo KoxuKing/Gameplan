@@ -20,7 +20,6 @@ public:
 		STATE_ENDMENU = 2,
 		STATE_DEBUG = 3
 	};
-
 	int requiredPlayers = 2;
 	int state = GameState::STATE_LOBBY;
 	std::vector <Player*> playerList;

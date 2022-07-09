@@ -2,6 +2,7 @@
 #include "../application.h"
 #include "Button.h"
 #include "UiSlider.h"
+#include "UiTextInput.h"
 
 UI::UI(Application *_application)
 {
@@ -24,6 +25,10 @@ UI::UI(Application *_application)
     mainmenu->buttonList.push_back(button3);
     button3->changeState = UI::STATE_QUIT;
     button3->setText("Quit");
+
+    UiTextInput *textInput = new UiTextInput((application->window_width / 2) - 50, 550, 10);
+    textInput->setPlaceholder("Server ip:");
+    mainmenu->buttonList.push_back(textInput);
 
     //create options
     options = new Window("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_width);
