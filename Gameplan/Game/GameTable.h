@@ -8,6 +8,9 @@ public:
 	GameTable();
 	virtual void update(Player* _player, class Application* _application);
 	virtual void shutdown();
+	virtual void unfocusTable() = 0;
+	virtual void focusTable() = 0;
+
 	
 
 protected:

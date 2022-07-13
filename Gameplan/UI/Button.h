@@ -7,9 +7,10 @@ public:
 
 	virtual void click(Application* _application) const;
 	
-	int changeState = -1;
+	mutable int changeState = -1;
 	std::string buttonAttribute = "";
 
+	void setReturnButton(bool _boolean);
 	//typedef void (Game::* clientCallback)(sf::IpAddress, int);
 	//clientCallback callBack;
 
@@ -17,6 +18,7 @@ public:
 	//void addCallBack(void (T::* callBack)(sf::IpAddress, int));
 
 private:
-	
+	bool isReturnButton = false;
+
 };
 

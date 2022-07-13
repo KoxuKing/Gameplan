@@ -6,13 +6,17 @@ ConnectFourTable::ConnectFourTable()
 {
 	tableTexture.loadFromFile("Textures/gameTable.png");
 	tableSprite.setTexture(tableTexture);
-	tableSprite.setPosition(100, 30);
-
+	tableSprite.setPosition(100, 80);
 	// Uutta -->
 	addTokenArea.setSize(sf::Vector2f(tableSprite.getGlobalBounds().width - 99.0f, 420.0f));
 	addTokenArea.setPosition(sf::Vector2f(tableSprite.getPosition().x + 22, tableSprite.getPosition().y - 100));
 	//addTokenArea.setFillColor(sf::Color::Green);
-
+	turnTime.setPosition(700, 5);
+	turnTime.setCharacterSize(20);
+	static sf::Font font;
+	font.loadFromFile("Fonts/testiFontti.ttf");
+	turnTime.setFont(font);
+	turnTime.setFillColor(sf::Color::Black);
 	tokenTextures[0].loadFromFile("Textures/redToken.png");
 	tokenTextures[1].loadFromFile("Textures/yellowToken.png");
 
@@ -38,10 +42,28 @@ void ConnectFourTable::update(Player* _player, Application* _application)
 				static_cast<ConnectFourPlayer*>(_player)->dropToken(*this, getColumn(_application->mouse.pos.x), _player->data.playerNumber);
 		}
 	}
+
+	turnTime.setString("Time: " + std::to_string(int(_application->timePassed.asSeconds())));
+	_application->window.draw(turnTime);
 	playAnimation(_application);
 	drawTokens(_application);
 	drawTable(_application);
 }
+
+void ConnectFourTable::unfocusTable()
+{
+	tableSprite.setColor(sf::Color(50, 50, 50, 255));
+	redTokenSprite.setColor(sf::Color(50, 50, 50, 255));
+	yellowTokenSprite.setColor(sf::Color(50, 50, 50, 255));
+
+}
+void ConnectFourTable::focusTable()
+{
+	tableSprite.setColor(sf::Color(255, 255, 255, 255));
+	redTokenSprite.setColor(sf::Color(255, 255, 255, 255));
+	yellowTokenSprite.setColor(sf::Color(255, 255, 255, 255));
+}
+
 
 /*void ConnectFourTable::shutdown()
 {
@@ -88,30 +110,30 @@ bool ConnectFourTable::isStraight(int _row, int _column)
 			* Goes to while loop 7 times and checks if there is straight from
 			* 1. horizontally to right
 			* 2. horizontally to left
-			* 3. vertically down
-			* 4. diagonally to down right
-			* 5. diagonally to down left
-			* 6. diagonally to up right
-			* 7. diagonally to up left
+			* 3. diagonally to up right
+			* 4. diagonally to down left
+			* 5. diagonally to down right
+			* 6. diagonally to up left
+			* 7. vertically down
 			*/
 
 			// Checks if a token is from the same player, else goes to next round of for loop
 			while (board[rowNumber][columnNumber] == token)
 			{
-				if (i == 1 || i == 4 || i == 6)
+				if (i == 1 || i == 3 || i == 5)
 					columnNumber++;
 
-				if (i == 3 || i == 4 || i == 5)
+				if (i == 4 || i == 5 || i == 7)
 					rowNumber++;
 				
-
-				if (i == 2 || i == 5 || i == 7)
+				if (i == 2 || i == 4 || i == 6)
 					columnNumber--;
 
-				if (i == 6 || i == 7)
+				if (i == 3 || i == 6)
 					rowNumber--;
 
 				tokensConnected++;
+
 
 				if (tokensConnected >= 4)
 				{
@@ -124,7 +146,11 @@ bool ConnectFourTable::isStraight(int _row, int _column)
 			token = board[_row][_column];
 			rowNumber = _row;
 			columnNumber = _column;
-			tokensConnected = 0;
+
+			if (i % 2 == 0) // if i is pairless it means we aren't checking same row
+				tokensConnected = 0;
+			else if (i % 2 == 1)	// if i is pair it mean we are checking same row
+				tokensConnected--;
 		}
 	}
 	return false;
@@ -135,7 +161,6 @@ void ConnectFourTable::drawTable(Application* _application)
 {
 	_application->window.draw(tableSprite);
 	//_application->window.draw(addTokenArea);
-
 }
 
 void ConnectFourTable::playAnimation(Application* _application)
@@ -202,7 +227,7 @@ void ConnectFourTable::dropTokenAnimation(Application* _application)
 	sf::Vector2f drawPos = sf::Vector2f(tableSprite.getPosition().x + 30 + latestToken.y * 57, tableSprite.getPosition().y + 7 + animationPos * 53);
 	
 	// Adds acceleration to animation
-	animationPos += 0.05 + 0.5 * (_application->timePassed.asSeconds() - animationStartTime);
+	animationPos += 0.00 + 0.4 * (_application->timePassed.asSeconds() - animationStartTime);
 	for (auto player : _application->game.playerList)
 	{
 		if (player->data.isTurn)
@@ -221,9 +246,11 @@ void ConnectFourTable::dropTokenAnimation(Application* _application)
 			if (animationPos >= latestToken.x)
 			{
 				isAnimationOn = false;
+				_application->clock.restart();
 				board[latestToken.x][latestToken.y] = player->data.playerNumber;
 				animationPos = 0;
 			}
 		}
 	}
+	
 }

@@ -32,6 +32,9 @@ private:
 	void updatePlayersCallback(Player::gameData& data);
 	void waitingPlayers();
 	void drawGame();
+	void unfocusGame();
+	void focusGame();
+
 	bool isGameSelected;
 	class Application* application;
 	GameTable *table;

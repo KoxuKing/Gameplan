@@ -6,6 +6,9 @@ public:
 	ConnectFourTable();
 	virtual void update(class Player* _player, class Application* _application);
 	//virtual void shutdown();
+	virtual void unfocusTable();
+	virtual void focusTable();
+
 
 	const static int lastRow = 6;
 	const static int lastColumn = 7;
@@ -35,7 +38,7 @@ private:
 	float animationStartTime;
 
 	const int getColumn(int _mousePosX);
-	
+	sf::Text turnTime;
 	sf::Texture tokenTextures[2];
 	sf::Sprite redTokenSprite;
 	sf::Sprite yellowTokenSprite;

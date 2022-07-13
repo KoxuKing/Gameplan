@@ -45,10 +45,13 @@ void UiInput::playSound(float &_volume)
     }
 }
 
-void UiInput::setTexture(std::string& _texturePath)
+void UiInput::setTexture(std::string _texturePath)
 {
+    
     texture.loadFromFile(_texturePath);
+    texture.setRepeated(true);
     rect.setTexture(&texture);
+    originalColor = rect.getFillColor();
 }
 
 bool UiInput::isClicked(Application* _application)
@@ -78,7 +81,6 @@ void UiInput::select()
 
 void UiInput::draw(Application* _application)
 {
-    
     //// set the shape color to green
     rect.setFillColor(color);
     _application->window.draw(rect);
@@ -92,7 +94,6 @@ void UiInput::setText(std::string _text)        // Default _x and _y is center o
     text.setFillColor(textColor);
     textFont.loadFromFile("Fonts/testiFontti.ttf");
     text.setFont(textFont);
-
     // Sets text to be center of the button
     text.setPosition((size.x - text.getGlobalBounds().width) / 2 + x, (size.y - text.getLocalBounds().height) / 2 + y);
 }

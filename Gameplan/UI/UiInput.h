@@ -20,7 +20,7 @@ public:
 	virtual void setText(std::string _text);
 	virtual void playSound(float& _volume);
 
-	void setTexture(std::string& texturePath);
+	void setTexture(std::string texturePath);
 	bool wasSelected = false;
 
 	std::string id;
@@ -35,6 +35,7 @@ protected:
 	bool selected;
 	bool clicked;
 	sf::RectangleShape rect;
+	sf::Sprite sprite;
 	sf::Texture texture;
 	sf::FloatRect boundingBox;
 

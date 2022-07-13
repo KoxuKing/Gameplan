@@ -33,10 +33,16 @@ void UiTextInput::draw(Application* _application)
 		textColor = sf::Color(0, 0, 0, 100);
 		setText(placeholder);
 	}
-	else
+
+	if (text.getLocalBounds().width + text.getPosition().x + size.x / 10.0f > rect.getLocalBounds().width + rect.getPosition().x)
 	{
-		textColor = sf::Color::Black;
-		setText(inputText);
+		rect.setPosition(sf::Vector2f(rect.getPosition().x - 6.0f, rect.getPosition().y));
+		rect.setSize(sf::Vector2f(rect.getLocalBounds().width + 12.0f, rect.getLocalBounds().height)); // TESTI!!
+	}
+	else if (text.getLocalBounds().width + text.getPosition().x + size.x / 10.0f < size.x + rect.getPosition().x)
+	{
+		rect.setPosition(sf::Vector2f(x, y));
+		rect.setSize(size);
 	}
 	_application->window.draw(rect);
 	_application->window.draw(text);
@@ -50,7 +56,6 @@ void UiTextInput::setPlaceholder(std::string _placeholder)
 
 void UiTextInput::updateInput(Application* _application)
 {
-	std::cout << _application->keyboard.timeHolded << std::endl;
 
 	if (isFirstChar && _application->keyboard.isKeyPressed || (_application->keyboard.timeHolded > 0.6 && _application->timePassed.asSeconds() - timePassedFromLastInput > 0.03))
 	{
@@ -67,6 +72,8 @@ void UiTextInput::updateInput(Application* _application)
 			charAmount++;
 		}
 		charVectorToString();
+		textColor = sf::Color::Black;
+		setText(inputText);
 	}
 	else if (_application->keyboard.timeHolded == 0)
 		isFirstChar = true;

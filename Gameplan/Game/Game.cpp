@@ -103,4 +103,21 @@ void Game::waitingPlayers()
 void Game::drawGame()
 {
 	application->window.draw(rect);
+	if (!isGameOn && table != NULL)
+		unfocusGame();
+	else if (isGameOn && table != NULL)
+		focusGame();
+
+}
+
+void Game::unfocusGame()
+{
+	rect.setFillColor(sf::Color(50, 50, 50, 255));
+	table->unfocusTable();
+}
+
+void Game::focusGame()
+{
+	rect.setFillColor(sf::Color(255, 255, 255, 255));
+	table->focusTable();
 }

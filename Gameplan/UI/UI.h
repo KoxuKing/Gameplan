@@ -16,12 +16,17 @@ public:
 		STATE_QUIT = 2,
 		STATE_GAME_SELECTION = 3,
 		STATE_GAME = 4,
-		STATE_ENDGAME = 5
+		STATE_ENDGAME = 5,
+		STATE_GAME_MENU = 6,
 	};
 
 	int State = UiState::STATE_MAIN_MENU;
+
+	int previousState = UiState::STATE_MAIN_MENU;
+
 	class Window* endGameWindow;
 private:
+
 	class Application *application;
 
 	class Window* activeWindow;
@@ -29,6 +34,8 @@ private:
 	class Window* options;
 	class Window* gameSelection;
 	class Window* lobby;
+	class Window* inGame;
+	class Window* inGameMenu;
 	
 	//Window mainmenu;
 	// UiWindow options;
