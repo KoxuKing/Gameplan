@@ -2,6 +2,7 @@
 #include "../application.h"
 #include <iostream>
 #include "ConnectFourPlayer.h"
+#include "CheckersTable.h"
 
 Game::Game(Application* _application)
 {
@@ -24,6 +25,12 @@ void Game::update()
 	{
 		application->clock.restart();
 		table = new ConnectFourTable();
+		isGameSelected = true;
+	}
+	else if (gameName == "Checkers" && !isGameSelected)
+	{
+		application->clock.restart();
+		table = new CheckersTable();
 		isGameSelected = true;
 	}
 		

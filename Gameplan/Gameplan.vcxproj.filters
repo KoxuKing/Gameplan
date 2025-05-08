@@ -31,6 +31,12 @@
     <Filter Include="Header Files\Game">
       <UniqueIdentifier>{f4674f2e-cd97-4b92-ac25-9b805fdd777b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\ConnectFour">
+      <UniqueIdentifier>{1a3bf934-f379-47b7-9067-62bef14337a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Game\Checkers">
+      <UniqueIdentifier>{62a66d59-f5e9-40fd-859e-05ae0709272f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h">
@@ -75,6 +81,9 @@
     <ClInclude Include="UI\UiTextInput.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="Game\CheckersTable.h">
+      <Filter>Header Files\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -107,12 +116,6 @@
     <ClCompile Include="Networking\Server.cpp">
       <Filter>Source Files\Networking</Filter>
     </ClCompile>
-    <ClCompile Include="Game\ConnectFourPlayer.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\ConnectFourTable.cpp">
-      <Filter>Source Files\Game</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Game.cpp">
       <Filter>Source Files\Game</Filter>
     </ClCompile>
@@ -121,6 +124,15 @@
     </ClCompile>
     <ClCompile Include="UI\UiTextInput.cpp">
       <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ConnectFourTable.cpp">
+      <Filter>Source Files\Game\ConnectFour</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\ConnectFourPlayer.cpp">
+      <Filter>Source Files\Game\ConnectFour</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\CheckersTable.cpp">
+      <Filter>Source Files\Game\Checkers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

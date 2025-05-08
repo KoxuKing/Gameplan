@@ -31,7 +31,7 @@ public:
 	std::vector<struct Token*> atokenVector; // Turha mutta ei toimi ilman?
 	
 protected:
-	virtual void drawTable(class Application* _application);
+	void drawTable(class Application* _application) override;
 
 private:
 	sf::RectangleShape addTokenArea;

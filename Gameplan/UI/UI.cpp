@@ -54,17 +54,28 @@ UI::UI(Application *_application)
 
     //// create game selection window
     gameSelection = new Window("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_height);
+
     button = new Button((application->window_width / 2) - 100, 50, 200, 50);
     button->changeState = UiState::STATE_GAME;
     button->buttonAttribute = "ConnectFour";
     button->setTexture(buttonTexturePath1);
     gameSelection->buttonList.push_back(button);
     button->setText("Connect Four");
+
+    button = new Button((application->window_width / 2) - 100, 150, 200, 50);
+    button->changeState = UiState::STATE_GAME;
+    button->buttonAttribute = "Checkers";
+    button->setTexture(buttonTexturePath1);
+    gameSelection->buttonList.push_back(button);
+    button->setText("Checkers");
+
     button = new Button((application->window_width / 2) - 100, 350, 200, 50);
     button->changeState = UiState::STATE_MAIN_MENU;
     button->setTexture(buttonTexturePath1);
     gameSelection->buttonList.push_back(button);
     button->setText("Main menu");
+
+
 
     //// create endgame window
     endGameWindow = new Window("", 100, 150, application->window_width - 200, application->window_height - 500);
