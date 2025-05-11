@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Game\Checkers">
       <UniqueIdentifier>{62a66d59-f5e9-40fd-859e-05ae0709272f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Game\Checkers">
+      <UniqueIdentifier>{b37a78a0-89d8-46b8-9886-eaebe8d8fdc7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Game\ConnectFour">
+      <UniqueIdentifier>{c60c7855-c37a-41b5-bc80-51d2fdfbfa85}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h">
@@ -47,12 +53,6 @@
     </ClInclude>
     <ClInclude Include="Networking\Client.h">
       <Filter>Header Files\Networking</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ConnectFourPlayer.h">
-      <Filter>Header Files\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\ConnectFourTable.h">
-      <Filter>Header Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Game.h">
       <Filter>Header Files\Game</Filter>
@@ -82,7 +82,13 @@
       <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="Game\CheckersTable.h">
-      <Filter>Header Files\Game</Filter>
+      <Filter>Header Files\Game\Checkers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ConnectFourPlayer.h">
+      <Filter>Header Files\Game\ConnectFour</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\ConnectFourTable.h">
+      <Filter>Header Files\Game\ConnectFour</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
