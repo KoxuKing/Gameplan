@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
+    <ClInclude Include="Game\Checkers.h" />
     <ClInclude Include="Game\CheckersTable.h" />
     <ClInclude Include="Game\ConnectFourPlayer.h" />
     <ClInclude Include="Game\ConnectFourTable.h" />
@@ -169,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
+    <ClCompile Include="Game\Checkers.cpp" />
     <ClCompile Include="Game\CheckersTable.cpp" />
     <ClCompile Include="Game\ConnectFourPlayer.cpp" />
     <ClCompile Include="Game\ConnectFourTable.cpp" />

@@ -90,6 +90,9 @@
     <ClInclude Include="Game\ConnectFourTable.h">
       <Filter>Header Files\Game\ConnectFour</Filter>
     </ClInclude>
+    <ClInclude Include="Game\Checkers.h">
+      <Filter>Header Files\Game\Checkers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -138,6 +141,9 @@
       <Filter>Source Files\Game\ConnectFour</Filter>
     </ClCompile>
     <ClCompile Include="Game\CheckersTable.cpp">
+      <Filter>Source Files\Game\Checkers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Checkers.cpp">
       <Filter>Source Files\Game\Checkers</Filter>
     </ClCompile>
   </ItemGroup>
