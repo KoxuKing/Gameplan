@@ -106,9 +106,8 @@ bool CheckersBoard::MoveSelectedPawnToSquare(CheckersPawn& selected_pawn, Checke
 		bool succesfulEat = eatPawnsBetweenSlots(selected_pawn.board_slot, new_square);
 
 		// move pawn to new square
-		slots[new_square.y][new_square.x].pawn = CheckersPawn(selected_pawn.color);
+		slots[new_square.y][new_square.x].pawn = CheckersPawn(selected_pawn.color, new_square);
 		slots[new_square.y][new_square.x].hasPawn = true;
-		slots[new_square.y][new_square.x].pawn.board_slot = new_square;
 
 		// remove old pawn and its moves
 		slots[selected_pawn.board_slot.y][selected_pawn.board_slot.x].hasPawn = false;

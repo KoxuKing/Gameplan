@@ -20,7 +20,7 @@ public:
 		{
 			for (int c = 0; c < COLUMNS; c++)
 			{
-				if (board.slots[r][c].hasPawn)
+				if (board.slots[r][c].hasPawn && board.slots[r][c].pawn.color == player->color)
 				{
 					if (board.canPawnEat(board.slots[r][c].pawn, player))
 						return true;

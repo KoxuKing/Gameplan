@@ -19,8 +19,8 @@ void CheckersTable::update(class Player* _player, class Application* _applicatio
 					selected_slot = board.slots[row][column];
 					selected_slot.pawn.board_slot = { column, row };
 					// can player eat -> force to eat
-					//std::cout << dynamic_cast<CheckersPlayer*>(_player)->color << std::endl;
 					bool can_palyer_eat = canPlayerEat(dynamic_cast<CheckersPlayer*>(_player));
+					std::cout << can_palyer_eat << std::endl;
 					board.getDiagonalMoves(selected_slot.pawn, dynamic_cast<CheckersPlayer*>(_player), can_palyer_eat);
 				}
 				else if (selected_slot.hasPawn) // Already selected pawn

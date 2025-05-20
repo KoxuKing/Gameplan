@@ -60,7 +60,6 @@ void Game::update()
 		case GameState::STATE_GAME:
 			for (const auto& player : playerList)
 			{
-				
 				if (player->data.isTurn)
 					table->update(player.get(), application);
 			}

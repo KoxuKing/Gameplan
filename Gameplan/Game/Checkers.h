@@ -5,7 +5,7 @@
 struct CheckersPawn {
 
 public:
-	CheckersPawn(sf::Color color) : color(color) {}
+	CheckersPawn(sf::Color color, sf::Vector2i board_slot) : color(color), board_slot(board_slot){}
 
 	bool HasThisMove(sf::Vector2i move)
 	{
@@ -26,7 +26,7 @@ public:
 struct BoardSlot {
 public:
 
-	BoardSlot(sf::Color color, bool hasPawn,CheckersPawn pawn = CheckersPawn(sf::Color::Black))
+	BoardSlot(sf::Color color, bool hasPawn, CheckersPawn pawn = CheckersPawn(sf::Color::Black, {-1,-1}))
 		: color(color), hasPawn(hasPawn), pawn(pawn) {}
 
 	sf::Color color;
@@ -61,27 +61,23 @@ public:
 						slots[r][c] = BoardSlot(sf::Color::Black, false);
 
 					else if (r < 3)
-						slots[r][c] = BoardSlot(sf::Color::Black, true, CheckersPawn(sf::Color::Red));
+						slots[r][c] = BoardSlot(sf::Color::Black, true, CheckersPawn(sf::Color::Red, {c,r}));
 
 					else
-						slots[r][c] = BoardSlot(sf::Color::Black, true, CheckersPawn(sf::Color::Yellow));
+						slots[r][c] = BoardSlot(sf::Color::Black, true, CheckersPawn(sf::Color::Yellow, { c,r }));
 				}
 			}
 		}
 	}
 
-	bool canPawnEat(CheckersPawn& selected_pawn, CheckersPlayer* player)
+	bool canPawnEat(CheckersPawn& _selected_pawn, CheckersPlayer* player)
 	{
-		getDiagonalMoves(selected_pawn, player);
-		for (int i = 0; i < selected_pawn.possible_moves.size(); i++)
+		getDiagonalMoves(_selected_pawn, player, false);
+		for (int i = 0; i < _selected_pawn.possible_moves.size(); i++)
 		{
-			sf::Vector2i move = selected_pawn.possible_moves[i];
-			sf::Vector2i move_normal = { (move.x - selected_pawn.board_slot.x)/2 , (move.y - selected_pawn.board_slot.y)/2 };
-			std::cout << move.x << std::endl;
-			std::cout << move.y << std::endl;
-			std::cout << move.x - move_normal.x << std::endl;
-			std::cout << move.y - move_normal.y << std::endl;
-			if (std::abs(move.x - selected_pawn.board_slot.x) > 1)//if (slots[move.y][move.x].hasPawn)// && !slots[move.x - move_normal.x][move.x - move_normal.y].hasPawn)
+			sf::Vector2i move = _selected_pawn.possible_moves[i];
+			sf::Vector2i move_normal = { (move.x - _selected_pawn.board_slot.x)/2 , (move.y - _selected_pawn.board_slot.y)/2 };
+			if (std::abs(move.x - _selected_pawn.board_slot.x) > 1)//if (slots[move.y][move.x].hasPawn)// && !slots[move.x - move_normal.x][move.x - move_normal.y].hasPawn)
 				return true;
 		}
 		return false;
