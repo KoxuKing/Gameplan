@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClInclude Include="application.h" />
     <ClInclude Include="Game\Checkers.h" />
+    <ClInclude Include="Game\CheckersPlayer.h" />
     <ClInclude Include="Game\CheckersTable.h" />
     <ClInclude Include="Game\ConnectFourPlayer.h" />
     <ClInclude Include="Game\ConnectFourTable.h" />

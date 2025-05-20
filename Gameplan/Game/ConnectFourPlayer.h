@@ -2,12 +2,11 @@
 #include "Player.h"
 
 #include <iostream>
-class ConnectFourPlayer : public Player
+struct ConnectFourPlayer : public Player
 {
-public:
 	void dropToken(class ConnectFourTable &_table, int _column, int _player);
 	//void takeToken();
-	virtual struct gameData
+	struct gameData
 	{
 		int playerNumber;
 		int playerTurn;
@@ -15,7 +14,9 @@ public:
 		int tokenPos;
 		bool isTurn;
 		// table data
-	};
+	} override;
+
+	std::vector <std::unique_ptr<ConnectFourPlayer>> playerList; // Täytyy olla pelikohtainen
 
 private:
 	void dropTokenAnimation();

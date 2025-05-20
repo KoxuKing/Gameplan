@@ -93,6 +93,9 @@
     <ClInclude Include="Game\Checkers.h">
       <Filter>Header Files\Game\Checkers</Filter>
     </ClInclude>
+    <ClInclude Include="Game\CheckersPlayer.h">
+      <Filter>Header Files\Game\Checkers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

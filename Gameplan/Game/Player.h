@@ -1,15 +1,17 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class Player
+struct Player
 {
-public:
 	virtual struct gameData
 	{
-		int playerNumber;
-		int playerTurn;
-		int players;
-		bool isTurn;
+		int playerNumber = 0;
+		int playerTurn = 0;
+		int players = 0;
+		bool isTurn = false;
 	};
+
+	virtual ~Player() {}
+
 	gameData data;
 };
