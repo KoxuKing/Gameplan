@@ -2,8 +2,8 @@
 #include "../application.h"
 #include <iostream>
 #include "ConnectFourPlayer.h"
-#include "CheckersTable.h"
-#include "CheckersPlayer.h"
+#include "Checkers/CheckersTable.h"
+#include "Checkers/CheckersPlayer.h"
 
 Game::Game(Application* _application)
 {

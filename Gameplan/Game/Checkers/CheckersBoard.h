@@ -1,43 +1,8 @@
 #pragma once
-#include "../application.h"
+#include "../../application.h"
+#include "CheckersPawn.h"
+#include "CheckersBoardSlot.h"
 #include "CheckersPlayer.h"
-
-struct CheckersPawn {
-
-public:
-	CheckersPawn(sf::Color color, sf::Vector2i board_slot) : color(color), board_slot(board_slot){}
-
-	bool HasThisMove(sf::Vector2i move)
-	{
-		for (int i = 0; i < possible_moves.size(); i++)
-		{
-			if (possible_moves[i] == move)
-				return true;
-		}
-		return false;
-	}
-
-	sf::Color color;
-	std::vector<sf::Vector2i> possible_moves;
-
-	sf::Vector2i board_slot;
-};
-
-struct BoardSlot {
-public:
-
-	BoardSlot(sf::Color color, bool hasPawn, CheckersPawn pawn = CheckersPawn(sf::Color::Black, {-1,-1}))
-		: color(color), hasPawn(hasPawn), pawn(pawn) {}
-
-	sf::Color color;
-	CheckersPawn pawn;
-	sf::Vector2f position;
-
-	bool hasPawn = false;
-
-};
-
-
 
 struct CheckersBoard {
 
@@ -61,7 +26,7 @@ public:
 						slots[r][c] = BoardSlot(sf::Color::Black, false);
 
 					else if (r < 3)
-						slots[r][c] = BoardSlot(sf::Color::Black, true, CheckersPawn(sf::Color::Red, {c,r}));
+						slots[r][c] = BoardSlot(sf::Color::Black, true, CheckersPawn(sf::Color::Red, { c,r }));
 
 					else
 						slots[r][c] = BoardSlot(sf::Color::Black, true, CheckersPawn(sf::Color::Yellow, { c,r }));
@@ -70,18 +35,7 @@ public:
 		}
 	}
 
-	bool canPawnEat(CheckersPawn& _selected_pawn, CheckersPlayer* player)
-	{
-		getDiagonalMoves(_selected_pawn, player, false);
-		for (int i = 0; i < _selected_pawn.possible_moves.size(); i++)
-		{
-			sf::Vector2i move = _selected_pawn.possible_moves[i];
-			sf::Vector2i move_normal = { (move.x - _selected_pawn.board_slot.x)/2 , (move.y - _selected_pawn.board_slot.y)/2 };
-			if (std::abs(move.x - _selected_pawn.board_slot.x) > 1)//if (slots[move.y][move.x].hasPawn)// && !slots[move.x - move_normal.x][move.x - move_normal.y].hasPawn)
-				return true;
-		}
-		return false;
-	}
+	bool canPawnEat(CheckersPawn& _selected_pawn, CheckersPlayer* player);
 
 	bool MoveSelectedPawnToSquare(CheckersPawn& selected_pawn, CheckersPlayer* player, sf::Vector2i new_square);
 
@@ -92,6 +46,8 @@ public:
 	void DrawPossibleMoves(Application* _application, BoardSlot& selected_slot);
 
 	void getDiagonalMoves(CheckersPawn& selectedPawn, CheckersPlayer* player, bool can_palyer_eat = false);
+
+	bool isSlotValid(sf::Vector2i slot);
 
 	int getColumn(int _mousePosX) const;
 	int getRow(int _mousePosY) const;

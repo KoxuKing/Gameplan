@@ -1,4 +1,4 @@
-#include "Checkers.h"
+#include "CheckersBoard.h"
 
 void CheckersBoard::getDiagonalMoves(CheckersPawn& selectedPawn, CheckersPlayer* player, bool can_palyer_eat)
 {
@@ -53,7 +53,7 @@ void CheckersBoard::getDiagonalMoves(CheckersPawn& selectedPawn, CheckersPlayer*
 			else if (!slots[diagonal_1.y][diagonal_1.x].hasPawn && !can_palyer_eat) // No pawn on slot
 				possible_moves.push_back(diagonal_1);
 		}
-		
+
 
 		// up right
 		diagonal_1 = { selectedPawn.board_slot.x + 1, selectedPawn.board_slot.y - 1 };
@@ -221,7 +221,7 @@ bool CheckersBoard::eatPawnsBetweenSlots(sf::Vector2i start_square, sf::Vector2i
 {
 	int distance_x = new_square.x - start_square.x;
 	int distance_y = new_square.y - start_square.y;
-	
+
 	if (std::abs(distance_x) == 2 && std::abs(distance_y) == 2)
 	{
 		BoardSlot& target_slot = slots[new_square.y][new_square.x];
@@ -234,4 +234,22 @@ bool CheckersBoard::eatPawnsBetweenSlots(sf::Vector2i start_square, sf::Vector2i
 		}
 	}
 	return false;
+}
+
+bool CheckersBoard::canPawnEat(CheckersPawn& _selected_pawn, CheckersPlayer* player)
+{
+	getDiagonalMoves(_selected_pawn, player, false);
+	for (int i = 0; i < _selected_pawn.possible_moves.size(); i++)
+	{
+		sf::Vector2i move = _selected_pawn.possible_moves[i];
+		sf::Vector2i move_normal = { (move.x - _selected_pawn.board_slot.x) / 2 , (move.y - _selected_pawn.board_slot.y) / 2 };
+		if (std::abs(move.x - _selected_pawn.board_slot.x) > 1)//if (slots[move.y][move.x].hasPawn)// && !slots[move.x - move_normal.x][move.x - move_normal.y].hasPawn)
+			return true;
+	}
+	return false;
+}
+
+bool CheckersBoard::isSlotValid(sf::Vector2i slot)
+{
+	return slot.x > -1 && slot.y > -1;
 }

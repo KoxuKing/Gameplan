@@ -81,19 +81,28 @@
     <ClInclude Include="UI\UiTextInput.h">
       <Filter>Header Files\UI</Filter>
     </ClInclude>
-    <ClInclude Include="Game\CheckersTable.h">
-      <Filter>Header Files\Game\Checkers</Filter>
-    </ClInclude>
     <ClInclude Include="Game\ConnectFourPlayer.h">
       <Filter>Header Files\Game\ConnectFour</Filter>
     </ClInclude>
     <ClInclude Include="Game\ConnectFourTable.h">
       <Filter>Header Files\Game\ConnectFour</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Checkers.h">
+    <ClInclude Include="Game\Checkers\CheckersPlayer.h">
       <Filter>Header Files\Game\Checkers</Filter>
     </ClInclude>
-    <ClInclude Include="Game\CheckersPlayer.h">
+    <ClInclude Include="Game\Checkers\CheckersTable.h">
+      <Filter>Header Files\Game\Checkers</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Checkers\CheckersPawn.h">
+      <Filter>Header Files\Game\Checkers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Checkers\CheckersBoardSlot.h">
+      <Filter>Header Files\Game\Checkers</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Checkers\CheckersBoard.h">
       <Filter>Header Files\Game\Checkers</Filter>
     </ClInclude>
   </ItemGroup>
@@ -143,11 +152,16 @@
     <ClCompile Include="Game\ConnectFourPlayer.cpp">
       <Filter>Source Files\Game\ConnectFour</Filter>
     </ClCompile>
-    <ClCompile Include="Game\CheckersTable.cpp">
+    <ClCompile Include="Game\Checkers\CheckersTable.cpp">
       <Filter>Source Files\Game\Checkers</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Checkers.cpp">
+    <ClCompile Include="Game\Checkers\CheckersBoard.cpp">
       <Filter>Source Files\Game\Checkers</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Gameplan.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
