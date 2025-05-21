@@ -45,7 +45,7 @@ public:
 
 	void DrawPossibleMoves(Application* _application, BoardSlot& selected_slot);
 
-	void getDiagonalMoves(CheckersPawn& selectedPawn, CheckersPlayer* player, bool can_palyer_eat = false);
+	std::vector<sf::Vector2i> getDiagonalMoves(CheckersPawn& selectedPawn, CheckersPlayer* player, bool can_palyer_eat = false);
 
 	bool isSlotValid(sf::Vector2i slot);
 

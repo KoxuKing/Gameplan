@@ -20,11 +20,11 @@ void CheckersTable::update(class Player* _player, class Application* _applicatio
 				{
 					selected_slot = board.slots[row][column]; // board.getSlot({row, column})
 
-					bool can_palyer_eat = canPlayerEat(dynamic_cast<CheckersPlayer*>(_player));
+					bool can_player_eat = canPlayerEat(dynamic_cast<CheckersPlayer*>(_player));
 
-					board.getDiagonalMoves(selected_slot.pawn, dynamic_cast<CheckersPlayer*>(_player), can_palyer_eat);
+					selected_slot.pawn.possible_moves = board.getDiagonalMoves(selected_slot.pawn, dynamic_cast<CheckersPlayer*>(_player), can_player_eat);
 				}
-				else if (selected_slot.hasPawn) // Already selected pawn
+				else if (selected_slot.hasPawn) // isPawnSelected() -> move pawn
 				{
 					// Walid move clicked with selected pawn -> Move pawn to that square
 					bool valid_move = board.MoveSelectedPawnToSquare(selected_slot.pawn, dynamic_cast<CheckersPlayer*>(_player), { column, row });
@@ -61,7 +61,7 @@ bool CheckersTable::canPlayerEat(CheckersPlayer* player)
 	{
 		for (int c = 0; c < COLUMNS; c++)
 		{
-			if (board.slots[r][c].hasPawn && board.slots[r][c].pawn.color == player->color)
+			if (board.slots[r][c].hasPawn && board.slots[r][c].pawn.color == player->color)// board.isPawnInSlot && player->isMyPawn()
 			{
 				if (board.canPawnEat(board.slots[r][c].pawn, player))
 					return true;

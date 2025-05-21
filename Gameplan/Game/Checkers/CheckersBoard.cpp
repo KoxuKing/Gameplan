@@ -1,6 +1,6 @@
 #include "CheckersBoard.h"
 
-void CheckersBoard::getDiagonalMoves(CheckersPawn& selectedPawn, CheckersPlayer* player, bool can_palyer_eat)
+std::vector<sf::Vector2i> CheckersBoard::getDiagonalMoves(CheckersPawn& selectedPawn, CheckersPlayer* player, bool can_palyer_eat)
 {
 	std::vector<sf::Vector2i> possible_moves;
 	possible_moves.clear();
@@ -70,8 +70,8 @@ void CheckersBoard::getDiagonalMoves(CheckersPawn& selectedPawn, CheckersPlayer*
 		}
 	}
 
-	selectedPawn.possible_moves = possible_moves;
-
+	//selectedPawn.possible_moves = possible_moves;
+	return possible_moves;
 }
 
 int CheckersBoard::getColumn(int _mousePosX) const
@@ -116,8 +116,9 @@ bool CheckersBoard::MoveSelectedPawnToSquare(CheckersPawn& selected_pawn, Checke
 		if (succesfulEat)
 		{
 			selected_pawn = slots[new_square.y][new_square.x].pawn;
-			getDiagonalMoves(selected_pawn, player, true);
-			if (selected_pawn.possible_moves.size() > 0)
+			std::vector<sf::Vector2i> possible_moves = getDiagonalMoves(selected_pawn, player, true);
+
+			if (possible_moves.size() > 0)
 				return false;
 		}
 
@@ -238,12 +239,11 @@ bool CheckersBoard::eatPawnsBetweenSlots(sf::Vector2i start_square, sf::Vector2i
 
 bool CheckersBoard::canPawnEat(CheckersPawn& _selected_pawn, CheckersPlayer* player)
 {
-	getDiagonalMoves(_selected_pawn, player, false);
-	for (int i = 0; i < _selected_pawn.possible_moves.size(); i++)
+	std::vector<sf::Vector2i> possible_moves = getDiagonalMoves(_selected_pawn, player, false);
+	for (int i = 0; i < possible_moves.size(); i++)
 	{
-		sf::Vector2i move = _selected_pawn.possible_moves[i];
-		sf::Vector2i move_normal = { (move.x - _selected_pawn.board_slot.x) / 2 , (move.y - _selected_pawn.board_slot.y) / 2 };
-		if (std::abs(move.x - _selected_pawn.board_slot.x) > 1)//if (slots[move.y][move.x].hasPawn)// && !slots[move.x - move_normal.x][move.x - move_normal.y].hasPawn)
+		sf::Vector2i move = possible_moves[i];
+		if (std::abs(move.x - _selected_pawn.board_slot.x) > 1) // moveHopsOverPawn(move)
 			return true;
 	}
 	return false;
