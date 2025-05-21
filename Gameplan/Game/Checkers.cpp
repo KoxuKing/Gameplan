@@ -116,7 +116,9 @@ bool CheckersBoard::MoveSelectedPawnToSquare(CheckersPawn& selected_pawn, Checke
 		if (succesfulEat)
 		{
 			selected_pawn = slots[new_square.y][new_square.x].pawn;
-			getDiagonalMoves(selected_pawn, player);
+			getDiagonalMoves(selected_pawn, player, true);
+			if (selected_pawn.possible_moves.size() > 0)
+				return false;
 		}
 
 
