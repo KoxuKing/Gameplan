@@ -40,6 +40,15 @@ private:
 
 	void drawUi();
 	void checkButtons();
+	
+	// UI creation methods
+	void createMainMenu();
+	void createOptionsMenu(); 
+	void createGameSelectionMenu();
+	void createEndGameWindow();
+	void createInGameUI();
+	void createInGameMenu();
+	void createLobbyWindow();
 };
 
 struct Window

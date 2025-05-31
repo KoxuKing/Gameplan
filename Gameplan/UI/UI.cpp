@@ -4,119 +4,192 @@
 #include "UiSlider.h"
 #include "UiTextInput.h"
 #include <memory>
+#include <iostream>
 
 UI::UI(Application *_application)
 {
-    std::string buttonTexturePath1 = "Textures/testTexture.png";
-    std::string buttonTexturePath2 = "Textures/menuButton.png";
     application = _application;
-
-    // Create main menu
-    mainmenu = std::make_unique<Window>("Textures/UiTesti2.PNG", 1, 1, application->window_width, application->window_height);
+    
+    // Create all UI windows
+    createMainMenu();
+    createOptionsMenu();
+    createGameSelectionMenu();
+    createEndGameWindow();
+    createInGameUI();
+    createInGameMenu();
+    createLobbyWindow();
+    
+    // Set initial active window
     activeWindow = mainmenu.get();
+    
+    // Load initial background for main menu
+    if (!mainmenu->texturePath.empty() && !backgroundImage.loadFromFile(mainmenu->texturePath)) {
+        std::cerr << "Warning: Failed to load main menu background: " << mainmenu->texturePath << std::endl;
+    }
+}
 
-    // inputs: x-pos, y-pos, width, height
+void UI::createMainMenu()
+{
+    std::string buttonTexturePath = "Textures/testTexture.png";
+    
+    // Create main menu window
+    mainmenu = std::make_unique<Window>("Textures/UiTesti2.PNG", 1, 1, application->window_width, application->window_height);
+    
+    // Options button
     Button *button = new Button((application->window_width/2) - 50, 200, 100, 50);
     button->setText("Options");
     button->changeState = UI::STATE_OPTIONS;
-    button->setTexture(buttonTexturePath1);
+    button->setTexture(buttonTexturePath);
     mainmenu->buttonList.push_back(button);
-
+    
+    // Game Selection button
     button = new Button((application->window_width / 2) - 75, 50, 150, 50);
-    mainmenu->buttonList.push_back(button);
     button->changeState = UI::STATE_GAME_SELECTION;
     button->setText("Select game");
-    button->setTexture(buttonTexturePath1);
-
-    button = new Button((application->window_width / 2) - 50, 350, 100, 50);
+    button->setTexture(buttonTexturePath);
     mainmenu->buttonList.push_back(button);
+    
+    // Quit button
+    button = new Button((application->window_width / 2) - 50, 350, 100, 50);
     button->changeState = UI::STATE_QUIT;
     button->setText("Quit");
-    button->setTexture(buttonTexturePath1);
-
+    button->setTexture(buttonTexturePath);
+    mainmenu->buttonList.push_back(button);
+    
+    // Server IP text input
     UiTextInput *textInput = new UiTextInput((application->window_width / 2) - 50, 550, 21);
     textInput->setPlaceholder("Server ip:");
     mainmenu->buttonList.push_back(textInput);
+}
 
-    //create options
+void UI::createOptionsMenu()
+{
+    std::string buttonTexturePath = "Textures/testTexture.png";
+    
+    // Create options window
     options = std::make_unique<Window>("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_height);
-    button = new Button((application->window_width / 2) - 100, 50, 200, 50);
+    
+    // Return button
+    Button *button = new Button((application->window_width / 2) - 100, 50, 200, 50);
     button->setReturnButton(true);
-    options->buttonList.push_back(button);
     button->setText("Return");
-    button->setTexture(buttonTexturePath1);
-
+    button->setTexture(buttonTexturePath);
+    options->buttonList.push_back(button);
+    
+    // Volume slider
     Slider* slider = new Slider((application->window_width / 2)-100, 250, 200);
-    slider->setParameter(&_application->volume, 100);
+    slider->setParameter(&application->volume, 100);
     slider->setText("Sound: ");
-    button->setTexture(buttonTexturePath1);
     options->buttonList.push_back(slider);
+}
 
-    //// create game selection window
+void UI::createGameSelectionMenu()
+{
+    std::string buttonTexturePath = "Textures/testTexture.png";
+    
+    // Create game selection window
     gameSelection = std::make_unique<Window>("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_height);
-
-    button = new Button((application->window_width / 2) - 100, 50, 200, 50);
+    
+    // Connect Four button
+    Button *button = new Button((application->window_width / 2) - 100, 50, 200, 50);
     button->changeState = UiState::STATE_GAME;
     button->buttonAttribute = "ConnectFour";
-    button->setTexture(buttonTexturePath1);
-    gameSelection->buttonList.push_back(button);
+    button->setTexture(buttonTexturePath);
     button->setText("Connect Four");
-
+    gameSelection->buttonList.push_back(button);
+    
+    // Checkers button
     button = new Button((application->window_width / 2) - 100, 150, 200, 50);
     button->changeState = UiState::STATE_GAME;
     button->buttonAttribute = "Checkers";
-    button->setTexture(buttonTexturePath1);
-    gameSelection->buttonList.push_back(button);
+    button->setTexture(buttonTexturePath);
     button->setText("Checkers");
-
+    gameSelection->buttonList.push_back(button);
+    
+    // Main Menu button
     button = new Button((application->window_width / 2) - 100, 350, 200, 50);
     button->changeState = UiState::STATE_MAIN_MENU;
-    button->setTexture(buttonTexturePath1);
-    gameSelection->buttonList.push_back(button);
+    button->setTexture(buttonTexturePath);
     button->setText("Main menu");
+    gameSelection->buttonList.push_back(button);
+}
 
-    //// create endgame window
+void UI::createEndGameWindow()
+{
+    std::string buttonTexturePath = "Textures/testTexture.png";
+    
+    // Create end game window
     endGameWindow = std::make_unique<Window>("", 100, 150, application->window_width - 200, application->window_height - 500);
-    button = new Button((application->window_width/4)-50, 175, 200, 50);
+    
+    // Play Again button
+    Button *button = new Button((application->window_width/4)-50, 175, 200, 50);
     button->changeState = UiState::STATE_GAME;
     button->setText("Play again");
-    button->setTexture(buttonTexturePath1);
+    button->setTexture(buttonTexturePath);
     endGameWindow->buttonList.push_back(button);
+    
+    // Main Menu button
     button = new Button((application->window_width / 4)*2 + 50, 175, 200, 50);
     button->changeState = UiState::STATE_MAIN_MENU;
     button->setText("Main menu");
-    button->setTexture(buttonTexturePath1);
+    button->setTexture(buttonTexturePath);
     endGameWindow->buttonList.push_back(button);
+}
 
-    // ingame
+void UI::createInGameUI()
+{
+    std::string buttonTexturePath = "Textures/menuButton.png";
+    
+    // Create in-game UI window
     inGame = std::make_unique<Window>("", 0, 0, application->window_width, application->window_height);
-    Button* button1 = new Button(5, 5, 50, 50);
-    button1->setTexture(buttonTexturePath2);
-    button1->changeState = UiState::STATE_GAME_MENU;
-    inGame->buttonList.push_back(button1);
+    
+    // Menu button
+    Button* button = new Button(5, 5, 50, 50);
+    button->setTexture(buttonTexturePath);
+    button->changeState = UiState::STATE_GAME_MENU;
+    inGame->buttonList.push_back(button);
+}
 
-    // ingame menu
+void UI::createInGameMenu()
+{
+    std::string buttonTexturePath = "Textures/testTexture.png";
+    
+    // Create in-game menu window
     inGameMenu = std::make_unique<Window>("", application->window_width / 2 - 150, application->window_height / 2 - 150, 300, 300);
-    button1 = new Button((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 50, 200, 50);
-    button1->setTexture(buttonTexturePath1);
-    button1->setText("Options");
-    button1->changeState = UiState::STATE_OPTIONS;
-    inGameMenu->buttonList.push_back(button1);
-    button1 = new Button((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 125, 200, 50);
-    button1->setTexture(buttonTexturePath1);
-    button1->setText("Quit");
-    button1->changeState = UiState::STATE_MAIN_MENU;
-    inGameMenu->buttonList.push_back(button1);
-    button1 = new Button((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 200, 200, 50);
-    button1->setTexture(buttonTexturePath1);
-    button1->setText("Back");
-    button1->changeState = UiState::STATE_GAME;
-    inGameMenu->buttonList.push_back(button1);
+    
+    // Options button
+    Button* button = new Button((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 50, 200, 50);
+    button->setTexture(buttonTexturePath);
+    button->setText("Options");
+    button->changeState = UiState::STATE_OPTIONS;
+    inGameMenu->buttonList.push_back(button);
+    
+    // Quit button
+    button = new Button((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 125, 200, 50);
+    button->setTexture(buttonTexturePath);
+    button->setText("Quit");
+    button->changeState = UiState::STATE_MAIN_MENU;
+    inGameMenu->buttonList.push_back(button);
+    
+    // Back button
+    button = new Button((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 200, 200, 50);
+    button->setTexture(buttonTexturePath);
+    button->setText("Back");
+    button->changeState = UiState::STATE_GAME;
+    inGameMenu->buttonList.push_back(button);
+}
 
-    // create game lobby
+void UI::createLobbyWindow()
+{
+    std::string buttonTexturePath = "Textures/testTexture.png";
+    
+    // Create game lobby window
     lobby = std::make_unique<Window>("Textures/testTexture.png", 100, 150, application->window_width - 200, application->window_height - 200);
-    button = new Button((application->window_width / 4) - 50, 175, 200, 50);
-    button->setTexture(buttonTexturePath1);
+    
+    // Add button
+    Button *button = new Button((application->window_width / 4) - 50, 175, 200, 50);
+    button->setTexture(buttonTexturePath);
+    lobby->buttonList.push_back(button);
 }
 
 int UI::update()
