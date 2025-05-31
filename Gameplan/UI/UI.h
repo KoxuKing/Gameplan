@@ -1,8 +1,16 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include <map>
 #include <SFML/Graphics.hpp>
 
+class Button;  // Forward declaration
+class UiInput;  // Forward declaration for clarity
+
+/**
+ * UI Manager Class for Game Platform
+ * Handles creation and management of all UI windows and elements
+ */
 class UI
 {
 public:
@@ -28,6 +36,10 @@ public:
 private:
 	class Application* application;
 
+	// Layout constants
+	const int STANDARD_BUTTON_WIDTH = 200;
+	const int STANDARD_BUTTON_HEIGHT = 50;
+	
 	class Window* activeWindow = nullptr;
 	std::unique_ptr<class Window> mainmenu;
 	std::unique_ptr<class Window> options;
@@ -37,9 +49,16 @@ private:
 	std::unique_ptr<class Window> inGameMenu;
 
 	sf::Texture backgroundImage;
+	std::map<std::string, sf::Texture> textureCache;
 
+	// Helper methods
 	void drawUi();
 	void checkButtons();
+	int centerX(int width) const;
+	int centerY(int height) const;
+	
+	// Texture management
+	sf::Texture& getTexture(const std::string& path);
 	
 	// UI creation methods
 	void createMainMenu();
@@ -49,6 +68,10 @@ private:
 	void createInGameUI();
 	void createInGameMenu();
 	void createLobbyWindow();
+
+	void loadBackgroundForState(Window* window);
+
+	Button* createStandardButton(int x, int y, int width, int height, const std::string& text, UiState state, const std::string& texturePath);
 };
 
 struct Window
