@@ -3,19 +3,20 @@
 #include "Button.h"
 #include "UiSlider.h"
 #include "UiTextInput.h"
+#include <memory>
 
 UI::UI(Application *_application)
 {
     std::string buttonTexturePath1 = "Textures/testTexture.png";
     std::string buttonTexturePath2 = "Textures/menuButton.png";
     application = _application;
-    activeWindow = mainmenu;
+
     // Create main menu
-    mainmenu = new Window("Textures/UiTesti2.PNG", 1, 1, application->window_width, application->window_height);
-    //mainmenu = new Window("Textures/menuTexture2.PNG", 1, 1, application->window_width, application->window_height);
+    mainmenu = std::make_unique<Window>("Textures/UiTesti2.PNG", 1, 1, application->window_width, application->window_height);
+    activeWindow = mainmenu.get();
 
     // inputs: x-pos, y-pos, width, height
-	Button *button = new Button((application->window_width/2) - 50, 200, 100, 50);
+    Button *button = new Button((application->window_width/2) - 50, 200, 100, 50);
     button->setText("Options");
     button->changeState = UI::STATE_OPTIONS;
     button->setTexture(buttonTexturePath1);
@@ -38,8 +39,7 @@ UI::UI(Application *_application)
     mainmenu->buttonList.push_back(textInput);
 
     //create options
-    options = new Window("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_height);
-    // inputs: x-pos, y-pos, width, height
+    options = std::make_unique<Window>("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_height);
     button = new Button((application->window_width / 2) - 100, 50, 200, 50);
     button->setReturnButton(true);
     options->buttonList.push_back(button);
@@ -53,7 +53,7 @@ UI::UI(Application *_application)
     options->buttonList.push_back(slider);
 
     //// create game selection window
-    gameSelection = new Window("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_height);
+    gameSelection = std::make_unique<Window>("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_height);
 
     button = new Button((application->window_width / 2) - 100, 50, 200, 50);
     button->changeState = UiState::STATE_GAME;
@@ -75,10 +75,8 @@ UI::UI(Application *_application)
     gameSelection->buttonList.push_back(button);
     button->setText("Main menu");
 
-
-
     //// create endgame window
-    endGameWindow = new Window("", 100, 150, application->window_width - 200, application->window_height - 500);
+    endGameWindow = std::make_unique<Window>("", 100, 150, application->window_width - 200, application->window_height - 500);
     button = new Button((application->window_width/4)-50, 175, 200, 50);
     button->changeState = UiState::STATE_GAME;
     button->setText("Play again");
@@ -91,14 +89,14 @@ UI::UI(Application *_application)
     endGameWindow->buttonList.push_back(button);
 
     // ingame
-    inGame = new Window("", 0, 0, application->window_width, application->window_height);
+    inGame = std::make_unique<Window>("", 0, 0, application->window_width, application->window_height);
     Button* button1 = new Button(5, 5, 50, 50);
     button1->setTexture(buttonTexturePath2);
     button1->changeState = UiState::STATE_GAME_MENU;
     inGame->buttonList.push_back(button1);
 
     // ingame menu
-    inGameMenu = new Window("", application->window_width / 2 - 150, application->window_height / 2 - 150, 300, 300);
+    inGameMenu = std::make_unique<Window>("", application->window_width / 2 - 150, application->window_height / 2 - 150, 300, 300);
     button1 = new Button((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 50, 200, 50);
     button1->setTexture(buttonTexturePath1);
     button1->setText("Options");
@@ -115,18 +113,10 @@ UI::UI(Application *_application)
     button1->changeState = UiState::STATE_GAME;
     inGameMenu->buttonList.push_back(button1);
 
-
     // create game lobby
-    lobby = new Window("Textures/testTexture.png", 100, 150, application->window_width - 200, application->window_height - 200);
+    lobby = std::make_unique<Window>("Textures/testTexture.png", 100, 150, application->window_width - 200, application->window_height - 200);
     button = new Button((application->window_width / 4) - 50, 175, 200, 50);
     button->setTexture(buttonTexturePath1);
-    //button->addCallBack(&Game::connectToServer);
-    //endGameWindow->buttonList.push_back(button);
-    //button->setText("Play again");
-    //button = new Button((application->window_width / 4) * 2 + 50, 175, 200, 50);
-    //button->changeState = UiState::STATE_MAIN_MENU;
-    //endGameWindow->buttonList.push_back(button);
-    //button->setText("Main menu");
 }
 
 int UI::update()
@@ -135,17 +125,26 @@ int UI::update()
     {
     case UiState::STATE_MAIN_MENU:
     {
-        activeWindow = mainmenu;
+        if (backgroundImage.getSize().x == 0 && backgroundImage.getSize().y == 0 || activeWindow != mainmenu.get())
+            if (!backgroundImage.loadFromFile(mainmenu->texturePath))
+                std::cerr << "Warning: Failed to load main menu background: " << mainmenu->texturePath << std::endl;
+        activeWindow = mainmenu.get();
         break;
     }
     case UiState::STATE_OPTIONS:
     {
-        activeWindow = options;
+        if (activeWindow != options.get())
+            if (!backgroundImage.loadFromFile(options->texturePath))
+                std::cerr << "Warning: Failed to load options background: " << options->texturePath << std::endl;
+        activeWindow = options.get();
         break;
     }
     case UiState::STATE_GAME_SELECTION:
     {
-        activeWindow = gameSelection;
+        if (activeWindow != gameSelection.get())
+            if (!backgroundImage.loadFromFile(gameSelection->texturePath))
+                std::cerr << "Warning: Failed to load game selection background: " << gameSelection->texturePath << std::endl;
+        activeWindow = gameSelection.get();
         break;
     }
     case UiState::STATE_GAME:
@@ -153,25 +152,36 @@ int UI::update()
         if (!application->game.isGameOn)
             application->game.isGameOn = true;
 
-        application->State = Application::ApplicationState::STATE_GAME;
-        activeWindow = inGame;
+        application->State = Application::ApplicationState::GAME;
+
+        if (activeWindow != inGame.get())
+            if (!backgroundImage.loadFromFile(inGame->texturePath))
+                std::cerr << "Warning: Failed to load in-game background: " << inGame->texturePath << std::endl;
+        activeWindow = inGame.get();
         break;
     }
     case UiState::STATE_ENDGAME:
     {
-        activeWindow = endGameWindow;
+        if (activeWindow != endGameWindow.get())
+            if (!backgroundImage.loadFromFile(endGameWindow->texturePath))
+                std::cerr << "Warning: Failed to load endgame background: " << endGameWindow->texturePath << std::endl;
+        activeWindow = endGameWindow.get();
         break;
     }
     case UiState::STATE_GAME_MENU:
     {
         application->game.isGameOn = false;
-        activeWindow = inGameMenu;
+
+        if (activeWindow != inGameMenu.get())
+            if (!backgroundImage.loadFromFile(inGameMenu->texturePath))
+                std::cerr << "Warning: Failed to load in-game menu background: " << inGameMenu->texturePath << std::endl;
+        activeWindow = inGameMenu.get();
         break;
     }
     case UiState::STATE_QUIT:
     {
-        activeWindow = nullptr;
-        application->State = Application::ApplicationState::STATE_SHUTDOWN;
+        activeWindow = nullptr; 
+        application->State = Application::ApplicationState::SHUTDOWN;
         break;
     }
     default:
@@ -184,28 +194,20 @@ int UI::update()
         drawUi();
         checkButtons();
     }
-	return 0;
+    return 0;
 }
 
 void UI::drawUi()
 {
     if (activeWindow != nullptr)
     {
-        if (activeWindow->texturePath != "")
+        if (!activeWindow->texturePath.empty())
         {
-            sf::Texture backgroundImage;
-            if (backgroundImage.loadFromFile(activeWindow->texturePath/*, sf::IntRect(activeWindow->x,
-                activeWindow->y,
-                activeWindow->width,
-                activeWindow->height)*/))
-            {
-                sf::Sprite sprite;
-                sprite.setTexture(backgroundImage);
-                sprite.setScale(activeWindow->width/sprite.getLocalBounds().width, activeWindow->height / sprite.getLocalBounds().height);
-                //std::cout << "Width scale: " << activeWindow->width / sprite.getLocalBounds().width << "Height scale: " << activeWindow->height / sprite.getLocalBounds().height << std::endl;
-                sprite.setPosition(activeWindow->x, activeWindow->y);
-                application->window.draw(sprite);
-            }
+            sf::Sprite sprite;
+            sprite.setTexture(backgroundImage);
+            sprite.setScale(activeWindow->width/sprite.getLocalBounds().width, activeWindow->height / sprite.getLocalBounds().height);
+            sprite.setPosition(activeWindow->x, activeWindow->y);
+            application->window.draw(sprite);
         }
 
         for (UiInput* input : activeWindow->buttonList)
@@ -245,28 +247,25 @@ void UI::checkButtons()
 
 int UI::shutdown()
 {
-    if (mainmenu->buttonList.size() > 0)
-    {
-        for (UiInput* input : mainmenu->buttonList)
-            delete input;
-        delete mainmenu;
-    }
-
-    if (options->buttonList.size() > 0)
-    {
-        for (UiInput* input : options->buttonList)
-            delete input;
-        delete options;
-    }
-
-    if (gameSelection->buttonList.size() > 0)
-    {
-        for (UiInput* input : gameSelection->buttonList)
-            delete input;
-        delete gameSelection;
-    }
+    // Helper function to clean up button lists
+    auto cleanupButtonList = [](std::unique_ptr<Window>& window) {
+        if (window && !window->buttonList.empty()) {
+            for (UiInput* input : window->buttonList)
+                delete input;
+            window->buttonList.clear();
+        }
+    };
     
-	return 0;
+    // Clean up all window button lists
+    cleanupButtonList(mainmenu);
+    cleanupButtonList(options);
+    cleanupButtonList(gameSelection);
+    cleanupButtonList(endGameWindow);
+    cleanupButtonList(inGame);
+    cleanupButtonList(inGameMenu);
+    cleanupButtonList(lobby);
+    
+    return 0;
 }
 
 

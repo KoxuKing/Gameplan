@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include <memory>
 #include <SFML/Graphics.hpp>
 
 class UI
@@ -21,27 +22,21 @@ public:
 	};
 
 	int State = UiState::STATE_MAIN_MENU;
-
 	int previousState = UiState::STATE_MAIN_MENU;
 
-	class Window* endGameWindow;
+	std::unique_ptr<class Window> endGameWindow;
 private:
+	class Application* application;
 
-	class Application *application;
+	class Window* activeWindow = nullptr;
+	std::unique_ptr<class Window> mainmenu;
+	std::unique_ptr<class Window> options;
+	std::unique_ptr<class Window> gameSelection;
+	std::unique_ptr<class Window> lobby;
+	std::unique_ptr<class Window> inGame;
+	std::unique_ptr<class Window> inGameMenu;
 
-	class Window* activeWindow;
-	class Window* mainmenu;
-	class Window* options;
-	class Window* gameSelection;
-	class Window* lobby;
-	class Window* inGame;
-	class Window* inGameMenu;
-	
-	//Window mainmenu;
-	// UiWindow options;
-	// UiWindow game_selection;
-	// UiWindow pause_menu;
-	
+	sf::Texture backgroundImage;
 
 	void drawUi();
 	void checkButtons();

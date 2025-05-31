@@ -30,14 +30,14 @@ public:
 	};
 	Keyboard keyboard;
 
-	enum ApplicationState
+	enum class ApplicationState
 	{
-		STATE_UI = 0,
-		STATE_GAME = 1,
-		STATE_SHUTDOWN = 2
+		UI = 0,
+		GAME = 1,
+		SHUTDOWN = 2
 	};
 
-	int State = ApplicationState::STATE_UI;
+	ApplicationState State = ApplicationState::UI;
 	sf::RenderWindow window;
 
 	int window_width = 800;

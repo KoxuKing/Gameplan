@@ -31,23 +31,20 @@ int Application::run()
 
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event ev;
-        window.pollEvent(ev);
-        event = ev;
-         
-        updateUserInputs(event);
+        while (window.pollEvent(ev)) {
+            event = ev;
+            updateUserInputs(event);
+        }
         
         // clear the window with black color
         window.clear();
         
         switch (State)
         {
-        case ApplicationState::STATE_GAME:
+        case ApplicationState::GAME:
             game.update();
             break;
-        //case ApplicationState::STATE_UI:
-        //    ui.update();
-        //    break;
-        case ApplicationState::STATE_SHUTDOWN:
+        case ApplicationState::SHUTDOWN:
             ui.shutdown();
             game.shutdown();
             shutdown();
