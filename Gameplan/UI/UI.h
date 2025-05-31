@@ -32,7 +32,6 @@ public:
 	int State = UiState::STATE_MAIN_MENU;
 	int previousState = UiState::STATE_MAIN_MENU;
 
-	std::unique_ptr<class Window> endGameWindow;
 private:
 	class Application* application;
 
@@ -47,6 +46,7 @@ private:
 	std::unique_ptr<class Window> lobby;
 	std::unique_ptr<class Window> inGame;
 	std::unique_ptr<class Window> inGameMenu;
+	std::unique_ptr<class Window> endGameWindow;
 
 	sf::Texture backgroundImage;
 	std::map<std::string, sf::Texture> textureCache;

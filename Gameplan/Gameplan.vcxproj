@@ -188,8 +188,10 @@
     <ClCompile Include="UI\Button.cpp" />
     <ClCompile Include="UI\UI.cpp" />
     <ClCompile Include="UI\UiInput.cpp" />
+    <ClCompile Include="UI\UIResources.cpp" />
     <ClCompile Include="UI\UiSlider.cpp" />
     <ClCompile Include="UI\UiTextInput.cpp" />
+    <ClCompile Include="UI\UIWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Gameplan.rc" />
