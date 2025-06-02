@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <functional>  // Add this for std::function
 #include "../application.h"
 #include <SFML/Audio.hpp>
 
@@ -23,6 +24,10 @@ public:
 	void setTexture(std::string texturePath);
 	bool wasSelected = false;
 
+	// Generic callback that can work with any method from any class
+	using InputCallback = std::function<void()>;
+	void setCallback(InputCallback callback);
+
 	std::string id;
 	
 
@@ -38,6 +43,9 @@ protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
 	sf::FloatRect boundingBox;
+
+	// Callback member - mutable to allow use in const methods
+	mutable InputCallback m_callback = nullptr;
 
 	// Ehkä structi tekstille??
 	sf::Text text;
