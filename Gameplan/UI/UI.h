@@ -85,6 +85,15 @@ struct Window
 		texturePath = _texturePath;
 	}
 
+	// Add destructor to clean up buttonList
+	~Window()
+	{
+		for (UiInput* input : buttonList) {
+			delete input;
+		}
+		buttonList.clear();
+	}
+
 	int width;
 	int height;
 	int x;

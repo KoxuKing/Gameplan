@@ -16,31 +16,24 @@ Button::Button(int _x, int _y, float _width, float _height)
 
 void Button::click(Application* _application) const
 {
+	if (m_callback)
+		m_callback();
+	else
+	{
+		if (isReturnButton)
+			changeState = _application->ui.previousState;
+		_application->ui.previousState = _application->ui.State;
 
-	if (isReturnButton)
-		changeState = _application->ui.previousState;
-	_application->ui.previousState = _application->ui.State;
-
-	if(changeState != -1)
-		_application->ui.State = changeState;
-	if(buttonAttribute != "")
-		_application->game.selectGame(buttonAttribute);
-	
-
-
-	//if (callBack != nullptr)
-		//callBack;
+		if (changeState != -1)
+			_application->ui.State = changeState;
+		if (buttonAttribute != "")
+			_application->game.selectGame(buttonAttribute);
+	}
 }
 
 void Button::setReturnButton(bool _boolean)
 {
 	isReturnButton = _boolean;
 }
-
-/*template <typename T>
-void Button::addCallBack(void (T::* _callBack)(sf::IpAddress, int))
-{
-	callBack = _callBack;
-}*/
 
 

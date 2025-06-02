@@ -11,11 +11,6 @@ public:
 	std::string buttonAttribute = "";
 
 	void setReturnButton(bool _boolean);
-	//typedef void (Game::* clientCallback)(sf::IpAddress, int);
-	//clientCallback callBack;
-
-	//template <typename T>
-	//void addCallBack(void (T::* callBack)(sf::IpAddress, int));
 
 private:
 	bool isReturnButton = false;
