@@ -17,7 +17,7 @@ void UI::createMainMenu()
     mainmenu = std::make_unique<Window>("Textures/UiTesti2.PNG", 1, 1, application->window_width, application->window_height);
     
     // Options button
-    Button *button = createStandardButton(centerX(100), 200, 100, 50, "Options", UI::STATE_OPTIONS, buttonTexturePath);
+    Button *button = createStandardButton(centerX(100), 200, 100, 50, "Options", buttonTexturePath);
     
     button->setCallback([this]() {
         application->ui.State = UI::STATE_OPTIONS;
@@ -27,7 +27,7 @@ void UI::createMainMenu()
     mainmenu->buttonList.push_back(button);
     
     // Game Selection button
-    button = createStandardButton(centerX(150), 50, 150, 50, "Select game", UI::STATE_GAME_SELECTION, buttonTexturePath);
+    button = createStandardButton(centerX(150), 50, 150, 50, "Select game", buttonTexturePath);
     
     button->setCallback([this]() {
         application->ui.State = UI::STATE_GAME_SELECTION;
@@ -37,7 +37,7 @@ void UI::createMainMenu()
     mainmenu->buttonList.push_back(button);
     
     // Quit button
-    button = createStandardButton(centerX(100), 350, 100, 50, "Quit", UI::STATE_QUIT, buttonTexturePath);
+    button = createStandardButton(centerX(100), 350, 100, 50, "Quit", buttonTexturePath);
 
     button->setCallback([this]() {
         application->ui.State = UI::STATE_QUIT;
@@ -63,7 +63,7 @@ void UI::createOptionsMenu()
     options = std::make_unique<Window>("Textures/UiTesti2.PNG", 0, 0, application->window_width, application->window_height);
     
     // Return button
-    Button *button = createStandardButton(centerX(STANDARD_BUTTON_WIDTH), 50, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, "Return", UI::STATE_MAIN_MENU, buttonTexturePath);
+    Button *button = createStandardButton(centerX(STANDARD_BUTTON_WIDTH), 50, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, "Return", buttonTexturePath);
 
     button->setCallback([this]() {
         application->ui.State = UI::STATE_MAIN_MENU;
@@ -91,7 +91,7 @@ void UI::createGameSelectionMenu()
     
     // Connect Four button
     Button *button = createStandardButton(centerX(STANDARD_BUTTON_WIDTH), 50, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, 
-                                         "ConnectFour", UiState::STATE_GAME, buttonTexturePath);
+                                         "ConnectFour", buttonTexturePath);
 
     button->setCallback([this]() {
         application->game.selectGame("Connect Four");
@@ -103,10 +103,11 @@ void UI::createGameSelectionMenu()
     
     // Checkers button
     button = createStandardButton(centerX(STANDARD_BUTTON_WIDTH), 150, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, 
-                                 "Checkers", UiState::STATE_GAME, buttonTexturePath);
+                                 "Checkers", buttonTexturePath);
 
     button->setCallback([this]() {
         application->game.selectGame("Checkers");
+        application->ui.State = UiState::STATE_GAME;
         std::cout << "Checkers selected" << std::endl;
         });
 
@@ -114,7 +115,7 @@ void UI::createGameSelectionMenu()
     
     // Main Menu button
     button = createStandardButton(centerX(STANDARD_BUTTON_WIDTH), 350, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, 
-                                 "Main menu", UiState::STATE_MAIN_MENU, buttonTexturePath);
+                                 "Main menu", buttonTexturePath);
 
     button->setCallback([this]() {
         application->ui.State = UI::STATE_MAIN_MENU;
@@ -136,7 +137,7 @@ void UI::createEndGameWindow()
     
     // Play Again button
     Button *button = createStandardButton((application->window_width/4)-50, 175, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, 
-                                         "Play again", UiState::STATE_GAME, buttonTexturePath);
+                                         "Play again", buttonTexturePath);
 
     button->setCallback([this]() {
         application->ui.State = UI::STATE_GAME;
@@ -147,7 +148,7 @@ void UI::createEndGameWindow()
     
     // Main Menu button
     button = createStandardButton((application->window_width/4)*2 + 50, 175, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, 
-                                 "Main menu", UiState::STATE_MAIN_MENU, buttonTexturePath);
+                                 "Main menu", buttonTexturePath);
 
     button->setCallback([this]() {
         application->ui.State = UI::STATE_MAIN_MENU;
@@ -168,7 +169,7 @@ void UI::createInGameUI()
     inGame = std::make_unique<Window>("", 0, 0, application->window_width, application->window_height);
     
     // Menu button
-    Button* button = createStandardButton(5, 5, 50, 50, "", UiState::STATE_GAME_MENU, buttonTexturePath);
+    Button* button = createStandardButton(5, 5, 50, 50, "", buttonTexturePath);
 
     button->setCallback([this]() {
         application->ui.State = UI::STATE_GAME_MENU;
@@ -190,7 +191,7 @@ void UI::createInGameMenu()
     
     // Options button
     Button* button = createStandardButton((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 50, 
-                                         STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, "Options", UiState::STATE_OPTIONS, buttonTexturePath);
+                                         STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, "Options", buttonTexturePath);
     
     button->setCallback([this]() {
         application->ui.State = UI::STATE_OPTIONS;
@@ -201,7 +202,7 @@ void UI::createInGameMenu()
     
     // Quit button
     button = createStandardButton((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 125, 
-                                 STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, "Quit", UiState::STATE_MAIN_MENU, buttonTexturePath);
+                                 STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, "Quit", buttonTexturePath);
     
     button->setCallback([this]() {
         application->ui.State = UI::STATE_MAIN_MENU;
@@ -212,7 +213,7 @@ void UI::createInGameMenu()
     
     // Back button
     button = createStandardButton((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 200, 
-                                 STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, "Back", UiState::STATE_GAME, buttonTexturePath);
+                                 STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, "Back", buttonTexturePath);
     
     button->setCallback([this]() {
         application->ui.State = UI::STATE_GAME;
@@ -234,6 +235,6 @@ void UI::createLobbyWindow()
     
     // Add button
     Button *button = createStandardButton((application->window_width / 4) - 50, 175, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, 
-                                         "Join Game", UiState::STATE_MAIN_MENU, buttonTexturePath);
+                                         "Join Game", buttonTexturePath);
     lobby->buttonList.push_back(button);
 }

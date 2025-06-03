@@ -71,7 +71,7 @@ private:
 
 	void loadBackgroundForState(Window* window);
 
-	Button* createStandardButton(int x, int y, int width, int height, const std::string& text, UiState state, const std::string& texturePath);
+	Button* createStandardButton(int x, int y, int width, int height, const std::string& text, const std::string& texturePath);
 };
 
 struct Window

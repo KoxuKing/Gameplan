@@ -7,7 +7,7 @@ public:
 
 	virtual void click(Application* _application) const;
 	
-	mutable int changeState = -1;
+	//mutable int changeState = -1;
 
 	void setReturnButton(bool _boolean);
 
