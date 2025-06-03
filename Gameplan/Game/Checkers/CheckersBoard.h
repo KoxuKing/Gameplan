@@ -36,7 +36,7 @@ public:
 
 	bool canPawnEat(CheckersPawn* _selected_pawn, CheckersPlayer* player);
 
-	bool MoveSelectedPawnToSquare(CheckersPawn* selected_pawn, CheckersPlayer* player, sf::Vector2i new_square);
+	bool MoveSelectedPawnToSquare(std::shared_ptr<CheckersPawn> selected_pawn, CheckersPlayer* player, sf::Vector2i new_square);
 
 	void DrawBoard(Application* _application);
 

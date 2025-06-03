@@ -103,7 +103,7 @@ int CheckersBoard::getRow(int _mousePosY) const
 	return -1;
 }
 
-bool CheckersBoard::MoveSelectedPawnToSquare(CheckersPawn* selected_pawn, CheckersPlayer* player, sf::Vector2i new_square)
+bool CheckersBoard::MoveSelectedPawnToSquare(std::shared_ptr<CheckersPawn> selected_pawn, CheckersPlayer* player, sf::Vector2i new_square)
 {
 	if (selected_pawn->HasThisMove(new_square))
 	{
@@ -118,8 +118,8 @@ bool CheckersBoard::MoveSelectedPawnToSquare(CheckersPawn* selected_pawn, Checke
 
 		if (succesfulEat)
 		{
-			selected_pawn = slots[new_square.y][new_square.x].pawn.get(); // Check this
-			std::vector<sf::Vector2i> possible_moves = getDiagonalMoves(selected_pawn, player, true);
+			selected_pawn = slots[new_square.y][new_square.x].pawn; // Check this
+			std::vector<sf::Vector2i> possible_moves = getDiagonalMoves(selected_pawn.get(), player, true);
 
 			if (possible_moves.size() > 0)
 				return false;
