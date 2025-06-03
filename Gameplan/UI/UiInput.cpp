@@ -1,4 +1,5 @@
 #include "UiInput.h"
+#include "../application.h"
 
 UiInput::UiInput()
 {

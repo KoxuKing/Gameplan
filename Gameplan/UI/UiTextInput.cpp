@@ -1,3 +1,4 @@
+#include "../application.h"
 #include "UiTextInput.h"
 
 UiTextInput::UiTextInput(float _x, float _y, unsigned int _maxChar)

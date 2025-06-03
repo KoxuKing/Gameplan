@@ -1,8 +1,4 @@
-#include "UI.h"
 #include "../application.h"
-#include "Button.h"
-#include "UiSlider.h"
-#include "UiTextInput.h"
 #include <memory>
 #include <iostream>
 
@@ -121,7 +117,7 @@ void UI::drawUi()
         }
     }
     
-    for (UiInput* input : activeWindow->buttonList) {
+    for (auto &input : activeWindow->buttonList) {
         if (input) {
             input->draw(application);
         }
@@ -134,7 +130,7 @@ void UI::checkButtons()
         return;
     }
     
-    for (UiInput* button : activeWindow->buttonList) {
+    for (auto &button : activeWindow->buttonList) {
         if (!button) {
             continue;
         }

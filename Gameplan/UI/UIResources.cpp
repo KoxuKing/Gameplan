@@ -1,5 +1,4 @@
-#include "UI.h"
-#include "Button.h"
+#include "../application.h"
 #include <iostream>
 
 /**
@@ -36,17 +35,17 @@ sf::Texture& UI::getTexture(const std::string& path)
  * @param texturePath Path to button texture
  * @return Pointer to the newly created button
  */
-Button* UI::createStandardButton(int x, int y, int width, int height, const std::string& text,
+std::unique_ptr<Button> UI::createStandardButton(int x, int y, int width, int height, const std::string& text,
                                  const std::string& texturePath)
 {
-    Button* button = new Button(x, y, width, height);
+    std::unique_ptr<Button> button = std::make_unique<Button>(x, y, width, height);
     if (!text.empty()) {
         button->setText(text);
     }
     if (!texturePath.empty()) {
         button->setTexture(texturePath);
     }
-    return button;
+    return std::move(button);
 }
 
 /**

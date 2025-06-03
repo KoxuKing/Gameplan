@@ -1,11 +1,12 @@
 #pragma once
+#include "Button.h"
 #include <vector>
 #include <memory>
 #include <map>
 #include <SFML/Graphics.hpp>
 
-class Button;  // Forward declaration
-class UiInput;  // Forward declaration for clarity
+//class Button;  // Forward declaration
+class Application;  // Forward declaration for clarity
 
 /**
  * UI Manager Class for Game Platform
@@ -71,7 +72,7 @@ private:
 
 	void loadBackgroundForState(Window* window);
 
-	Button* createStandardButton(int x, int y, int width, int height, const std::string& text, const std::string& texturePath);
+	std::unique_ptr<Button> createStandardButton(int x, int y, int width, int height, const std::string& text, const std::string& texturePath);
 };
 
 struct Window
@@ -85,14 +86,7 @@ struct Window
 		texturePath = _texturePath;
 	}
 
-	// Add destructor to clean up buttonList
-	~Window()
-	{
-		for (UiInput* input : buttonList) {
-			delete input;
-		}
-		buttonList.clear();
-	}
+	virtual ~Window() = default;
 
 	int width;
 	int height;
@@ -100,5 +94,5 @@ struct Window
 	int y;
 	std::string texturePath{};
 
-	std::vector<class UiInput*> buttonList;
+	std::vector<std::unique_ptr<UiInput>> buttonList;
 };

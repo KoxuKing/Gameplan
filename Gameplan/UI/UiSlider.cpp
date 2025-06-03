@@ -1,3 +1,4 @@
+#include "../application.h"
 #include "UiSlider.h"
 
 Slider::Slider(float _x, float _y, int _width)

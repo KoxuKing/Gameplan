@@ -1,13 +1,15 @@
 #pragma once
 #include <iostream>
 #include <functional>  // Add this for std::function
-#include "../application.h"
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
+class Application;  // Forward declaration of Application class
 class UiInput
 {
 public:
 	UiInput();
+	virtual ~UiInput() = default;
 
 	virtual bool isSelected(class Application* _application);
 	virtual bool isClicked(Application* _application);
