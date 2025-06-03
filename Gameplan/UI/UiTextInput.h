@@ -6,7 +6,7 @@ class UiTextInput : public UiInput
 {
 public:
 	UiTextInput(float _x, float _y, unsigned int _maxChar);
-	virtual void draw(class Application* _application);
+	void draw(class Application* _application) override;
 	void setPlaceholder(std::string _placeholder);
 	std::string inputText = "";
 

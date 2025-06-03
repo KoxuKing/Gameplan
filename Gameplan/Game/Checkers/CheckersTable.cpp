@@ -2,7 +2,7 @@
 #include "CheckersTable.h"
 #include "CheckersPlayer.h"
 
-void CheckersTable::update(class Player* _player, class Application* _application)
+void CheckersTable::update(Player* _player, class Application* _application)
 {
 	if (_application->game.isGameOn)
 	{

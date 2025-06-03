@@ -10,7 +10,7 @@ class CheckersTable : public GameTable
 public:
 	CheckersTable(){}
 
-	void update(class Player* _player, class Application* _application) override;
+	void update(Player* _player, class Application* _application) override;
 	void unfocusTable() override;
 	void focusTable() override;
 

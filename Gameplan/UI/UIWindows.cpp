@@ -74,7 +74,7 @@ void UI::createOptionsMenu()
     
     // Volume slider
     std::unique_ptr<Slider> slider = std::make_unique<Slider>(centerX(200), 250, 200);
-    slider->setParameter(&application->volume, 100);
+    slider->setParameter(application->volume, 100);
     slider->setText("Sound: ");
     options->buttonList.push_back(std::move(slider));
 }

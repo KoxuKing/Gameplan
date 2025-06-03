@@ -78,7 +78,7 @@ void Game::update()
 
 }
 
-void Game::changePlayerTurn(Player* active_player)
+void Game::changePlayerTurn(const Player* active_player)
 {
 	bool turn_changed = false;
 	bool turn_found = false;
@@ -102,7 +102,7 @@ void Game::changePlayerTurn(Player* active_player)
 	}
 }
 
-void Game::connectToServer(sf::IpAddress _address, int _port)
+void Game::connectToServer(sf::IpAddress& _address, int& _port)
 {
 	//client.connectToServer(_address, _port);
 }

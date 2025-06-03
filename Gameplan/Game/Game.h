@@ -14,9 +14,8 @@ public:
 	void update();
 	void shutdown();
 	void selectGame(const std::string& _gameName);
-	void changeGame(std::unique_ptr<GameTable> newTable);
-	void connectToServer(sf::IpAddress _address, int _port);
-	void changePlayerTurn(Player* player);
+	void connectToServer(sf::IpAddress& _address, int& _port);
+	void changePlayerTurn(const Player* player);
 
 	enum GameState
 	{
