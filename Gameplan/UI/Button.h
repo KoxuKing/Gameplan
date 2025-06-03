@@ -8,7 +8,6 @@ public:
 	virtual void click(Application* _application) const;
 	
 	mutable int changeState = -1;
-	std::string buttonAttribute = "";
 
 	void setReturnButton(bool _boolean);
 

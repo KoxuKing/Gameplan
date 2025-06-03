@@ -91,6 +91,7 @@ void UiInput::draw(Application* _application)
 void UiInput::setCallback(InputCallback callback)
 {
     m_callback = std::move(callback);
+    std::cout << "Callback added" << std::endl;
 }
 
 void UiInput::setText(std::string _text)        // Default _x and _y is center of the button

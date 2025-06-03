@@ -18,14 +18,32 @@ void UI::createMainMenu()
     
     // Options button
     Button *button = createStandardButton(centerX(100), 200, 100, 50, "Options", UI::STATE_OPTIONS, buttonTexturePath);
+    
+    button->setCallback([this]() {
+        application->ui.State = UI::STATE_OPTIONS;
+        std::cout << "Select options menu" << std::endl;
+        });
+    
     mainmenu->buttonList.push_back(button);
     
     // Game Selection button
     button = createStandardButton(centerX(150), 50, 150, 50, "Select game", UI::STATE_GAME_SELECTION, buttonTexturePath);
+    
+    button->setCallback([this]() {
+        application->ui.State = UI::STATE_GAME_SELECTION;
+        std::cout << "Select game selection menu" << std::endl;
+        });
+
     mainmenu->buttonList.push_back(button);
     
     // Quit button
     button = createStandardButton(centerX(100), 350, 100, 50, "Quit", UI::STATE_QUIT, buttonTexturePath);
+
+    button->setCallback([this]() {
+        application->ui.State = UI::STATE_QUIT;
+        std::cout << "Quit" << std::endl;
+        });
+
     mainmenu->buttonList.push_back(button);
     
     // Server IP text input
@@ -46,7 +64,12 @@ void UI::createOptionsMenu()
     
     // Return button
     Button *button = createStandardButton(centerX(STANDARD_BUTTON_WIDTH), 50, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, "Return", UI::STATE_MAIN_MENU, buttonTexturePath);
-    button->setReturnButton(true);
+
+    button->setCallback([this]() {
+        application->ui.State = UI::STATE_MAIN_MENU;
+        std::cout << "Back to main menu" << std::endl;
+        });
+
     options->buttonList.push_back(button);
     
     // Volume slider
@@ -68,19 +91,36 @@ void UI::createGameSelectionMenu()
     
     // Connect Four button
     Button *button = createStandardButton(centerX(STANDARD_BUTTON_WIDTH), 50, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, 
-                                         "Connect Four", UiState::STATE_GAME, buttonTexturePath);
-    button->buttonAttribute = "ConnectFour";
+                                         "ConnectFour", UiState::STATE_GAME, buttonTexturePath);
+
+    button->setCallback([this]() {
+        application->game.selectGame("Connect Four");
+		application->ui.State = UiState::STATE_GAME;
+        std::cout << "Connect Four selected" << std::endl;
+        });
+
     gameSelection->buttonList.push_back(button);
     
     // Checkers button
     button = createStandardButton(centerX(STANDARD_BUTTON_WIDTH), 150, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, 
                                  "Checkers", UiState::STATE_GAME, buttonTexturePath);
-    button->buttonAttribute = "Checkers";
+
+    button->setCallback([this]() {
+        application->game.selectGame("Checkers");
+        std::cout << "Checkers selected" << std::endl;
+        });
+
     gameSelection->buttonList.push_back(button);
     
     // Main Menu button
     button = createStandardButton(centerX(STANDARD_BUTTON_WIDTH), 350, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, 
                                  "Main menu", UiState::STATE_MAIN_MENU, buttonTexturePath);
+
+    button->setCallback([this]() {
+        application->ui.State = UI::STATE_MAIN_MENU;
+        std::cout << "Back to main menu" << std::endl;
+        });
+
     gameSelection->buttonList.push_back(button);
 }
 
@@ -97,11 +137,23 @@ void UI::createEndGameWindow()
     // Play Again button
     Button *button = createStandardButton((application->window_width/4)-50, 175, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, 
                                          "Play again", UiState::STATE_GAME, buttonTexturePath);
+
+    button->setCallback([this]() {
+        application->ui.State = UI::STATE_GAME;
+        std::cout << "Back to game" << std::endl;
+        });
+
     endGameWindow->buttonList.push_back(button);
     
     // Main Menu button
     button = createStandardButton((application->window_width/4)*2 + 50, 175, STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, 
                                  "Main menu", UiState::STATE_MAIN_MENU, buttonTexturePath);
+
+    button->setCallback([this]() {
+        application->ui.State = UI::STATE_MAIN_MENU;
+        std::cout << "Back to main menu" << std::endl;
+        });
+
     endGameWindow->buttonList.push_back(button);
 }
 
@@ -117,6 +169,12 @@ void UI::createInGameUI()
     
     // Menu button
     Button* button = createStandardButton(5, 5, 50, 50, "", UiState::STATE_GAME_MENU, buttonTexturePath);
+
+    button->setCallback([this]() {
+        application->ui.State = UI::STATE_GAME_MENU;
+        std::cout << "Select game menu" << std::endl;
+        });
+
     inGame->buttonList.push_back(button);
 }
 
@@ -133,16 +191,34 @@ void UI::createInGameMenu()
     // Options button
     Button* button = createStandardButton((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 50, 
                                          STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, "Options", UiState::STATE_OPTIONS, buttonTexturePath);
+    
+    button->setCallback([this]() {
+        application->ui.State = UI::STATE_OPTIONS;
+        std::cout << "Select options" << std::endl;
+        });
+    
     inGameMenu->buttonList.push_back(button);
     
     // Quit button
     button = createStandardButton((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 125, 
                                  STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, "Quit", UiState::STATE_MAIN_MENU, buttonTexturePath);
+    
+    button->setCallback([this]() {
+        application->ui.State = UI::STATE_MAIN_MENU;
+        std::cout << "Select main menu" << std::endl;
+        });
+    
     inGameMenu->buttonList.push_back(button);
     
     // Back button
     button = createStandardButton((inGameMenu->width / 2 + inGameMenu->x) - 100, inGameMenu->y + 200, 
                                  STANDARD_BUTTON_WIDTH, STANDARD_BUTTON_HEIGHT, "Back", UiState::STATE_GAME, buttonTexturePath);
+    
+    button->setCallback([this]() {
+        application->ui.State = UI::STATE_GAME;
+        std::cout << "Back to game" << std::endl;
+        });
+    
     inGameMenu->buttonList.push_back(button);
 }
 

@@ -44,6 +44,7 @@ void UI::loadBackgroundForState(Window* window)
     }
 }
 
+
 int UI::update()
 {
     Window* nextActiveWindow = nullptr;

@@ -4,6 +4,7 @@
 #include "ConnectFourPlayer.h"
 #include "Checkers/CheckersTable.h"
 #include "Checkers/CheckersPlayer.h"
+#include "../UI/UI.h"
 
 Game::Game(Application* _application)
 {
@@ -17,6 +18,7 @@ Game::Game(Application* _application)
 void Game::selectGame(const std::string& _gameName)
 {
 	gameName = _gameName;
+	application->ui.State = UI::STATE_GAME;
 }
 
 void Game::update()

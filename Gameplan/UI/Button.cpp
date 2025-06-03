@@ -26,8 +26,6 @@ void Button::click(Application* _application) const
 
 		if (changeState != -1)
 			_application->ui.State = changeState;
-		if (buttonAttribute != "")
-			_application->game.selectGame(buttonAttribute);
 	}
 }
 
