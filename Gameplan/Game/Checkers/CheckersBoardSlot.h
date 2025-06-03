@@ -5,13 +5,17 @@
 struct BoardSlot {
 public:
 
-	BoardSlot(sf::Color color, bool hasPawn, CheckersPawn pawn = CheckersPawn(sf::Color::Black, { -1,-1 }))
-		: color(color), hasPawn(hasPawn), pawn(pawn) {}
+	BoardSlot(sf::Color _color, std::shared_ptr<CheckersPawn> _pawn = nullptr)
+	{
+		color = _color;
+		if (_pawn)
+			pawn = _pawn;
+	}
 
 	sf::Color color;
-	CheckersPawn pawn;
+	std::shared_ptr<CheckersPawn> pawn = nullptr;
 	sf::Vector2f position = {0,0};
 
-	bool hasPawn = false;
+	//bool hasPawn = false;
 
 };

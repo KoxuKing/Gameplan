@@ -21,7 +21,7 @@ public:
 
 	// Initialize the 2D vector board
 	CheckersBoard board = CheckersBoard({ ROWS ,COLUMNS });
-	BoardSlot selected_slot = BoardSlot(sf::Color::Black, false);
+	BoardSlot selected_slot = BoardSlot(sf::Color::Black);
 
 protected:
 	void drawTable(class Application* _application) override;
