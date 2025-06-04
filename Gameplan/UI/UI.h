@@ -41,6 +41,7 @@ private:
 	const int STANDARD_BUTTON_HEIGHT = 50;
 	
 	std::shared_ptr<class Window> activeWindow {nullptr};
+
 	std::shared_ptr<class Window> mainmenu{ nullptr };
 	std::shared_ptr<class Window> options{ nullptr };
 	std::shared_ptr<class Window> gameSelection{ nullptr };

@@ -27,7 +27,7 @@ void CheckersTable::update(Player* _player, class Application* _application)
 				else if (selected_slot.pawn) // isPawnSelected() -> move pawn
 				{
 					// Walid move clicked with selected pawn -> Move pawn to that square
-					bool valid_move = board.MoveSelectedPawnToSquare(selected_slot.pawn, dynamic_cast<CheckersPlayer*>(_player), {column, row});
+					bool valid_move = board.moveSelectedPawnToSquare(selected_slot.pawn.get(), dynamic_cast<CheckersPlayer*>(_player), {column, row});
 
 					if (valid_move) _application->game.changePlayerTurn(_player);
 					else selected_slot.pawn->possible_moves.clear(); // No pawn on square -> reset moves
@@ -50,9 +50,9 @@ void CheckersTable::focusTable()
 
 void CheckersTable::drawTable(class Application* _application)
 {
-	board.DrawBoard(_application);
-	board.DrawPawns(_application);
-	board.DrawPossibleMoves(_application, selected_slot);
+	board.drawBoard(_application);
+	board.drawPawns(_application);
+	board.drawPossibleMoves(_application, selected_slot);
 }
 
 bool CheckersTable::canPlayerEat(CheckersPlayer* player)

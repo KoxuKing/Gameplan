@@ -175,6 +175,9 @@
   <ItemGroup>
     <ClCompile Include="application.cpp" />
     <ClCompile Include="Game\Checkers\CheckersBoard.cpp" />
+    <ClCompile Include="Game\Checkers\CheckersBoardLogic.cpp" />
+    <ClCompile Include="Game\Checkers\CheckersBoardRendering.cpp" />
+    <ClCompile Include="Game\Checkers\CheckersBoardUtils.cpp" />
     <ClCompile Include="Game\Checkers\CheckersTable.cpp" />
     <ClCompile Include="Game\ConnectFourPlayer.cpp" />
     <ClCompile Include="Game\ConnectFourTable.cpp" />
