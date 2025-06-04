@@ -1,12 +1,15 @@
 #pragma once
 #include <iostream>
-#include "../application.h"
+#include <functional>  // Add this for std::function
 #include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 
+class Application;  // Forward declaration of Application class
 class UiInput
 {
 public:
 	UiInput();
+	virtual ~UiInput() = default;
 
 	virtual bool isSelected(class Application* _application);
 	virtual bool isClicked(Application* _application);
@@ -23,6 +26,10 @@ public:
 	void setTexture(std::string texturePath);
 	bool wasSelected = false;
 
+	// Generic callback that can work with any method from any class
+	using InputCallback = std::function<void()>;
+	void setCallback(InputCallback callback);
+
 	std::string id;
 	
 
@@ -38,6 +45,9 @@ protected:
 	sf::Sprite sprite;
 	sf::Texture texture;
 	sf::FloatRect boundingBox;
+
+	// Callback member - mutable to allow use in const methods
+	mutable InputCallback m_callback = nullptr;
 
 	// Ehkä structi tekstille??
 	sf::Text text;

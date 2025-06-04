@@ -1,4 +1,5 @@
 #include "UiInput.h"
+#include "../application.h"
 
 UiInput::UiInput()
 {
@@ -71,7 +72,8 @@ void UiInput::press(class Application* _application)
 
 void UiInput::click(Application* _application) const
 {
-    //std::cout << "clicked" << std::endl;
+    if (m_callback)
+        m_callback();
 }
 
 void UiInput::select()
@@ -85,6 +87,12 @@ void UiInput::draw(Application* _application)
     rect.setFillColor(color);
     _application->window.draw(rect);
     _application->window.draw(text);
+}
+
+void UiInput::setCallback(InputCallback callback)
+{
+    m_callback = std::move(callback);
+    std::cout << "Callback added" << std::endl;
 }
 
 void UiInput::setText(std::string _text)        // Default _x and _y is center of the button

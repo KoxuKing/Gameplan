@@ -1,3 +1,4 @@
+#include "../application.h"
 #include "UiSlider.h"
 
 Slider::Slider(float _x, float _y, int _width)
@@ -38,7 +39,7 @@ bool Slider::isSelected(Application* _application)
 
 }
 
-void Slider::press(Application* _application)
+void Slider::press(Application* const _application)
 {
     slider_pos.x = _application->mouse.pos.x - x;
     if (x + slider_pos.x >= max_pos)
@@ -63,7 +64,7 @@ void Slider::setText(std::string _text)
     text.setPosition((size.x - text.getGlobalBounds().width) / 2 + x + -75, (size.y - text.getLocalBounds().height) / 2 + y + -25);
 }
 
-void Slider::draw(Application* _application)
+void Slider::draw(Application* const _application)
 {
 
     _application->window.draw(rect);

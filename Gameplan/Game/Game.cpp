@@ -2,7 +2,9 @@
 #include "../application.h"
 #include <iostream>
 #include "ConnectFourPlayer.h"
-#include "CheckersTable.h"
+#include "Checkers/CheckersTable.h"
+#include "Checkers/CheckersPlayer.h"
+#include "../UI/UI.h"
 
 Game::Game(Application* _application)
 {
@@ -16,76 +18,101 @@ Game::Game(Application* _application)
 void Game::selectGame(const std::string& _gameName)
 {
 	gameName = _gameName;
+	application->ui.State = UI::STATE_GAME;
 }
 
 void Game::update()
 {
 	drawGame();
+
 	if (gameName == "ConnectFour" && !isGameSelected)
 	{
 		application->clock.restart();
-		table = new ConnectFourTable();
+		table.reset(new ConnectFourTable());
 		isGameSelected = true;
+
+		playerList.clear();
+		playerList.push_back(std::make_unique<ConnectFourPlayer>());
+		playerList.push_back(std::make_unique<ConnectFourPlayer>());
+		playerList[0]->data.isTurn = true;
 	}
 	else if (gameName == "Checkers" && !isGameSelected)
 	{
 		application->clock.restart();
-		table = new CheckersTable();
+		table.reset(new CheckersTable());
 		isGameSelected = true;
+		playerList.clear();
+		playerList.push_back(std::make_unique<CheckersPlayer>(1));
+		playerList.push_back(std::make_unique<CheckersPlayer>(2));
+			
+		playerList[0]->data.isTurn = true; // 1st players starts
+		playerList[1]->data.isTurn = false; // 1st players starts
 	}
 		
-	
 	// DEBUG MODE
-	state = GameState::STATE_DEBUG;
+	//state = GameState::STATE_DEBUG;
 
 	switch(state)
 	{
-	case GameState::STATE_LOBBY:
-		if (playerList.size() >= requiredPlayers)
-			state = GameState::STATE_GAME;
+		case GameState::STATE_LOBBY:
+			if (playerList.size() >= requiredPlayers)
+				state = GameState::STATE_GAME;
 
-		break;
-	case GameState::STATE_GAME:
-		for (Player* player : playerList)
-		{
-			if (player->data.isTurn)
-				table->update(player, application);
-		}
-		break;
-	case GameState::STATE_DEBUG:
+			break;
+		case GameState::STATE_GAME:
+			for (const auto& player : playerList)
+			{
+				if (player->data.isTurn)
+					table->update(player.get(), application);
+			}
+			break;
+		case GameState::STATE_DEBUG:
 		
-		if (playerList.size() == 0)
-		{
-			playerList.push_back(new Player);
-			playerList[0]->data.playerNumber = 1;
-		}
-			
-		for (Player* player : playerList)
-		{
-			if(!player->data.isTurn && player->data.playerNumber == 1)
-				player->data.playerNumber = 2;
-			else if (!player->data.isTurn && player->data.playerNumber == 2)
-				player->data.playerNumber = 1;
-
-			player->data.isTurn = true;
-			if (player->data.isTurn)
-				table->update(player, application);
-		}
-		break;
+			for (const auto& player : playerList)
+			{
+				if (player->data.isTurn)
+					table->update(player.get(), application);
+			}
+			break;
 	}
 
 }
 
-void Game::connectToServer(sf::IpAddress _address, int _port)
+void Game::changePlayerTurn(const Player* active_player)
+{
+	bool turn_changed = false;
+	bool turn_found = false;
+
+	while (!turn_changed)
+	{
+		for (const auto& player : playerList)
+		{
+			if (active_player->data.playerNumber == player->data.playerNumber)
+			{
+				player->data.isTurn = false;
+				turn_found = true;
+			}
+			else if (turn_found)
+			{
+				player->data.isTurn = true;
+				turn_changed = true;
+			}
+
+		}
+	}
+}
+
+void Game::connectToServer(sf::IpAddress& _address, int& _port)
 {
 	//client.connectToServer(_address, _port);
 }
 
+
 void Game::shutdown()
 {
-	for (Player* player : playerList)
-		delete player;
-	delete table;
+	//for (const auto& player : playerList)
+		//delete player;
+	//delete table;
 }
 
 void Game::updatePlayersCallback(Player::gameData& _data)
@@ -93,8 +120,8 @@ void Game::updatePlayersCallback(Player::gameData& _data)
 	// Ensimmäinen viesti on aina tälle pelaajalle
 	// Viestistä otetaan talteen pelaajan numero
 	if (playerList.size() < requiredPlayers)
-		playerList.push_back(new Player);
-	for (Player* player : playerList)
+		playerList.push_back(std::make_unique<Player>());
+	for (const auto& player : playerList)
 	{
 		if (_data.playerNumber == player->data.playerNumber)
 			player->data = _data;
@@ -110,9 +137,9 @@ void Game::waitingPlayers()
 void Game::drawGame()
 {
 	application->window.draw(rect);
-	if (!isGameOn && table != NULL)
+	if (!isGameOn)
 		unfocusGame();
-	else if (isGameOn && table != NULL)
+	else if (isGameOn)
 		focusGame();
 
 }
@@ -120,11 +147,13 @@ void Game::drawGame()
 void Game::unfocusGame()
 {
 	rect.setFillColor(sf::Color(50, 50, 50, 255));
-	table->unfocusTable();
+	if (table)
+		table->unfocusTable();
 }
 
 void Game::focusGame()
 {
 	rect.setFillColor(sf::Color(255, 255, 255, 255));
-	table->focusTable();
+	if (table)
+		table->focusTable();
 }

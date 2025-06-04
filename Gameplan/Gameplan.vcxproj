@@ -29,26 +29,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -152,7 +152,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
-    <ClInclude Include="Game\CheckersTable.h" />
+    <ClInclude Include="Game\Checkers\CheckersBoard.h" />
+    <ClInclude Include="Game\Checkers\CheckersBoardSlot.h" />
+    <ClInclude Include="Game\Checkers\CheckersPawn.h" />
+    <ClInclude Include="Game\Checkers\CheckersPlayer.h" />
+    <ClInclude Include="Game\Checkers\CheckersTable.h" />
     <ClInclude Include="Game\ConnectFourPlayer.h" />
     <ClInclude Include="Game\ConnectFourTable.h" />
     <ClInclude Include="Game\Game.h" />
@@ -161,6 +165,7 @@
     <ClInclude Include="Networking\Client.h" />
     <ClInclude Include="Networking\Server.h" />
     <ClInclude Include="Networking\ZipPacket.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="UI\Button.h" />
     <ClInclude Include="UI\UI.h" />
     <ClInclude Include="UI\UiInput.h" />
@@ -169,7 +174,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
-    <ClCompile Include="Game\CheckersTable.cpp" />
+    <ClCompile Include="Game\Checkers\CheckersBoard.cpp" />
+    <ClCompile Include="Game\Checkers\CheckersTable.cpp" />
     <ClCompile Include="Game\ConnectFourPlayer.cpp" />
     <ClCompile Include="Game\ConnectFourTable.cpp" />
     <ClCompile Include="Game\GameTable.cpp" />
@@ -182,8 +188,13 @@
     <ClCompile Include="UI\Button.cpp" />
     <ClCompile Include="UI\UI.cpp" />
     <ClCompile Include="UI\UiInput.cpp" />
+    <ClCompile Include="UI\UIResources.cpp" />
     <ClCompile Include="UI\UiSlider.cpp" />
     <ClCompile Include="UI\UiTextInput.cpp" />
+    <ClCompile Include="UI\UIWindows.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Gameplan.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

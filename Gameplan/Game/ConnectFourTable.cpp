@@ -188,7 +188,7 @@ void ConnectFourTable::drawTokens(Application* _application)
 {
 	tokenPos;
 	tokenPos = sf::Vector2f(tableSprite.getPosition().x + 30 + getColumn(_application->mouse.pos.x) * 57, tableSprite.getPosition().y + 7 - 1 * 53);
-	for (auto player : _application->game.playerList)
+	for (const auto& player : _application->game.playerList)
 	{
 		if (player->data.playerNumber == 1 && player->data.isTurn)
 		{
@@ -228,7 +228,7 @@ void ConnectFourTable::dropTokenAnimation(Application* _application)
 	
 	// Adds acceleration to animation
 	animationPos += 0.00 + 0.4 * (_application->timePassed.asSeconds() - animationStartTime);
-	for (auto player : _application->game.playerList)
+	for (const auto& player : _application->game.playerList)
 	{
 		if (player->data.isTurn)
 		{

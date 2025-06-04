@@ -6,13 +6,13 @@ class Slider : public UiInput
 public:
 	Slider(float _x, float _y, int _width);
 
-	virtual bool isSelected(class Application* _application);
-	virtual void press(class Application* _application);
-	virtual void draw(class Application* _application);
-	virtual void setText(std::string _text);
-	void setParameter(float* _editableParameter, float _max_value)
+	bool isSelected(Application* _application) override;
+	void press(class Application* const _application) override;
+	void draw(class Application* const _application) override;
+	void setText(std::string _text) override;
+	void setParameter(float& _editableParameter, float _max_value)
 	{
-		editableParameter = _editableParameter;
+		editableParameter = &_editableParameter;
 		max_value = _max_value;
 	}
 	int radius = 10;

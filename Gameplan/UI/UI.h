@@ -1,7 +1,17 @@
 #pragma once
+#include "Button.h"
 #include <vector>
+#include <memory>
+#include <map>
 #include <SFML/Graphics.hpp>
 
+//class Button;  // Forward declaration
+class Application;  // Forward declaration for clarity
+
+/**
+ * UI Manager Class for Game Platform
+ * Handles creation and management of all UI windows and elements
+ */
 class UI
 {
 public:
@@ -21,30 +31,48 @@ public:
 	};
 
 	int State = UiState::STATE_MAIN_MENU;
-
 	int previousState = UiState::STATE_MAIN_MENU;
 
-	class Window* endGameWindow;
 private:
+	class Application* application;
 
-	class Application *application;
-
-	class Window* activeWindow;
-	class Window* mainmenu;
-	class Window* options;
-	class Window* gameSelection;
-	class Window* lobby;
-	class Window* inGame;
-	class Window* inGameMenu;
+	// Layout constants
+	const int STANDARD_BUTTON_WIDTH = 200;
+	const int STANDARD_BUTTON_HEIGHT = 50;
 	
-	//Window mainmenu;
-	// UiWindow options;
-	// UiWindow game_selection;
-	// UiWindow pause_menu;
-	
+	class Window* activeWindow = nullptr;
+	std::unique_ptr<class Window> mainmenu;
+	std::unique_ptr<class Window> options;
+	std::unique_ptr<class Window> gameSelection;
+	std::unique_ptr<class Window> lobby;
+	std::unique_ptr<class Window> inGame;
+	std::unique_ptr<class Window> inGameMenu;
+	std::unique_ptr<class Window> endGameWindow;
 
+	sf::Texture backgroundImage;
+	std::map<std::string, sf::Texture> textureCache;
+
+	// Helper methods
 	void drawUi();
 	void checkButtons();
+	int centerX(int width) const;
+	int centerY(int height) const;
+	
+	// Texture management
+	sf::Texture& getTexture(const std::string& path);
+	
+	// UI creation methods
+	void createMainMenu();
+	void createOptionsMenu(); 
+	void createGameSelectionMenu();
+	void createEndGameWindow();
+	void createInGameUI();
+	void createInGameMenu();
+	void createLobbyWindow();
+
+	void loadBackgroundForState(Window* window);
+
+	std::unique_ptr<Button> createStandardButton(int x, int y, int width, int height, const std::string& text, const std::string& texturePath);
 };
 
 struct Window
@@ -58,11 +86,13 @@ struct Window
 		texturePath = _texturePath;
 	}
 
+	virtual ~Window() = default;
+
 	int width;
 	int height;
 	int x;
 	int y;
 	std::string texturePath{};
 
-	std::vector<class UiInput*> buttonList;
+	std::vector<std::unique_ptr<UiInput>> buttonList;
 };

@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include "ConnectFourTable.h"
 #include "../Networking/Client.h"
+#include <memory>
 
 class Game
 {
@@ -13,16 +14,19 @@ public:
 	void update();
 	void shutdown();
 	void selectGame(const std::string& _gameName);
-	void connectToServer(sf::IpAddress _address, int _port);
+	void connectToServer(sf::IpAddress& _address, int& _port);
+	void changePlayerTurn(const Player* player);
+
 	enum GameState
 	{
 		STATE_LOBBY = 0,
 		STATE_GAME = 1,
 		STATE_DEBUG = 2
 	};
-	int requiredPlayers = 2;
+
+	int requiredPlayers = 1;
 	int state = GameState::STATE_LOBBY;
-	std::vector <Player*> playerList;
+	std::vector <std::unique_ptr<Player>> playerList; // Täytyy olla pelikohtainen
 	//Client client; // TÄSSÄ VIKA!!! //
 	bool isGameOn = true;
 
@@ -37,7 +41,7 @@ private:
 
 	bool isGameSelected;
 	class Application* application;
-	GameTable *table;
+	std::unique_ptr<GameTable> table;
 
 	sf::RectangleShape rect;		// Taustakuva
 	sf::Vector2f size;
