@@ -16,7 +16,7 @@ UI::UI(Application *_application)
     createLobbyWindow();
     
     // Set initial active window
-    activeWindow = mainmenu.get();
+    activeWindow = mainmenu;
     
     // Load initial background for main menu
     if (!mainmenu->texturePath.empty()) {
@@ -35,7 +35,7 @@ void UI::loadBackgroundForState(Window* window)
         return; // No background to load
     }
     
-    if (activeWindow != window || backgroundImage.getSize().x == 0) {
+    if (activeWindow.get() != window || backgroundImage.getSize().x == 0) {
         backgroundImage = getTexture(window->texturePath);
     }
 }
@@ -43,19 +43,19 @@ void UI::loadBackgroundForState(Window* window)
 
 int UI::update()
 {
-    Window* nextActiveWindow = nullptr;
+    std::shared_ptr<class Window> nextActiveWindow = nullptr;
     
     switch (State) {
     case UiState::STATE_MAIN_MENU:
-        nextActiveWindow = mainmenu.get();
+        nextActiveWindow = mainmenu;
         break;
         
     case UiState::STATE_OPTIONS:
-        nextActiveWindow = options.get();
+        nextActiveWindow = options;
         break;
         
     case UiState::STATE_GAME_SELECTION:
-        nextActiveWindow = gameSelection.get();
+        nextActiveWindow = gameSelection;
         break;
         
     case UiState::STATE_GAME:
@@ -63,16 +63,16 @@ int UI::update()
             application->game.isGameOn = true;
         }
         application->State = Application::ApplicationState::GAME;
-        nextActiveWindow = inGame.get();
+        nextActiveWindow = inGame;
         break;
         
     case UiState::STATE_ENDGAME:
-        nextActiveWindow = endGameWindow.get();
+        nextActiveWindow = endGameWindow;
         break;
         
     case UiState::STATE_GAME_MENU:
         application->game.isGameOn = false;
-        nextActiveWindow = inGameMenu.get();
+        nextActiveWindow = inGameMenu;
         break;
         
     case UiState::STATE_QUIT:
@@ -85,7 +85,7 @@ int UI::update()
     }
     
     if (nextActiveWindow) {
-        loadBackgroundForState(nextActiveWindow);
+        loadBackgroundForState(nextActiveWindow.get());
         activeWindow = nextActiveWindow;
     }
     

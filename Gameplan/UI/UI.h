@@ -40,14 +40,14 @@ private:
 	const int STANDARD_BUTTON_WIDTH = 200;
 	const int STANDARD_BUTTON_HEIGHT = 50;
 	
-	class Window* activeWindow = nullptr;
-	std::unique_ptr<class Window> mainmenu;
-	std::unique_ptr<class Window> options;
-	std::unique_ptr<class Window> gameSelection;
-	std::unique_ptr<class Window> lobby;
-	std::unique_ptr<class Window> inGame;
-	std::unique_ptr<class Window> inGameMenu;
-	std::unique_ptr<class Window> endGameWindow;
+	std::shared_ptr<class Window> activeWindow {nullptr};
+	std::shared_ptr<class Window> mainmenu{ nullptr };
+	std::shared_ptr<class Window> options{ nullptr };
+	std::shared_ptr<class Window> gameSelection{ nullptr };
+	std::shared_ptr<class Window> lobby{ nullptr };
+	std::shared_ptr<class Window> inGame{ nullptr };
+	std::shared_ptr<class Window> inGameMenu{ nullptr };
+	std::shared_ptr<class Window> endGameWindow{ nullptr };
 
 	sf::Texture backgroundImage;
 	std::map<std::string, sf::Texture> textureCache;
