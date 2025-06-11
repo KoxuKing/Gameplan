@@ -35,16 +35,27 @@ void CheckersBoard::drawPawns(Application* _application)
 
     for (int r = 0; r < size.x; r++) {
         for (int c = 0; c < size.y; c++) {
-
-            sf::Vector2f slot_position = { X_OFFSET + static_cast<float>(slot_width * c), Y_OFFSET + static_cast<float>(slot_height * r) };
-
-            //Draw pawns
             if (slots[r][c].pawn)
             {
+                sf::Vector2f slot_position = { X_OFFSET + static_cast<float>(slot_width * c), Y_OFFSET + static_cast<float>(slot_height * r) };
                 pawn.setPosition(slot_position);
                 sf::Color pawn_color = slots[r][c].pawn->color;
                 pawn.setFillColor(pawn_color);
                 _application->window.draw(pawn);
+
+                // Draw a crown or indicator for kings
+                if (slots[r][c].pawn->isKing) {
+                    // Create a smaller circle inside to indicate a king
+                    sf::CircleShape crown;
+                    float crownRadius = pawn.getRadius() * 0.5f;  // Smaller than the pawn
+                    crown.setRadius(crownRadius);
+                    crown.setOrigin(-pawn.getRadius() + crownRadius, -pawn.getRadius() + crownRadius);
+                    crown.setPosition(slot_position);
+                    crown.setFillColor(sf::Color::White);  // White crown indicator
+                    crown.setOutlineColor(sf::Color::Black);
+                    crown.setOutlineThickness(1.0f);
+                    _application->window.draw(crown);
+                }
             }
         }
     }

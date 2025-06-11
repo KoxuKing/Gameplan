@@ -5,9 +5,16 @@ std::vector<sf::Vector2i> CheckersBoard::getDiagonalMoves(CheckersPawn* selected
     std::vector<sf::Vector2i> possible_moves;
     possible_moves.clear();
 
-    // Direction vectors based on pawn color
+    // Direction vectors based on pawn color and king status
     std::vector<sf::Vector2i> directions;
-    if (selectedPawn->color == sf::Color::Red && player->color == sf::Color::Red) {
+
+    // Kings can move in all diagonal directions
+    if (selectedPawn->isKing) {
+        // All four diagonal directions for kings
+        directions = { {-1, -1}, {1, -1}, {-1, 1}, {1, 1} };
+    }
+    // Regular pawns can only move forward based on color
+    else if (selectedPawn->color == sf::Color::Red && player->color == sf::Color::Red) {
         directions = { {-1, 1}, {1, 1} }; // down-left, down-right
     }
     else if (selectedPawn->color == sf::Color::Yellow && player->color == sf::Color::Yellow) {
@@ -52,6 +59,21 @@ bool CheckersBoard::moveSelectedPawnToSquare(CheckersPawn* selected_pawn, Checke
 
     // Create new pawn at the target position
     auto movedPawn = std::make_shared<CheckersPawn>(selected_pawn->color, new_square);
+
+    // Preserve king status if the pawn was already a king
+    movedPawn->isKing = selected_pawn->isKing;
+
+    // Check if pawn should be promoted to king (reached the last row)
+    if (!movedPawn->isKing) {
+        // Red pawns move downward, become kings at the bottom row
+        if (movedPawn->color == sf::Color::Red && new_square.y == size.x - 1) {
+            movedPawn->isKing = true;
+        }
+        // Yellow pawns move upward, become kings at the top row
+        else if (movedPawn->color == sf::Color::Yellow && new_square.y == 0) {
+            movedPawn->isKing = true;
+        }
+    }
 
     // Store the moves before erasing the old pawn
     auto moves = selected_pawn->possible_moves;

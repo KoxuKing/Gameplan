@@ -158,6 +158,21 @@
     <ClCompile Include="Game\Checkers\CheckersBoard.cpp">
       <Filter>Source Files\Game\Checkers</Filter>
     </ClCompile>
+    <ClCompile Include="UI\UIResources.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIWindows.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Checkers\CheckersBoardUtils.cpp">
+      <Filter>Source Files\Game\Checkers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Checkers\CheckersBoardRendering.cpp">
+      <Filter>Source Files\Game\Checkers</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Checkers\CheckersBoardLogic.cpp">
+      <Filter>Source Files\Game\Checkers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Gameplan.rc">
