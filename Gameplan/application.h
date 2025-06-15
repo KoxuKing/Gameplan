@@ -54,5 +54,5 @@ private:
 
 	void updateUserInputs(sf::Event& _event);
 	float startTime = 0;
-	int fps = 120;
+	int fps = 60;
 };

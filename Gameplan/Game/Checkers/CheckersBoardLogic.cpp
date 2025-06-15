@@ -9,15 +9,15 @@ std::vector<sf::Vector2i> CheckersBoard::getDiagonalMoves(CheckersPawn* selected
     std::vector<sf::Vector2i> directions;
 
     // Kings can move in all diagonal directions
-    if (selectedPawn->isKing) {
+    if (selectedPawn->color == player->color && selectedPawn->isKing) {
         // All four diagonal directions for kings
         directions = { {-1, -1}, {1, -1}, {-1, 1}, {1, 1} };
     }
     // Regular pawns can only move forward based on color
-    else if (selectedPawn->color == sf::Color::Red && player->color == sf::Color::Red) {
+    else if (selectedPawn->color == player->color && player->color == sf::Color::Red) {
         directions = { {-1, 1}, {1, 1} }; // down-left, down-right
     }
-    else if (selectedPawn->color == sf::Color::Yellow && player->color == sf::Color::Yellow) {
+    else if (selectedPawn->color == player->color && player->color == sf::Color::Yellow) {
         directions = { {-1, -1}, {1, -1} }; // up-left, up-right
     }
     else {

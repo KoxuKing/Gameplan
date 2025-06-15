@@ -46,14 +46,11 @@ void CheckersBoard::drawPawns(Application* _application)
                 // Draw a crown or indicator for kings
                 if (slots[r][c].pawn->isKing) {
                     // Create a smaller circle inside to indicate a king
-                    sf::CircleShape crown;
+                    sf::CircleShape crown = createPawnShape();
                     float crownRadius = pawn.getRadius() * 0.5f;  // Smaller than the pawn
                     crown.setRadius(crownRadius);
-                    crown.setOrigin(-pawn.getRadius() + crownRadius, -pawn.getRadius() + crownRadius);
-                    crown.setPosition(slot_position);
+                    crown.setPosition({ slot_position.x + pawn.getRadius()/2 , slot_position.y + pawn.getRadius() / 2 });
                     crown.setFillColor(sf::Color::White);  // White crown indicator
-                    crown.setOutlineColor(sf::Color::Black);
-                    crown.setOutlineThickness(1.0f);
                     _application->window.draw(crown);
                 }
             }
