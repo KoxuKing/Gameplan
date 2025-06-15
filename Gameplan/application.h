@@ -53,6 +53,7 @@ public:
 private:
 
 	void updateUserInputs(sf::Event& _event);
+	void resetClickFlags();
 	float startTime = 0;
 	int fps = 60;
 };

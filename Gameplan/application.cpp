@@ -31,6 +31,7 @@ int Application::run()
 
         // check all the window's events that were triggered since the last iteration of the loop
         sf::Event ev;
+        // Process events
         while (window.pollEvent(ev)) {
             event = ev;
             updateUserInputs(event);
@@ -39,10 +40,11 @@ int Application::run()
         // clear the window with black color
         window.clear();
         
+        // Game logic uses click states here
         switch (State)
         {
         case ApplicationState::GAME:
-            game.update();
+            game.update();  // Has access to clicks
             break;
         case ApplicationState::SHUTDOWN:
             ui.shutdown();
@@ -54,6 +56,9 @@ int Application::run()
         }
         
         ui.update();
+
+        // Reset click flags after game logic has used them
+        resetClickFlags();
 
         // end the current frame
         window.display();
@@ -96,43 +101,8 @@ void Application::updateUserInputs(sf::Event &_event)
         keyboard.isKeyPressed = false;
     }
         
-        
-
-    /// MOUSE CONTROL ///
-
-    if (mouse.clicked_left)
-
-        mouse.clicked_left = false;
-
-
-    if (mouse.clicked_right)
-        mouse.clicked_right = false;
-
-    if (mouse.pressed_left)
-    {
-        if (_event.type == sf::Event::MouseButtonReleased)
-        {
-            if (_event.mouseButton.button == sf::Mouse::Left)
-            {
-                mouse.clicked_left = true;
-                mouse.pressed_left = false;
-            }
-        }
-    }
-
-    if (mouse.pressed_right)
-    {
-        if (_event.type == sf::Event::MouseButtonReleased)
-        {
-            if (_event.mouseButton.button == sf::Mouse::Right)
-            {
-                mouse.clicked_right = true;
-                mouse.pressed_right = false;
-            }   
-        }
-    }
-
-    
+    // MOUSE CONTROL - Updated approach
+    // Handle press/release events
     if (_event.type == sf::Event::MouseButtonPressed)
     {
         if (_event.mouseButton.button == sf::Mouse::Left)
@@ -140,10 +110,33 @@ void Application::updateUserInputs(sf::Event &_event)
         if (_event.mouseButton.button == sf::Mouse::Right)
             mouse.pressed_right = true;
     }
-
+    else if (_event.type == sf::Event::MouseButtonReleased)
+    {
+        if (_event.mouseButton.button == sf::Mouse::Left)
+        {
+            if (mouse.pressed_left) {  // Ensure press was detected
+                mouse.clicked_left = true;  // Set click flag
+            }
+            mouse.pressed_left = false;
+        }
+        if (_event.mouseButton.button == sf::Mouse::Right)
+        {
+            if (mouse.pressed_right) {  // Ensure press was detected
+                mouse.clicked_right = true;  // Set click flag
+            }
+            mouse.pressed_right = false;
+        }
+    }
+    
     if (_event.type == sf::Event::MouseMoved)
     {
         mouse.pos = sf::Vector2f(_event.mouseMove.x, _event.mouseMove.y);
     }
-    /// ~MOUSE CONTROL ///
+}
+
+void Application::resetClickFlags()
+{
+    // Reset click flags after the game logic has had a chance to use them
+    mouse.clicked_left = false;
+    mouse.clicked_right = false;
 }
