@@ -39,7 +39,10 @@ void ConnectFourTable::update(Player* _player, Application* _application)
 			if (board[0][column] != 0)
 				std::cout << "Column is already full" << std::endl;
 			else
+			{
 				static_cast<ConnectFourPlayer*>(_player)->dropToken(*this, getColumn(_application->mouse.pos.x), _player->data.playerNumber);
+				_application->game.changePlayerTurn(_player);
+			}
 		}
 	}
 
@@ -207,12 +210,12 @@ void ConnectFourTable::drawTokens(Application* _application)
 		for (int column = 0; column < lastColumn; column++)
 		{
 			tokenPos = sf::Vector2f(tableSprite.getPosition().x + 30 + column * 57, tableSprite.getPosition().y + 7 + row * 53);
-			if (board[row][column] == 1)
+			if (board[row][column] == 2)
 			{
 				redTokenSprite.setPosition(tokenPos);
 				_application->window.draw(redTokenSprite);
 			}
-			else if (board[row][column] == 2)
+			else if (board[row][column] == 1)
 			{
 				yellowTokenSprite.setPosition(tokenPos);
 				_application->window.draw(yellowTokenSprite);
@@ -232,12 +235,12 @@ void ConnectFourTable::dropTokenAnimation(Application* _application)
 	{
 		if (player->data.isTurn)
 		{
-			if(player->data.playerNumber == 1)
+			if(player->data.playerNumber == 2)
 			{
 				redTokenSprite.setPosition(drawPos);
 				_application->window.draw(redTokenSprite);
 			}
-			else if (player->data.playerNumber == 2)
+			else if (player->data.playerNumber == 1)
 			{
 				yellowTokenSprite.setPosition(drawPos);
 				_application->window.draw(yellowTokenSprite);

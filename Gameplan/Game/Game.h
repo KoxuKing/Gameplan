@@ -26,9 +26,9 @@ public:
 
 	int requiredPlayers = 1;
 	int state = GameState::STATE_LOBBY;
-	std::vector <std::unique_ptr<Player>> playerList; // Täytyy olla pelikohtainen
-	//Client client; // TÄSSÄ VIKA!!! //
+	std::vector <std::unique_ptr<Player>> playerList;
 	bool isGameOn = true;
+	bool isGameSelected;
 
 	
 private:
@@ -39,7 +39,6 @@ private:
 	void unfocusGame();
 	void focusGame();
 
-	bool isGameSelected;
 	class Application* application;
 	std::unique_ptr<GameTable> table;
 

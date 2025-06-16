@@ -94,7 +94,7 @@ void UI::createGameSelectionMenu()
                                          "ConnectFour", buttonTexturePath);
 
     button->setCallback([this]() {
-        application->game.selectGame("Connect Four");
+        application->game.selectGame("ConnectFour");
 		application->ui.State = UiState::STATE_GAME;
         std::cout << "Connect Four selected" << std::endl;
         });
@@ -118,6 +118,7 @@ void UI::createGameSelectionMenu()
                                  "Main menu", buttonTexturePath);
 
     button->setCallback([this]() {
+        application->game.isGameSelected = false; // Add this line
         application->ui.State = UI::STATE_MAIN_MENU;
         std::cout << "Back to main menu" << std::endl;
         });

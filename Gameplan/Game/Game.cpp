@@ -17,8 +17,13 @@ Game::Game(Application* _application)
 
 void Game::selectGame(const std::string& _gameName)
 {
-	gameName = _gameName;
-	application->ui.State = UI::STATE_GAME;
+    // Reset game selected flag if changing games
+    if (gameName != _gameName) {
+        isGameSelected = false;
+    }
+    
+    gameName = _gameName;
+    application->ui.State = UI::STATE_GAME;
 }
 
 void Game::update()
@@ -32,9 +37,11 @@ void Game::update()
 		isGameSelected = true;
 
 		playerList.clear();
-		playerList.push_back(std::make_unique<ConnectFourPlayer>());
-		playerList.push_back(std::make_unique<ConnectFourPlayer>());
-		playerList[0]->data.isTurn = true;
+		playerList.push_back(std::make_unique<ConnectFourPlayer>(1));
+		playerList.push_back(std::make_unique<ConnectFourPlayer>(2));
+
+		playerList[0]->data.isTurn = true; // 1st players starts
+		playerList[1]->data.isTurn = false;
 	}
 	else if (gameName == "Checkers" && !isGameSelected)
 	{
@@ -46,7 +53,7 @@ void Game::update()
 		playerList.push_back(std::make_unique<CheckersPlayer>(2));
 			
 		playerList[0]->data.isTurn = true; // 1st players starts
-		playerList[1]->data.isTurn = false; // 1st players starts
+		playerList[1]->data.isTurn = false;
 	}
 		
 	// DEBUG MODE

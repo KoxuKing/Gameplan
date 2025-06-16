@@ -4,6 +4,10 @@
 #include <iostream>
 struct ConnectFourPlayer : public Player
 {
+	ConnectFourPlayer(int playerNumber) {;
+		data.playerNumber = playerNumber;
+	}
+
 	void dropToken(class ConnectFourTable &_table, int _column, int _player);
 	//void takeToken();
 	struct gameData
