@@ -1,5 +1,5 @@
 #pragma once
-#include "GameTable.h"
+#include "../GameTable.h"
 class ConnectFourTable : public GameTable
 {
 public:

@@ -3,7 +3,7 @@
 #include "GameTable.h"
 #include <vector>
 #include <SFML/Graphics.hpp>
-#include "ConnectFourTable.h"
+#include "ConnectFour/ConnectFourTable.h"
 #include "../Networking/Client.h"
 #include <memory>
 

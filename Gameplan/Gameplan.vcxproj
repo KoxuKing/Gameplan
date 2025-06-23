@@ -152,13 +152,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="application.h" />
+    <ClInclude Include="Game\Checkers\CheckersAI\CheckersAI.h" />
     <ClInclude Include="Game\Checkers\CheckersBoard.h" />
     <ClInclude Include="Game\Checkers\CheckersBoardSlot.h" />
     <ClInclude Include="Game\Checkers\CheckersPawn.h" />
     <ClInclude Include="Game\Checkers\CheckersPlayer.h" />
     <ClInclude Include="Game\Checkers\CheckersTable.h" />
-    <ClInclude Include="Game\ConnectFourPlayer.h" />
-    <ClInclude Include="Game\ConnectFourTable.h" />
+    <ClInclude Include="Game\ConnectFour\ConnectFourPlayer.h" />
+    <ClInclude Include="Game\ConnectFour\ConnectFourTable.h" />
     <ClInclude Include="Game\Game.h" />
     <ClInclude Include="Game\GameTable.h" />
     <ClInclude Include="Game\Player.h" />
@@ -174,13 +175,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="application.cpp" />
+    <ClCompile Include="Game\Checkers\CheckersAI\CheckersAI.cpp" />
     <ClCompile Include="Game\Checkers\CheckersBoard.cpp" />
     <ClCompile Include="Game\Checkers\CheckersBoardLogic.cpp" />
     <ClCompile Include="Game\Checkers\CheckersBoardRendering.cpp" />
     <ClCompile Include="Game\Checkers\CheckersBoardUtils.cpp" />
     <ClCompile Include="Game\Checkers\CheckersTable.cpp" />
-    <ClCompile Include="Game\ConnectFourPlayer.cpp" />
-    <ClCompile Include="Game\ConnectFourTable.cpp" />
+    <ClCompile Include="Game\ConnectFour\ConnectFourPlayer.cpp" />
+    <ClCompile Include="Game\ConnectFour\ConnectFourTable.cpp" />
     <ClCompile Include="Game\GameTable.cpp" />
     <ClCompile Include="Game\Game.cpp" />
     <ClCompile Include="Game\Player.cpp" />

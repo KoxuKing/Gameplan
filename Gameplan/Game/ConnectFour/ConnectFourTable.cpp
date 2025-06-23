@@ -1,5 +1,5 @@
 #include "ConnectFourTable.h"
-#include "../application.h"
+#include "../../application.h"
 #include "ConnectFourPlayer.h"
 
 ConnectFourTable::ConnectFourTable()

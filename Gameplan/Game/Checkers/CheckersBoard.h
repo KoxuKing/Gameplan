@@ -3,20 +3,46 @@
 #include "CheckersPlayer.h"
 #include <memory>
 
+using BoardCoord = sf::Vector2i;
+using Pawn = std::shared_ptr<CheckersPawn>;
+
+struct MoveResult {
+    bool isValid = false;
+    bool didEat = false;
+    sf::Vector2i eatenPawnCoord = { -1, -1 }; // Position of eaten pawn (if any)
+};
+
+struct selectedMove
+{
+    selectedMove(std::shared_ptr<CheckersPawn> _pawn, BoardCoord _move)
+    {
+        pawn = _pawn;
+        move = _move;
+    };
+
+    std::shared_ptr<CheckersPawn> pawn{ nullptr };
+    BoardCoord move{};
+};
+
 class CheckersBoard {
 public:
     CheckersBoard(sf::Vector2i _size);
 
     // Board state methods
-    std::vector<sf::Vector2i> getDiagonalMoves(CheckersPawn* selectedPawn, CheckersPlayer* player, bool can_player_eat);
-    bool moveSelectedPawnToSquare(CheckersPawn* selected_pawn, CheckersPlayer* player, sf::Vector2i new_square);
+    std::vector<BoardCoord> getDiagonalMoves(CheckersPawn* selectedPawn, CheckersPlayer* player, bool can_player_eat);
+    bool moveSelectedPawnToSquare(CheckersPawn* selected_pawn, CheckersPlayer* player, BoardCoord new_square);
     bool canPawnEat(CheckersPawn* _selected_pawn, CheckersPlayer* player);
-    bool eatPawnsBetweenSlots(sf::Vector2i start_square, sf::Vector2i new_square);
+    bool eatPawnsBetweenSlots(BoardCoord start_square, BoardCoord new_square);
+    std::vector<Pawn> getMoveablePawns(CheckersPlayer* player);
+    std::vector<selectedMove> getAllPawnMoves(std::vector<Pawn> pawns, CheckersPlayer* player);
+    bool canPlayerEat(CheckersPlayer* player);
+
+	int getNumberPlayerOfPawns(CheckersPlayer* player) const;
 
     // Input handling methods
     int getColumn(int _mousePosX) const;
     int getRow(int _mousePosY) const;
-    bool isSlotValid(sf::Vector2i slot);
+    bool isSlotValid(BoardCoord slot);
 
     // Rendering methods
     void drawBoard(Application* _application);
@@ -36,8 +62,10 @@ public:
     float slot_width = 0;
     float slot_height = 0;
 
+	
+
 private:
     // Helper methods
-    bool isPositionInBounds(const sf::Vector2i& pos) const;
+    bool isPositionInBounds(const BoardCoord& pos) const;
     sf::CircleShape createPawnShape() const;
 };

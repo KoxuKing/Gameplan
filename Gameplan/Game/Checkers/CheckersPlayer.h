@@ -4,13 +4,13 @@
 
 struct CheckersPlayer : public Player
 {
-	CheckersPlayer(int playerNumber){
-		if (playerNumber == 1)
-			color = sf::Color::Red;
-		else color = sf::Color::Yellow;
+    sf::Color color;
 
-		data.playerNumber = playerNumber;
-	}
+    explicit CheckersPlayer(int playerNumber)
+    {
+        data.playerNumber = playerNumber;
+        color = (playerNumber == 1) ? sf::Color::Red : sf::Color::Yellow;
+    }
 
-	sf::Color color;
+    ~CheckersPlayer() override = default;
 };

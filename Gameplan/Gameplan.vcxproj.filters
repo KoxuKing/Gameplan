@@ -43,6 +43,9 @@
     <Filter Include="Header Files\Game\ConnectFour">
       <UniqueIdentifier>{c60c7855-c37a-41b5-bc80-51d2fdfbfa85}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Game\Checkers\AI">
+      <UniqueIdentifier>{6db780da-e414-45d8-b29a-f4263fac5790}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="application.h">
@@ -158,12 +161,6 @@
     <ClCompile Include="Game\Checkers\CheckersBoard.cpp">
       <Filter>Source Files\Game\Checkers</Filter>
     </ClCompile>
-    <ClCompile Include="UI\UIResources.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\UIWindows.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Checkers\CheckersBoardUtils.cpp">
       <Filter>Source Files\Game\Checkers</Filter>
     </ClCompile>
@@ -172,6 +169,15 @@
     </ClCompile>
     <ClCompile Include="Game\Checkers\CheckersBoardLogic.cpp">
       <Filter>Source Files\Game\Checkers</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIWindows.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\UIResources.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CheckersAI.cpp">
+      <Filter>Source Files\Game\Checkers\AI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

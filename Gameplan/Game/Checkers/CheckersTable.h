@@ -14,8 +14,6 @@ public:
 	void unfocusTable() override;
 	void focusTable() override;
 
-	bool canPlayerEat(CheckersPlayer* player);
-
 	const int ROWS = 8;
 	const int COLUMNS = 8;
 
@@ -26,7 +24,5 @@ public:
 protected:
 	void drawTable(class Application* _application) override;
 
-
-	
 };
 

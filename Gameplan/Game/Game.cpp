@@ -1,10 +1,11 @@
 #include "Game.h"
 #include "../application.h"
 #include <iostream>
-#include "ConnectFourPlayer.h"
+#include "ConnectFour/ConnectFourPlayer.h"
 #include "Checkers/CheckersTable.h"
 #include "Checkers/CheckersPlayer.h"
 #include "../UI/UI.h"
+#include "Checkers/CheckersAI/CheckersAI.h"
 
 Game::Game(Application* _application)
 {
@@ -50,7 +51,7 @@ void Game::update()
 		isGameSelected = true;
 		playerList.clear();
 		playerList.push_back(std::make_unique<CheckersPlayer>(1));
-		playerList.push_back(std::make_unique<CheckersPlayer>(2));
+		playerList.push_back(std::make_unique<CheckersAI>(2));
 			
 		playerList[0]->data.isTurn = true; // 1st players starts
 		playerList[1]->data.isTurn = false;

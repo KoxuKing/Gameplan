@@ -1,6 +1,9 @@
 #include "CheckersBoard.h"
 
-std::vector<sf::Vector2i> CheckersBoard::getDiagonalMoves(CheckersPawn* selectedPawn, CheckersPlayer* player, bool can_player_eat)
+using BoardCoord = sf::Vector2i;
+using Pawn = std::shared_ptr<CheckersPawn>;
+
+std::vector<BoardCoord> CheckersBoard::getDiagonalMoves(CheckersPawn* selectedPawn, CheckersPlayer* player, bool can_player_eat)
 {
     std::vector<sf::Vector2i> possible_moves;
     possible_moves.clear();
@@ -49,7 +52,7 @@ std::vector<sf::Vector2i> CheckersBoard::getDiagonalMoves(CheckersPawn* selected
     return possible_moves;
 }
 
-bool CheckersBoard::moveSelectedPawnToSquare(CheckersPawn* selected_pawn, CheckersPlayer* player, sf::Vector2i new_square)
+bool CheckersBoard::moveSelectedPawnToSquare(CheckersPawn* selected_pawn, CheckersPlayer* player, BoardCoord new_square)
 {
     if (!selected_pawn->HasThisMove(new_square)) {
         return false;
@@ -94,7 +97,7 @@ bool CheckersBoard::moveSelectedPawnToSquare(CheckersPawn* selected_pawn, Checke
     return true;
 }
 
-bool CheckersBoard::eatPawnsBetweenSlots(sf::Vector2i start_square, sf::Vector2i new_square)
+bool CheckersBoard::eatPawnsBetweenSlots(BoardCoord start_square, BoardCoord new_square)
 {
     int distance_x = new_square.x - start_square.x;
     int distance_y = new_square.y - start_square.y;
@@ -113,6 +116,104 @@ bool CheckersBoard::eatPawnsBetweenSlots(sf::Vector2i start_square, sf::Vector2i
     return false;
 }
 
+std::vector<Pawn> CheckersBoard::getMoveablePawns(CheckersPlayer* player)
+{
+    bool can_player_eat = false;
+	bool take_only = false; // If true, only return pawns that can eat
+    std::vector<Pawn> moveable_pawns = {};
+
+    for (int r = 0; r < slots.size(); r++)
+    {
+        for (int c = 0; c < slots[0].size(); c++)
+        {
+            if (slots[r][c].pawn && slots[r][c].pawn->color == player->color)
+            {
+                can_player_eat = canPawnEat(slots[r][c].pawn.get(), player);
+
+                if (can_player_eat && !take_only)
+                {
+					take_only = true; // If player can eat, only return pawns that can eat
+					moveable_pawns.clear();
+                }
+
+				if (take_only && !can_player_eat)
+					continue; // Skip pawns that cannot eat if player can eat
+				
+                if (getDiagonalMoves(slots[r][c].pawn.get(), player, can_player_eat).size() > 0)
+                    moveable_pawns.push_back(slots[r][c].pawn);
+
+            }
+        }
+    }
+    return moveable_pawns;
+}
+
+std::vector<selectedMove> CheckersBoard::getAllPawnMoves(std::vector<Pawn> pawns, CheckersPlayer* player)
+{
+    std::vector<selectedMove> selectedMoves{ {} };
+    bool can_player_eat = canPlayerEat(dynamic_cast<CheckersPlayer*>(player));
+
+    for (auto& pawn : pawns)
+    {
+        pawn->possible_moves = getDiagonalMoves(pawn.get(), dynamic_cast<CheckersPlayer*>(player), can_player_eat);
+        for (auto& move : pawn->possible_moves)
+            selectedMoves.push_back(selectedMove(pawn, move));
+    }
+
+    return selectedMoves;
+}
+
+bool CheckersBoard::canPlayerEat(CheckersPlayer* player)
+{
+    for (int r = 0; r < size.x; r++)
+    {
+        for (int c = 0; c < size.y; c++)
+        {
+            if (slots[r][c].pawn && slots[r][c].pawn->color == player->color)
+            {
+                if (canPawnEat(slots[r][c].pawn.get(), player))
+                    return true;
+            }
+        }
+    }
+    return false;
+}
+
+int CheckersBoard::getNumberPlayerOfPawns(CheckersPlayer* player) const
+{
+	int count = 0;
+
+    for (int r = 0; r < size.y; r++)
+    {
+        for (int c = 0; c < size.x; c++)
+        {
+            if (slots[r][c].pawn && slots[r][c].pawn->color == player->color)
+                count++;
+        }
+	}
+
+	return count;
+}
+
+//void CheckersBoard::cloneBoard(CheckersBoard& clone)
+//{
+//    clone.size = this->size;
+//    clone.slots.clear();
+//    clone.slots.resize(size.y, std::vector<BoardSlot>(size.x));
+//    for (int r = 0; r < size.y; r++)
+//    {
+//        for (int c = 0; c < size.x; c++)
+//        {
+//            clone.slots[r][c].color = slots[r][c].color;
+//            if (slots[r][c].pawn)
+//            {
+//                clone.slots[r][c].pawn = std::make_shared<CheckersPawn>(*slots[r][c].pawn);
+//                clone.slots[r][c].pawn->board_slot = sf::Vector2i(c, r);
+//            }
+//        }
+//	}
+//}
+
 bool CheckersBoard::canPawnEat(CheckersPawn* selected_pawn, CheckersPlayer* player)
 {
     auto possible_moves = getDiagonalMoves(selected_pawn, player, false);
@@ -125,7 +226,9 @@ bool CheckersBoard::canPawnEat(CheckersPawn* selected_pawn, CheckersPlayer* play
     return false;
 }
 
-bool CheckersBoard::isSlotValid(sf::Vector2i slot)
+
+
+bool CheckersBoard::isSlotValid(BoardCoord slot)
 {
     return slot.x > -1 && slot.y > -1;
 }

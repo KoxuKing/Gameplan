@@ -11,7 +11,7 @@ struct Player
 		bool isTurn = false;
 	};
 
-	virtual ~Player() {}
+	virtual ~Player() = default;
 
 	gameData data;
 };
